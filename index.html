@@ -1,20 +1,156 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-    
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jane & Sami 網誌</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/myTools.css">
     <style>
+        body {
+            font-family: "Noto Serif TC", serif;
+            background-color: var(--d-bg);
+        }
 
+        .introduce-box {
+            position: relative;
+            overflow: hidden;
+            color: var(--d-text);
+            background-color: var(--d-surface);
+            height: 150px;
+            border-radius: 20px;
+            margin-top: 150px;
+            margin-left: 100px;
+        }
+
+        .introduce-box .arrow-btn {
+            background-image: url(img/W-Arrow-right-circle.png);
+
+            /* Figma-Icon */
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            left: 45.91%;
+            right: 51.82%;
+            top: calc(50% - 25px/2 - 33.5px);
+        }
+
+        /* 上下 15px 、左右 30px*/
+        .introduce-box .introduce-title,
+        .split-line,
+        .introduce-text {
+            position: absolute;
+            top: 15px;
+            left: 30px;
+            right: 30px;
+        }
+
+        .split-line {
+            top: 56px;
+            width: 500px;
+            border-width: 2px;
+        }
+
+        .introduce-text {
+            top: 79px;
+            left: 130px;
+            font-size: 20px;
+        }
+
+        .item-block {
+            margin-top: 50px;
+            color: var(--d-text);
+        }
+
+        .item-block .item-box {
+            display: block;
+            margin-bottom: 20px;
+            background-color: var(--d-surface);
+            box-shadow: 0 5px 10px var(--d-text-alpha60);
+        }
+
+        .item-box .item-box01 {
+            display: block;
+            margin: 10px 25px;
+            background-color: var(--d-primary);
+            box-shadow: inset 0 0 15px var(--d-surface-alpha70);
+            width: 180px;
+            height: 180px;
+            border-radius: 20px;
+        }
+
+        .item-box .item-box01 .item-tagBox {
+            margin: auto;
+            width: 150px;
+            height: 150px;
+        }
     </style>
 </head>
-    
+
 <body>
     <div class="container">
         <div class="row">
-            
+            <div class="col-12">
+                <header class="text-center">
+                    <div class="header-block en-font align-content-center">
+                        <div class="display-4">Jane & Sami</div>
+                    </div>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-10 introduce-box">
+                <div class="display-6 introduce-title">全端工程師</div>
+                <a href="#">
+                    <div class="arrow-btn img-fluid img-cv"></div>
+                </a>
+                <hr class="split-line">
+                <p class="introduce-text">具備從介面設計（Frontend）到資料庫管理（Backend）的完整整合能力，致力於透過程式碼將複雜的商務邏輯轉化為直覺、高效的系統解決方案。</p>
+            </div>
+        </div>
+        <div class="row item-block">
+            <div class="col-6 item-box">
+                <div class="row justify-content-center">
+                    <div class="col-4 gx-1 item-box01 align-content-center img-fluid img-cv"
+                        style="background-image: url(img/card-book-01.jpg);">
+                        <div class="item-tagBox text-center align-content-center"></div>
+                    </div>
+                    <div class="col-4 gx-1 item-box01 align-content-center">
+                        <div class="item-tagBox text-center align-content-center">#程式專案 #BLog紀錄 #分析紀錄 #Bootstrap <br> ⇚
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 item-box align-content-center">
+                <div class="item-msg">
+                    <span style="font-size: 25px;">技術標註 <span class="en-font">(Technical Stack)</span></span>
+                    <br>
+                    <span class="en-font">Built with PHP / MySQL / Bootstrap. Designed in Figma.</span>
+                    <br>
+                    <span style="font-size: 25px;">圖物參閱 <span class="en-font">(Reference)</span></span>
+                    <br>
+                    <span>KK魔法學院(Discord活動)、針織毛線(@雀之翎毛線編織、@柯米嘟嘟)、圖片來源:Unsplash</span>
+                </div>
+            </div>
+            <div class="col-6 item-box">
+                <div class="row justify-content-center">
+                    <div class="col-4 gx-1 item-box01 align-content-center">
+                        <div class="item-tagBox text-center align-content-center">#針織 #貓咪 #繪圖 #KK魔法學院 <br> ⇛ </div>
+                    </div>
+                    <div class="col-4 gx-1 item-box01 align-content-center img-fluid img-cv"
+                        style="background-image: url(img/card-book-02.jpg);">
+                        <div class="item-tagBox text-center align-content-center"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 item-box align-content-center">
+                <div class="item-msg">
+                    <span class="en-font" style="font-size: 25px;">Jane & Sami </span>
+                    <span>網誌</span>
+                    <span class="en-font"> © 2026 Jane & Sami. All Rights Reserved.</span>
+                </div>
+            </div>
         </div>
     </div>
     <script src="js/bootstrap.bundle.min.js"></script>
@@ -24,5 +160,5 @@
 
     </script>
 </body>
-    
+
 </html>
