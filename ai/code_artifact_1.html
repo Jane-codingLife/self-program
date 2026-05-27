@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jane & Sami - 個人品牌全端系統</title>
+  <!-- 引入 Google Fonts: Cinzel & Noto Serif TC -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            midnight: '#1C1E24',   /* 午夜暗藍灰 */
+            nebula: '#282B35',     /* 星雲灰藍 */
+            rose: '#CD9B9B',       /* 煙燻玫瑰粉 */
+            lavender: '#957DAD',   /* 薰衣草紫 */
+            lilacwhite: '#F1EBF5'  /* 淡紫調白 */
+          },
+          fontFamily: {
+            cinzel: ['Cinzel', 'serif'],
+            serifTC: ['Noto Serif TC', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* 星空微光背景效果 */
+    .bg-space {
+      background-color: #1C1E24;
+      background-image: radial-gradient(rgba(205, 155, 155, 0.08) 1px, transparent 0);
+      background-size: 30px 30px;
+    }
+    /* 平滑滾動與頁面過渡 */
+    html {
+      scroll-behavior: smooth;
+    }
+    .page-fade {
+      animation: fadeIn 0.4s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-space text-lilacwhite font-serifTC min-h-screen flex flex-col justify-between selection:bg-rose selection:text-midnight">
+
+  <!-- ==========================================
+     1. 全站統一導航欄 (Navigation)
+     ========================================== -->
+  <header class="border-b border-lavender/10 bg-midnight/95 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div onclick="navigateTo('index')" class="font-cinzel text-xl md:text-2xl tracking-[0.25em] text-lilacwhite hover:text-rose transition-all cursor-pointer">
+        JANE & SAMI
+      </div>
+      <!-- 導航選單 -->
+      <nav class="hidden md:flex items-center gap-8 text-xs tracking-widest font-semibold">
+        <button onclick="navigateTo('index')" id="nav-index" class="nav-link hover:text-rose transition-colors text-rose">首頁 INDEX</button>
+        <button onclick="navigateTo('about')" id="nav-about" class="nav-link hover:text-rose transition-colors">關於我 ABOUT</button>
+        <button onclick="navigateTo('works')" id="nav-works" class="nav-link hover:text-rose transition-colors">作品集 WORKS</button>
+      </nav>
+      <!-- 手機版選單按鈕 -->
+      <div class="flex items-center gap-3">
+        <button class="md:hidden text-rose hover:text-lilacwhite transition-colors" onclick="toggleMobileMenu()">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
+        </button>
+        <!-- 系統網格裝飾 -->
+        <button onclick="navigateTo('works')" class="text-rose hover:text-lilacwhite transition-colors p-1 rounded hover:bg-nebula/50">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <!-- 手機版下拉菜單 -->
+    <div id="mobileMenu" class="hidden md:hidden bg-nebula border-b border-lavender/10 px-6 py-4 space-y-3">
+      <button onclick="navigateTo('index'); toggleMobileMenu()" class="block w-full text-left text-xs tracking-widest py-2">首頁 INDEX</button>
+      <button onclick="navigateTo('about'); toggleMobileMenu()" class="block w-full text-left text-xs tracking-widest py-2">關於我 ABOUT</button>
+      <button onclick="navigateTo('works'); toggleMobileMenu()" class="block w-full text-left text-xs tracking-widest py-2">作品集 WORKS</button>
+    </div>
+  </header>
+
+  <!-- ==========================================
+     PAGE A: 首頁 INDEX (高保真重現截圖)
+     ========================================== -->
+  <div id="page-index" class="page-fade max-w-7xl mx-auto px-6 py-8 w-full flex-grow space-y-10">
+    <!-- 1. 全端工程師主 banner -->
+    <section class="bg-gradient-to-br from-nebula to-[#1A1D24] border border-lavender/10 rounded-2xl p-8 text-center relative overflow-hidden shadow-2xl">
+      <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-[300px] h-[150px] bg-rose/5 rounded-full blur-[80px] pointer-events-none"></div>
+      <div class="flex justify-center items-center gap-3 mb-4">
+        <h1 class="text-2xl md:text-3xl font-bold tracking-widest text-lilacwhite">全端工程師</h1>
+        <button onclick="navigateTo('about')" class="w-6 h-6 rounded-full bg-rose/20 text-rose border border-rose/40 hover:bg-rose hover:text-midnight transition-all flex items-center justify-center text-xs">➔</button>
+      </div>
+      <div class="w-16 h-[1px] bg-rose mx-auto mb-5"></div>
+      <p class="text-xs md:text-sm text-lilacwhite/70 max-w-3xl mx-auto leading-relaxed font-serifTC">
+        具備系統分析視野與電商營運經驗的 Full-stack Engineer，從介面設計 (Frontend) 到資料庫管理 (Backend) 的完整整合能力。專注於透過程式碼將複雜的商務邏輯轉化為直覺、高效的系統解決方案。
+      </p>
+    </section>
+
+    <!-- 2. 技術標註與圖物參閱對照區 (左圖右文排版) -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      
+      <!-- 左欄：圖物與標籤卡片 -->
+      <div class="bg-gradient-to-b from-[#25202D] to-midnight border border-lavender/15 rounded-2xl p-6 flex flex-col justify-between space-y-6">
+        <div class="flex items-center gap-4">
+          <!-- 圖物 1 -->
+          <div class="w-24 h-24 rounded-lg overflow-hidden border border-rose/20">
+            <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=300&q=80" alt="書籍圖物" class="w-full h-full object-cover">
+          </div>
+          <!-- 膠囊標籤 1 -->
+          <div class="flex-grow bg-rose/15 border border-rose/30 rounded-2xl p-4 text-center">
+            <span class="text-xs text-rose font-semibold block mb-1">#程式專案 #BLog 紀錄</span>
+            <span class="text-[10px] text-rose/80 font-mono block">#分析紀錄 #Bootstrap</span>
+            <span class="text-xs text-rose block mt-2">⟇</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <!-- 膠囊標籤 2 -->
+          <div class="flex-grow bg-rose/15 border border-rose/30 rounded-2xl p-4 text-center">
+            <span class="text-xs text-rose font-semibold block mb-1">#針織 #貓咪 #繪圖</span>
+            <span class="text-[10px] text-rose/80 font-mono block">#KK魔法學院</span>
+            <span class="text-xs text-rose block mt-2">⟈</span>
+          </div>
+          <!-- 圖物 2 -->
+          <div class="w-24 h-24 rounded-lg overflow-hidden border border-rose/20">
+            <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=300&q=80" alt="針織圖物" class="w-full h-full object-cover">
+          </div>
+        </div>
+      </div>
+
+      <!-- 右欄：技術標註與圖物參閱文案 -->
+      <div class="bg-nebula/60 border border-lavender/10 rounded-2xl p-8 flex flex-col justify-center space-y-6">
+        <div>
+          <h2 class="text-lg font-bold text-rose tracking-wider flex items-center gap-2">
+            技術標註 <span class="text-xs text-lilacwhite/40 font-normal font-mono">{TECHNICAL STACK}</span>
+          </h2>
+          <p class="text-[11px] text-lilacwhite/40 tracking-widest uppercase mt-1">Built with PHP / MySQL / Bootstrap. Designed in Figma.</p>
+        </div>
+        
+        <div class="border-t border-lavender/10 pt-4">
+          <h2 class="text-lg font-bold text-rose tracking-wider flex items-center gap-2">
+            圖物參閱 <span class="text-xs text-lilacwhite/40 font-normal font-mono">{REFERENCE}</span>
+          </h2>
+          <p class="text-xs text-lilacwhite/70 leading-relaxed mt-2 font-serifTC">
+            KK魔法學院(Discord活動) ‧ 針織毛線(@循之循毛線編織、@杉木咖啡) ‧ 圖片來源 Unsplash。
+          </p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 3. 跳轉作品集提示 -->
+    <section class="text-center py-6">
+      <button onclick="navigateTo('works')" class="px-6 py-3 rounded-full border border-rose text-rose hover:bg-rose hover:text-midnight font-bold tracking-widest text-xs transition-all duration-300 shadow-lg shadow-rose/10">
+        探索完整神秘作品集冊 🔮
+      </button>
+    </section>
+  </div>
+
+  <!-- ==========================================
+     PAGE B: 關於我 ABOUT (精美時間軸重現)
+     ========================================== -->
+  <div id="page-about" class="page-fade max-w-7xl mx-auto px-6 py-8 w-full flex-grow hidden space-y-12">
+    <!-- 關於我導言 -->
+    <section class="text-center max-w-4xl mx-auto space-y-4">
+      <h1 class="text-2xl md:text-3xl font-bold text-lilacwhite tracking-widest">全端工程師</h1>
+      <div class="w-16 h-[1px] bg-rose mx-auto"></div>
+      <p class="text-xs md:text-sm text-lilacwhite/70 leading-relaxed font-serifTC">
+        始終相信每一條程式碼皆有其生命與靈魂。在技術的骨架中，灌注藝術與細膩的心流。
+        擅長利用全端開發能力架設優雅系統，在冷酷的邏輯世界中，傳遞溫潤、包覆人心的使用者體驗。
+      </p>
+    </section>
+
+    <!-- 經歷時間軸容器 -->
+    <section class="relative bg-gradient-to-b from-[#2B2333]/90 to-[#1F222A]/90 border border-lavender/15 rounded-[2rem] p-6 md:p-10 shadow-2xl">
+      <div class="text-center mb-10">
+        <span class="text-xs text-rose tracking-[0.2em] font-bold uppercase block">✦ EXPERIENCE TIMELINE ✦</span>
+        <h2 class="text-lg font-bold mt-2">生命地圖與技術歷程</h2>
+      </div>
+
+      <!-- 時間軸縱向主線 -->
+      <div class="absolute left-1/2 -translate-x-1/2 top-32 bottom-20 w-[2px] bg-lavender/25 z-0"></div>
+
+      <!-- 時間軸項目 1 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10 mb-12">
+        <div class="md:text-right pr-0 md:pr-10">
+          <span class="inline-block bg-rose/15 border border-rose/30 text-rose text-[10px] font-mono px-3 py-1 rounded-full mb-2">2020.01 - 至今</span>
+          <h3 class="text-base font-bold text-lilacwhite">暨履歷與電商平台併簡易 ERP</h3>
+          <p class="text-xs text-lilacwhite/60 mt-2 leading-relaxed font-serifTC">
+            整合進銷存管理與塔羅流年占卜功能的全端大成項目。後端使用穩定代碼邏輯，前端融入了暖色調與空靈感，協助用戶在管理業務的同時獲得心靈指引。
+          </p>
+        </div>
+        <!-- 時間軸中心發光圓點 -->
+        <div class="absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-midnight border-2 border-rose shadow-lg shadow-rose/60 hidden md:block"></div>
+        <div class="pl-0 md:pl-10 h-44 rounded-xl overflow-hidden border border-lavender/10 shadow-lg">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=500&q=80" alt="技術專案" class="w-full h-full object-cover">
+        </div>
+      </div>
+
+      <!-- 時間軸項目 2 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10 mb-12">
+        <div class="order-2 md:order-1 pr-0 md:pr-10 h-44 rounded-xl overflow-hidden border border-lavender/10 shadow-lg">
+          <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=500&q=80" alt="書籍占卜" class="w-full h-full object-cover">
+        </div>
+        <!-- 時間軸中心發光圓點 -->
+        <div class="absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-midnight border-2 border-rose shadow-lg shadow-rose/60 hidden md:block"></div>
+        <div class="order-1 md:order-2 pl-0 md:pl-10">
+          <span class="inline-block bg-rose/15 border border-rose/30 text-rose text-[10px] font-mono px-3 py-1 rounded-full mb-2">2018.05 - 2019.12</span>
+          <h3 class="text-base font-bold text-lilacwhite">KK 魔法學院 Discord 社群工具研發</h3>
+          <p class="text-xs text-lilacwhite/60 mt-2 leading-relaxed font-serifTC">
+            主持魔法學院社群功能對接計畫，將占卜邏輯寫入全端機器人中，建立自動化星盤分析工具，讓十萬社群用戶體驗極速、精緻的心靈回饋。
+          </p>
+        </div>
+      </div>
+
+      <!-- 時間軸項目 3 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
+        <div class="md:text-right pr-0 md:pr-10">
+          <span class="inline-block bg-rose/15 border border-rose/30 text-rose text-[10px] font-mono px-3 py-1 rounded-full mb-2">2015.10 - 2018.04</span>
+          <h3 class="text-base font-bold text-lilacwhite">草本植物療癒與編織工坊計畫</h3>
+          <p class="text-xs text-lilacwhite/60 mt-2 leading-relaxed font-serifTC">
+            主持多場線上手作工坊。將針織毛線與香氛融合，建立一套獨特的心靈復健輔助療法，並策劃個人身心靈品牌的數位化整合推廣。
+          </p>
+        </div>
+        <!-- 時間軸中心發光圓點 -->
+        <div class="absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-midnight border-2 border-rose shadow-lg shadow-rose/60 hidden md:block"></div>
+        <div class="pl-0 md:pl-10 h-44 rounded-xl overflow-hidden border border-lavender/10 shadow-lg">
+          <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=500&q=80" alt="針織手作" class="w-full h-full object-cover">
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <!-- ==========================================
+     PAGE C: 作品集 WORKS (篩選網格)
+     ========================================== -->
+  <div id="page-works" class="page-fade max-w-7xl mx-auto px-6 py-8 w-full flex-grow hidden space-y-8">
+    
+    <!-- 作品集頂部搜尋與篩選 (高度還原 Works 截圖) -->
+    <section class="max-w-2xl mx-auto space-y-5 text-center">
+      <h1 class="text-2xl md:text-3xl font-bold tracking-[0.2em]">作品集冊</h1>
+      <div class="w-12 h-[1px] bg-rose mx-auto"></div>
+      
+      <!-- 藥丸搜尋框 -->
+      <div class="relative shadow-xl">
+        <input type="text" id="searchInput" oninput="filterCards()" placeholder="搜尋專案名稱..." 
+               class="w-full bg-nebula/90 text-lilacwhite placeholder-lilacwhite/40 pl-12 pr-6 py-3 rounded-full border border-lavender/20 focus:outline-none focus:border-rose focus:ring-1 focus:ring-rose text-sm font-serifTC transition-all">
+        <svg class="w-5 h-5 text-rose absolute left-4 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        </svg>
+      </div>
+
+      <!-- 篩選 Tag 按鈕群 -->
+      <div class="flex flex-wrap justify-center gap-2 pt-2">
+        <button onclick="filterTag('all')" id="tag-all" class="tag-btn px-4 py-1.5 rounded-full text-xs font-semibold border transition-all duration-300 bg-rose text-midnight border-rose shadow-md">
+          全部主題
+        </button>
+        <button onclick="filterTag('程式專案')" id="tag-程式專案" class="tag-btn px-4 py-1.5 rounded-full text-xs font-semibold border transition-all duration-300 bg-lavender/10 text-lavender border-lavender/30 hover:border-rose/60">
+          程式專案
+        </button>
+        <button onclick="filterTag('計畫主持')" id="tag-計畫主持" class="tag-btn px-4 py-1.5 rounded-full text-xs font-semibold border transition-all duration-300 bg-lavender/10 text-lavender border-lavender/30 hover:border-rose/60">
+          計畫主持
+        </button>
+        <button onclick="filterTag('神秘占卜')" id="tag-神秘占卜" class="tag-btn px-4 py-1.5 rounded-full text-xs font-semibold border transition-all duration-300 bg-lavender/10 text-lavender border-lavender/30 hover:border-rose/60">
+          神秘占卜
+        </button>
+        <button onclick="filterTag('療癒心靈')" id="tag-療癒心靈" class="tag-btn px-4 py-1.5 rounded-full text-xs font-semibold border transition-all duration-300 bg-lavender/10 text-lavender border-lavender/30 hover:border-rose/60">
+          療癒心靈
+        </button>
+      </div>
+    </section>
+
+    <!-- 網格主板底層 -->
+    <div class="bg-gradient-to-b from-[#2B2333]/90 to-[#1F222A]/90 border border-lavender/15 rounded-[2rem] p-6 md:p-10 shadow-2xl">
+      
+      <!-- 8 宮格塔羅卡片 -->
+      <div id="gridContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        
+        <!-- 卡片 1 (編織毛線) -->
+        <div class="card-item bg-nebula p-3 rounded-2xl border-double border-4 border-rose/40 shadow-xl hover:border-rose hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between relative group" data-category="療癒心靈" data-title="編織生命系列">
+          <div class="absolute top-1 left-1 text-rose/60 text-[8px]">✦</div>
+          <div class="absolute top-1 right-1 text-rose/60 text-[8px]">✦</div>
+          <div class="absolute bottom-1 left-1 text-rose/60 text-[8px]">✦</div>
+          <div class="absolute bottom-1 right-1 text-rose/60 text-[8px]">✦</div>
+          
+          <div class="relative overflow-hidden rounded-lg h-40">
+            <img src="https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?auto=format&fit=crop&w=500&q=80" alt="針織毛線" class="w-full h-full object-cover filter sepia-[20%] group-hover:sepia-0 group-hover:scale-105 transition-all duration-500">
+            <span class="absolute top-2 left-2 bg-rose text-midnight text-[9px] font-bold px-2 py-0.5 rounded tracking-wider shadow">療癒心靈</span>
+          </div>
+          <div class="p-3 pt-4 flex-grow flex flex-col justify-between">
+            <div class="text-center">
+              <p class="text-[9px] text-rose font-mono tracking-widest">◈ CARD I ◈</p>
+              <h3 class="text-sm font-bold text-lilacwhite mt-1 mb-2 tracking-widest">編織生命系列</h3>
+              <p class="text-[11px] text-lilacwhite/60 leading-relaxed line-clamp-2">透過經緯線段的交織，在柔軟觸感中找回內在秩序與安全感。</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-rose/10 flex justify-center">
+              <button onclick="showDetail('編織生命系列')" class="bg-rose/10 hover:bg-rose hover:text-midnight border border-rose/30 text-rose text-xs px-4 py-1.5 rounded transition-all duration-300 tracking-wider w-full text-center">
+                解鎖作品細節 ➔
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 卡片 2 (暨履歷與電商平台併簡易 ERP) -->
+        <div class="card-item bg-nebula p-3 rounded-2xl border-double border-4 border-rose/40 shadow-xl hover:border-rose hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between relative group" data-category="程式專案" data-title="暨履歷與電商平台併簡易 ERP">
+          <div class="absolute top-1 left-1 text-rose/60 text-[8px]">✦</div>
+          <div class="absolute top-1 right-1 text-rose/60 text-[8px]">✦</div>
+          <div class="absolute bottom-1 left-1 text-rose/60 text-[8px]">✦</div>
+          <div class="absolute bottom-1 right-1 text-rose/60 text-[8px]">✦</div>
+          
+          <div class="relative overflow-hidden rounded-lg h-40">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=500&q=80" alt="ERP專案" class="w-full h-full object-cover filter sepia-[20%] group-hover:sepia-0 group-hover:scale-105 transition-all duration-500">
+            <span class="absolute top-2 left-2 bg-rose text-midnight text-[9px] font-bold px-2 py-0.5 rounded tracking-wider shadow">程式專案</span>
+          </div>
+          <div class="p-3 pt-4 flex-grow flex flex-col justify-between">
+            <div class="text-center">
+              <p class="text-[9px] text-rose font-mono tracking-widest">◈ CARD II ◈</p>
+              <h3 class="text-sm font-bold text-lilacwhite mt-1 mb-2 tracking-widest truncate">履歷電商 ERP 系統</h3>
+              <p class="text-[11px] text-lilacwhite/60 leading-relaxed line-clamp-2">整合進銷存、會員機制與塔羅流年占卜的高階全端系統。</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-rose/10 flex justify-center">
+              <button onclick="showDetail('履歷電商 ERP 系統')" class="bg-rose/10 hover:bg-rose hover:text-midnight border border-rose/30 text-rose text-xs px-4 py-1.5 rounded transition-all duration-300 tracking-wider w-full text-center">
+                解鎖作品細節 ➔
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 卡片 3 (草本魔藥) -->
+        <div class="card-item bg-nebula p-3 rounded-2xl border-double border-4 border-rose/40 shadow-xl hover:border-rose hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between relative group" data-category="療癒心靈" data-title="草本魔藥能量">
+          <div class="absolute top-1 left-1 text-rose/60 text-[8px]">✦</div>
+          <div class="absolute top-1 right-1 text-rose/60 text-[8px]">✦</div>
+          <div class="absolute bottom-1 left-1 text-rose/60 text-[8px]">✦</div>
+          <div class="absolute bottom-1 right-1 text-rose/60 text-[8px]">✦</div>
+          
+          <div class="relative overflow-hidden rounded-lg h-40">
+            <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=500&q=80" alt="植物" class="w-full h-full object-cover filter sepia-[20%] group-hover:sepia-0 group-hover:scale-105 transition-all duration-500">
+            <span class="absolute top-2 left-2 bg-rose text-midnight text-[9px] font-bold px-2 py-0.5 rounded tracking-wider shadow">療癒心靈</span>
+          </div>
+          <div class="p-3 pt-4 flex-grow flex flex-col justify-between">
+            <div class="text-center">
+              <p class="text-[9px] text-rose font-mono tracking-widest">◈ CARD III ◈</p>
+              <h3 class="text-sm font-bold text-lilacwhite mt-1 mb-2 tracking-widest">草本魔藥能量</h3>
+              <p class="text-[11px] text-lilacwhite/60 leading-relaxed line-clamp-2">融合乾燥花草與香氛魔法，淨化空間氣場磁場。</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-rose/10 flex justify-center">
+              <button onclick="showDetail('草本魔藥能量')" class="bg-rose/10 hover:bg-rose hover:text-midnight border border-rose/30 text-rose text-xs px-4 py-1.5 rounded transition-all duration-300 tracking-wider w-full text-center">
+                解鎖作品細節 ➔
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 卡片 4 (生命星盤) -->
+        <div class="card-item bg-nebula p-3 rounded-2xl border-double border-4 border-rose/40 shadow-xl hover:border-rose hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between relative group" data-category="神秘占卜" data-title="生命星盤引導">
+          <div class="absolute top-1 left-1 text-rose/60 text-[8px]">✦</div>
+          <div class="absolute top-1 right-1 text-rose/60 text-[8px]">✦</div>
+          <div class="absolute bottom-1 left-1 text-rose/60 text-[8px]">✦</div>
+          <div class="absolute bottom-1 right-1 text-rose/60 text-[8px]">✦</div>
+          
+          <div class="relative overflow-hidden rounded-lg h-40">
+            <img src="https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?auto=format&fit=crop&w=500&q=80" alt="星盤" class="w-full h-full object-cover filter sepia-[20%] group-hover:sepia-0 group-hover:scale-105 transition-all duration-500">
+            <span class="absolute top-2 left-2 bg-rose text-midnight text-[9px] font-bold px-2 py-0.5 rounded tracking-wider shadow">神秘占卜</span>
+          </div>
+          <div class="p-3 pt-4 flex-grow flex flex-col justify-between">
+            <div class="text-center">
+              <p class="text-[9px] text-rose font-mono tracking-widest">◈ CARD IV ◈</p>
+              <h3 class="text-sm font-bold text-lilacwhite mt-1 mb-2 tracking-widest">生命星盤引導</h3>
+              <p class="text-[11px] text-lilacwhite/60 leading-relaxed line-clamp-2">讀取黃道十二宮的原生星印，探究靈魂最初的生命課題。</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-rose/10 flex justify-center">
+              <button onclick="showDetail('生命星盤引導')" class="bg-rose/10 hover:bg-rose hover:text-midnight border border-rose/30 text-rose text-xs px-4 py-1.5 rounded transition-all duration-300 tracking-wider w-full text-center">
+                解鎖作品細節 ➔
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 空狀態 -->
+      <div id="emptyState" class="hidden text-center py-16">
+        <span class="text-3xl">🔮</span>
+        <h3 class="text-sm font-bold text-rose mt-4">無對應之卡片專案</h3>
+        <p class="text-xs text-lilacwhite/40">請嘗試更換分類或篩選條件</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ==========================================
+     PAGE D: 作品詳細 WORKS-DETAIL (全新一體化高階設計)
+     ========================================== -->
+  <div id="page-detail" class="page-fade max-w-7xl mx-auto px-6 py-8 w-full flex-grow hidden">
+    
+    <!-- 頂部麵包屑 Breadcrumbs -->
+    <div class="flex items-center gap-2 text-xs text-lilacwhite/40 mb-8 font-mono">
+      <button onclick="navigateTo('works')" class="hover:text-rose transition-colors">WORKS</button>
+      <span>/</span>
+      <span id="detail-category-crumb" class="text-rose">CATEGORY</span>
+      <span>/</span>
+      <span id="detail-title-crumb" class="text-lilacwhite">PROJECT NAME</span>
+    </div>
+
+    <!-- 1. 簡述與主標題橫幅 (對應Works-Detail精緻排版) -->
+    <section class="bg-gradient-to-r from-[#2F243A] via-[#202530] to-midnight border border-lavender/10 rounded-2xl p-8 mb-8 text-center relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-t from-midnight/80 to-transparent"></div>
+      <div class="relative z-10 space-y-3">
+        <span id="detail-badge" class="inline-block bg-rose/15 border border-rose/30 text-rose text-[10px] font-bold px-3 py-1 rounded-full tracking-widest uppercase">程式專案</span>
+        <h1 id="detail-main-title" class="text-xl md:text-3xl font-bold tracking-widest text-lilacwhite font-serifTC">
+          暨履歷與電商平台併簡易 ERP
+        </h1>
+        <div class="w-16 h-[1px] bg-rose mx-auto"></div>
+        <p id="detail-brief" class="text-xs md:text-sm text-lilacwhite/60 max-w-2xl mx-auto leading-relaxed font-serifTC">
+          這是一套將繁重電商ERP功能與生命靈書占卜模組高度整合之專案，融合溫暖療癒之 UI 給予系統全新生命。
+        </p>
+      </div>
+    </section>
+
+    <!-- 2. 目錄（Directory / TOC）與詳細內容雙欄佈局 -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      
+      <!-- 左側：懸浮磨砂玻璃目錄 (TOC) -->
+      <aside class="lg:col-span-1 space-y-4">
+        <div class="bg-nebula/85 backdrop-blur-md border border-lavender/15 rounded-2xl p-5 sticky top-24 shadow-xl">
+          <p class="text-[10px] text-rose font-mono tracking-widest mb-4">✦ DIRECTORY 目錄</p>
+          <ul class="space-y-3 text-xs">
+            <li>
+              <a href="#section-intro" class="toc-link block py-1.5 px-3 rounded-lg text-rose bg-rose/10 border-l-2 border-rose font-semibold transition-all">
+                01. 專案背景與願景
+              </a>
+            </li>
+            <li>
+              <a href="#section-stack" class="toc-link block py-1.5 px-3 rounded-lg text-lilacwhite/60 hover:text-rose hover:bg-rose/5 border-l-2 border-transparent transition-all">
+                02. 全端技術架構
+              </a>
+            </li>
+            <li>
+              <a href="#section-database" class="toc-link block py-1.5 px-3 rounded-lg text-lilacwhite/60 hover:text-rose hover:bg-rose/5 border-l-2 border-transparent transition-all">
+                03. 資料庫結構設計
+              </a>
+            </li>
+            <li>
+              <a href="#section-spirit" class="toc-link block py-1.5 px-3 rounded-lg text-lilacwhite/60 hover:text-rose hover:bg-rose/5 border-l-2 border-transparent transition-all">
+                04. 靈性美學之交織
+              </a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- 右側：深度詳細描述與展示圖片 -->
+      <article class="lg:col-span-3 space-y-10">
+        
+        <!-- 大圖展示區 (對應Works-Detail截圖精美視覺) -->
+        <div class="w-full h-80 rounded-2xl overflow-hidden border border-rose/20 shadow-2xl relative group">
+          <img id="detail-main-img" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80" alt="作品大圖展示" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-midnight/90 via-transparent to-transparent"></div>
+          <span class="absolute bottom-4 left-4 text-[10px] text-rose font-mono tracking-widest bg-midnight/80 px-3 py-1.5 rounded border border-rose/30">✦ PHOTO REFERENCE / UNSPLASH ✦</span>
+        </div>
+
+        <!-- 01. 專案背景與願景 -->
+        <section id="section-intro" class="scroll-mt-24 bg-nebula/40 border border-lavender/10 rounded-2xl p-6 md:p-8 space-y-4">
+          <h2 class="text-base md:text-lg font-bold text-rose flex items-center gap-2">
+            <span>01.</span> 專案背景與願景
+          </h2>
+          <div class="h-[1px] bg-lavender/10"></div>
+          <p id="detail-desc-1" class="text-xs md:text-sm text-lilacwhite/75 leading-relaxed font-serifTC">
+            本專案旨在解決電商營運管理者面臨的高壓繁瑣工作環境。我們不只提供高效率的進銷存分析，更首度在商用後台中引入「每日靜心卡牌」與「流年靈數計算機」，協助創業家在面對複雜商業決策時，能保有一份沈穩與靈魂直覺。
+          </p>
+        </section>
+
+        <!-- 02. 全端技術架構 -->
+        <section id="section-stack" class="scroll-mt-24 bg-nebula/40 border border-lavender/10 rounded-2xl p-6 md:p-8 space-y-4">
+          <h2 class="text-base md:text-lg font-bold text-rose flex items-center gap-2">
+            <span>02.</span> 全端技術架構
+          </h2>
+          <div class="h-[1px] bg-lavender/10"></div>
+          <p id="detail-desc-2" class="text-xs md:text-sm text-lilacwhite/75 leading-relaxed font-serifTC">
+            架構基於輕量高效之核心理念，後端使用穩定的 API 傳輸，確保商品數據、訂單狀態與占卜運算皆能在 100ms 內極速運算。前端利用精細計算的微光漸層與磨砂玻璃卡片佈局，擺脫以往後台系統乾癟死板之氣息。
+          </p>
+        </section>
+
+        <!-- 03. 資料庫結構設計 -->
+        <section id="section-database" class="scroll-mt-24 bg-nebula/40 border border-lavender/10 rounded-2xl p-6 md:p-8 space-y-4">
+          <h2 class="text-base md:text-lg font-bold text-rose flex items-center gap-2">
+            <span>03.</span> 資料庫結構設計
+          </h2>
+          <div class="h-[1px] bg-lavender/10"></div>
+          <p id="detail-desc-3" class="text-xs md:text-sm text-lilacwhite/75 leading-relaxed font-serifTC">
+            為了支撐複雜的靈性功能，資料庫除了儲存一般的商品表與訂單表，更設計了符合十二宮與塔羅對應的關聯型關聯結構，完美確保所有流年、占卜預測數據讀寫皆滿足安全隔離規範。
+          </p>
+        </section>
+
+        <!-- 04. 靈性美學之交織 -->
+        <section id="section-spirit" class="scroll-mt-24 bg-nebula/40 border border-lavender/10 rounded-2xl p-6 md:p-8 space-y-4">
+          <h2 class="text-base md:text-lg font-bold text-rose flex items-center gap-2">
+            <span>04.</span> 靈性美學之交織
+          </h2>
+          <div class="h-[1px] bg-lavender/10"></div>
+          <p id="detail-desc-4" class="text-xs md:text-sm text-lilacwhite/75 leading-relaxed font-serifTC">
+            將「暮色占卜與晨曦草本」的色彩代碼與 UI 層級結合。系統的每一處 hover 動效、分隔線與卡牌呼吸發光，都是對使用者心靈頻率的溫和撫慰，讓每一次系統使用皆成一場自我覺察。
+          </p>
+        </section>
+
+        <!-- 返回按鈕 -->
+        <div class="pt-4 text-center">
+          <button onclick="navigateTo('works')" class="px-5 py-2.5 rounded-full border border-rose/40 text-rose hover:bg-rose hover:text-midnight font-bold tracking-widest text-xs transition-all duration-300">
+            ← 返回作品集冊
+          </button>
+        </div>
+
+      </article>
+
+    </div>
+
+  </div>
+
+  <!-- ==========================================
+     Footer 全站統一頁尾 (高度還原截圖地緣與聯絡資訊)
+     ========================================== -->
+  <footer class="border-t border-lavender/10 py-10 bg-gradient-to-t from-[#201C24] to-transparent mt-12">
+    <div class="max-w-7xl mx-auto px-6 text-center space-y-3.5">
+      <p class="text-xs tracking-widest text-lilacwhite/80">台中市豐原區</p>
+      <p class="text-xs font-mono tracking-wide text-lilacwhite/60 hover:text-rose transition-colors cursor-pointer">
+        aehow4432@gmail.com / 0956-566-576
+      </p>
+      <div class="text-xs font-cinzel text-rose/60 tracking-[0.25em] pt-4 border-t border-lavender/5 max-w-sm mx-auto">
+        JANE & SAMI <span class="text-[10px] font-serifTC text-lilacwhite/40 block sm:inline sm:ml-2">© 2026 JANE & SAMI. ALL RIGHTS RESERVED.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================
+     前置 JavaScript 控制與模擬路由邏輯
+     ========================================== -->
+  <script>
+    // 專案的詳細資料資料庫 (用於 Works-Detail 動態載入)
+    const projectDatabase = {
+      "編織生命系列": {
+        category: "療癒心靈",
+        title: "編織生命系列",
+        brief: "透過經緯線段的交織，在柔軟觸感中縫合防線，找回內在秩序與安全感。",
+        img: "https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?auto=format&fit=crop&w=1200&q=80",
+        desc1: "編織生命系列專案，源自於對都市高壓族群的焦慮症狀探尋。手編毛線的規律動作是天然的動態冥想，能有效降低大腦皮質醇的分泌。",
+        desc2: "本系統建構了一套「針織進度與心靈記錄模組」，結合高畫質多維度視覺與工坊社群。我們為每組針法配對神祕學幾何含義，讓手工創作具有儀式感。",
+        desc3: "資料庫儲存了數十種來自跨國工坊的編織規律（Patterns），每筆規律與心靈狀態標籤高度關聯。系統會依據您每日的占卜結果，智慧推薦今日編織針法。",
+        desc4: "視覺上高度契合「方案三：神祕塔羅雙線星環」的包裝，雙層細框、玫瑰粉色。每一次您解開一條線頭，代表解鎖一項心靈創傷的精美引導。"
+      },
+      "履歷電商 ERP 系統": {
+        category: "程式專案",
+        title: "暨履歷與電商平台併簡易 ERP",
+        brief: "整合進銷存、會員機制與塔羅流年占卜的高階全端系統，將極客邏輯與極致美學完美統一。",
+        img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+        desc1: "針對個人工作坊的多功能、跨界系統平台。我們打破傳統後台系統冰冷的黑白格線，旨在用神祕溫暖的晨曦與草本調，提供創業家優雅從容的使用體驗。",
+        desc2: "後端使用嚴密、可擴展的高安全 API 結構，負責高速處理庫存波動與進出帳報表。前端則是純手寫的高階 CSS 發光與玻璃磨砂背板。",
+        desc3: "資料庫設計涵蓋「進銷存模組」與「生命靈數流年流月模型」這兩個看似平行的架構。通過我們首創的演算法，使商務流速與管理者靈魂運轉完美契合。",
+        desc4: "利用我們設計的薰衣草紫與煙燻玫瑰粉，整套 ERP 後台儀表板的色彩極具儀式感，讓管理繁瑣業務時，宛如一場與自己生命藍圖對話的占卜儀式。"
+      },
+      "草本魔藥能量": {
+        category: "療癒心靈",
+        title: "草本魔藥能量工坊",
+        brief: "融合乾燥花草與香氛魔法，製作專屬能量蠟燭與天然淨化噴霧，守護內在氣場磁場。",
+        img: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80",
+        desc1: "結合魔藥學植物精靈的靈性配方。專案目標是讓使用者理解大自然的療癒力從來不是憑空捏造，而是分子與靈性能量的協同效應。",
+        desc2: "我們開發了「個人調香與五行缺能對接系統」。藉由網頁的前端心理學問卷，系統會自動推薦調製蠟燭所最需的薄荷灰綠等草本精油比例。",
+        desc3: "資料庫收集、整理了數百種古今植物配方的活性數值、元素歸屬、以及其對應的神祕學符號，為療癒師提供最具權威性的參考指南。",
+        desc4: "本頁面與卡片全套整合了玫瑰粉與自然尤加利深綠色調。讓您在查閱草本魔藥調配公式時，彷彿漫步在深夜被露水打濕的晨曦森林之中。"
+      },
+      "生命星盤引導": {
+        category: "神秘占卜",
+        title: "生命星盤引導平台",
+        brief: "窺探誕生之刻的天體運行軌跡，讀取黃道十二宮帶給靈魂的原生印記、考驗與指引。",
+        img: "https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?auto=format&fit=crop&w=1200&q=80",
+        desc1: "每個人誕生的當下，夜空天體的定格照即為我們的生命星盤。這是一套高精度的天文星盤生成器，用於揭示最深層的潛意識本質。",
+        desc2: "系統基於瑞士星曆表代碼庫，提供毫秒級的上升、太陽、月亮星座與十二宮相位計算。網頁端則利用 Canvas 繪製散發紫金光芒的動態星軌圖。",
+        desc3: "資料庫包含十二宮主星、相位特質與流年過境（Transits）解析，能在大流量訪問下，保持高速且正確的數據存取，兼具強大安全性。",
+        desc4: "我們使用「暮色占卜」配色。深夜灰藍的背景之上，點點繁星與玫瑰粉外發光的星軌交相輝映，是將全端科技與遠古占星智慧結合的最美典範。"
+      }
+    };
+
+    let activePage = 'index';
+    let activeTag = 'all';
+
+    // A. 單頁切換路由 (SPA Navigation Router)
+    function navigateTo(pageId) {
+      // 隱藏所有頁面
+      document.getElementById('page-index').classList.add('hidden');
+      document.getElementById('page-about').classList.add('hidden');
+      document.getElementById('page-works').classList.add('hidden');
+      document.getElementById('page-detail').classList.add('hidden');
+
+      // 顯示目標頁面
+      document.getElementById('page-' + pageId).classList.remove('hidden');
+      activePage = pageId;
+
+      // 更新導航欄活動狀態
+      const links = document.querySelectorAll('.nav-link');
+      links.forEach(link => {
+        if (link.id === `nav-${pageId}`) {
+          link.classList.add('text-rose');
+        } else {
+          link.classList.remove('text-rose');
+        }
+      });
+
+      // 滾動回最頂部
+      window.scrollTo(0, 0);
+    }
+
+    // B. 手機菜單控制
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('hidden');
+    }
+
+    // C. 作品詳細頁動態載入與切換
+    function showDetail(projectKey) {
+      const data = projectDatabase[projectKey] || projectDatabase["履歷電商 ERP 系統"];
+
+      // 更新 Detail 頁文案
+      document.getElementById('detail-category-crumb').textContent = data.category.toUpperCase();
+      document.getElementById('detail-title-crumb').textContent = data.title;
+      document.getElementById('detail-badge').textContent = data.category;
+      document.getElementById('detail-main-title').textContent = data.title;
+      document.getElementById('detail-brief').textContent = data.brief;
+      document.getElementById('detail-main-img').src = data.img;
+      
+      document.getElementById('detail-desc-1').textContent = data.desc1;
+      document.getElementById('detail-desc-2').textContent = data.desc2;
+      document.getElementById('detail-desc-3').textContent = data.desc3;
+      document.getElementById('detail-desc-4').textContent = data.desc4;
+
+      // 切換頁面
+      navigateTo('detail');
+    }
+
+    // D. Works 網格過濾標籤功能 (Tag Filtering)
+    function filterTag(tag) {
+      activeTag = tag;
+      
+      // 更新按鈕樣式
+      const buttons = document.querySelectorAll('.tag-btn');
+      buttons.forEach(btn => {
+        if (btn.id === `tag-${tag}`) {
+          btn.className = "tag-btn px-4 py-1.5 rounded-full text-xs font-semibold border transition-all duration-300 bg-rose text-midnight border-rose shadow-md";
+        } else {
+          btn.className = "tag-btn px-4 py-1.5 rounded-full text-xs font-semibold border transition-all duration-300 bg-lavender/10 text-lavender border-lavender/30 hover:border-rose/60";
+        }
+      });
+
+      filterCards();
+    }
+
+    // E. 搜尋與篩選聯合過濾
+    function filterCards() {
+      const searchVal = document.getElementById('searchInput').value.trim().toLowerCase();
+      const cards = document.querySelectorAll('.card-item');
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const category = card.getAttribute('data-category');
+        const title = card.getAttribute('data-title').toLowerCase();
+        const desc = card.querySelector('p').textContent.toLowerCase();
+
+        const matchesTag = (activeTag === 'all' || category === activeTag);
+        const matchesSearch = (title.includes(searchVal) || desc.includes(searchVal));
+
+        if (matchesTag && matchesSearch) {
+          card.classList.remove('hidden');
+          card.classList.add('flex');
+          visibleCount++;
+        } else {
+          card.classList.remove('flex');
+          card.classList.add('hidden');
+        }
+      });
+
+      // 處理無結果之空狀態
+      const emptyState = document.getElementById('emptyState');
+      if (visibleCount === 0) {
+        emptyState.classList.remove('hidden');
+      } else {
+        emptyState.classList.add('hidden');
+      }
+    }
+
+    // F. 左側懸浮目錄點擊平滑滾動與高亮控制
+    const tocLinks = document.querySelectorAll('.toc-link');
+    tocLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        // 先移除所有活動狀態
+        tocLinks.forEach(l => l.className = "toc-link block py-1.5 px-3 rounded-lg text-lilacwhite/60 hover:text-rose hover:bg-rose/5 border-l-2 border-transparent transition-all");
+        // 設定當前點擊高亮
+        this.className = "toc-link block py-1.5 px-3 rounded-lg text-rose bg-rose/10 border-l-2 border-rose font-semibold transition-all";
+      });
+    });
+  </script>
+</body>
+</html>
