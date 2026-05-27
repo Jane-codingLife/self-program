@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jane & Sami - 個人品牌全端系統</title>
+  <!-- 引入 Google Fonts: Cinzel & Noto Serif TC -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            midnight: '#1C1E24',   /* 午夜暗藍灰 */
+            nebula: '#282B35',     /* 星雲灰藍 */
+            rose: '#CD9B9B',       /* 煙燻玫瑰粉 */
+            lavender: '#957DAD',   /* 薰衣草紫 */
+            lilacwhite: '#F1EBF5'  /* 淡紫調白 */
+          },
+          fontFamily: {
+            cinzel: ['Cinzel', 'serif'],
+            serifTC: ['Noto Serif TC', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* 星空微光背景效果 */
+    .bg-space {
+      background-color: #1C1E24;
+      background-image: radial-gradient(rgba(205, 155, 155, 0.08) 1px, transparent 0);
+      background-size: 30px 30px;
+    }
+    /* 平滑滾動與頁面過渡 */
+    html {
+      scroll-behavior: smooth;
+    }
+    .page-fade {
+      animation: fadeIn 0.4s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-space text-lilacwhite font-serifTC min-h-screen flex flex-col justify-between selection:bg-rose selection:text-midnight">
+
+  <!-- ==========================================
+     1. 全站統一導航欄 (Navigation - 整合購物車與查詢)
+     ========================================== -->
+  <header class="border-b border-lavender/10 bg-midnight/95 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div onclick="navigateTo('index')" class="font-cinzel text-xl md:text-2xl tracking-[0.25em] text-lilacwhite hover:text-rose transition-all cursor-pointer">
+        JANE & SAMI
+      </div>
+      <!-- 導航選單 -->
+      <nav class="hidden md:flex items-center gap-8 text-xs tracking-widest font-semibold">
+        <button onclick="navigateTo('index')" id="nav-index" class="nav-link hover:text-rose transition-colors text-rose">首頁 INDEX</button>
+        <button onclick="navigateTo('about')" id="nav-about" class="nav-link hover:text-rose transition-colors">關於我 ABOUT</button>
+        <button onclick="navigateTo('works')" id="nav-works" class="nav-link hover:text-rose transition-colors">作品集 WORKS</button>
+        <button onclick="navigateTo('inquiry')" id="nav-inquiry" class="nav-link hover:text-rose transition-colors">訂單查詢 INQUIRY</button>
+      </nav>
+      <!-- 右側功能按鈕 -->
+      <div class="flex items-center gap-2">
+        <!-- 手機版選單按鈕 -->
+        <button class="md:hidden text-rose hover:text-lilacwhite transition-colors p-2" onclick="toggleMobileMenu()">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
+        </button>
+
+        <!-- 購物車按鈕 (動態數量徽章) -->
+        <button onclick="toggleCart()" class="text-rose hover:text-lilacwhite transition-colors p-2 rounded hover:bg-nebula/50 relative">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+          </svg>
+          <span id="cart-badge" class="absolute -top-0.5 -right-0.5 bg-rose text-midnight font-bold font-cinzel text-[9px] w-4.5 h-4.5 rounded-full flex items-center justify-center border border-midnight scale-0 transition-transform duration-300">0</span>
+        </button>
+
+        <!-- 系統網格裝飾 (快速跳轉作品集) -->
+        <button onclick="navigateTo('works')" class="text-rose hover:text-lilacwhite transition-colors p-2 rounded hover:bg-nebula/50">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <!-- 手機版下拉菜單 -->
+    <div id="mobileMenu" class="hidden md:hidden bg-nebula border-b border-lavender/10 px-6 py-4 space-y-3">
+      <button onclick="navigateTo('index'); toggleMobileMenu()" class="block w-full text-left text-xs tracking-widest py-2">首頁 INDEX</button>
+      <button onclick="navigateTo('about'); toggleMobileMenu()" class="block w-full text-left text-xs tracking-widest py-2">關於我 ABOUT</button>
+      <button onclick="navigateTo('works'); toggleMobileMenu()" class="block w-full text-left text-xs tracking-widest py-2">作品集 WORKS</button>
+      <button onclick="navigateTo('inquiry'); toggleMobileMenu()" class="block w-full text-left text-xs tracking-widest py-2">訂單查詢 INQUIRY</button>
+    </div>
+  </header>
+
+  <!-- ==========================================
+     PAGE A: 首頁 INDEX
+     ========================================== -->
+  <div id="page-index" class="page-fade max-w-7xl mx-auto px-6 py-8 w-full flex-grow space-y-10">
+    <section class="bg-gradient-to-br from-nebula to-[#1A1D24] border border-lavender/10 rounded-2xl p-8 text-center relative overflow-hidden shadow-2xl">
+      <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-[300px] h-[150px] bg-rose/5 rounded-full blur-[80px] pointer-events-none"></div>
+      <div class="flex justify-center items-center gap-3 mb-4">
+        <h1 class="text-2xl md:text-3xl font-bold tracking-widest text-lilacwhite">全端工程師</h1>
+        <button onclick="navigateTo('about')" class="w-6 h-6 rounded-full bg-rose/20 text-rose border border-rose/40 hover:bg-rose hover:text-midnight transition-all flex items-center justify-center text-xs font-bold">➔</button>
+      </div>
+      <div class="w-16 h-[1px] bg-rose mx-auto mb-5"></div>
+      <p class="text-xs md:text-sm text-lilacwhite/70 max-w-3xl mx-auto leading-relaxed font-serifTC">
+        具備系統分析視野與電商營運經驗的 Full-stack Engineer，從介面設計 (Frontend) 到資料庫管理 (Backend) 的完整整合能力。專注於透過程式碼將複雜的商務邏輯轉化為直覺、高效的系統解決方案。
+      </p>
+    </section>
+
+    <!-- 技術標註與圖物參閱 -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="bg-gradient-to-b from-[#25202D] to-midnight border border-lavender/15 rounded-2xl p-6 flex flex-col justify-between space-y-6">
+        <div class="flex items-center gap-4">
+          <div class="w-24 h-24 rounded-lg overflow-hidden border border-rose/20">
+            <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=300&q=80" alt="書籍圖物" class="w-full h-full object-cover">
+          </div>
+          <div class="flex-grow bg-rose/15 border border-rose/30 rounded-2xl p-4 text-center">
+            <span class="text-xs text-rose font-semibold block mb-1">#程式專案 #BLog 紀錄</span>
+            <span class="text-[10px] text-rose/80 font-mono block">#分析紀錄 #Bootstrap</span>
+            <span class="text-xs text-rose block mt-2">⟇</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <div class="flex-grow bg-rose/15 border border-rose/30 rounded-2xl p-4 text-center">
+            <span class="text-xs text-rose font-semibold block mb-1">#針織 #貓咪 #繪圖</span>
+            <span class="text-[10px] text-rose/80 font-mono block">#KK魔法學院</span>
+            <span class="text-xs text-rose block mt-2">⟈</span>
+          </div>
+          <div class="w-24 h-24 rounded-lg overflow-hidden border border-rose/20">
+            <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=300&q=80" alt="針織圖物" class="w-full h-full object-cover">
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-nebula/60 border border-lavender/10 rounded-2xl p-8 flex flex-col justify-center space-y-6">
+        <div>
+          <h2 class="text-lg font-bold text-rose tracking-wider flex items-center gap-2">
+            技術標註 <span class="text-xs text-lilacwhite/40 font-normal font-mono">{TECHNICAL STACK}</span>
+          </h2>
+          <p class="text-[11px] text-lilacwhite/40 tracking-widest uppercase mt-1 font-mono">Built with PHP / MySQL / Bootstrap. Designed in Figma.</p>
+        </div>
+        
+        <div class="border-t border-lavender/10 pt-4">
+          <h2 class="text-lg font-bold text-rose tracking-wider flex items-center gap-2">
+            圖物參閱 <span class="text-xs text-lilacwhite/40 font-normal font-mono">{REFERENCE}</span>
+          </h2>
+          <p class="text-xs text-lilacwhite/70 leading-relaxed mt-2 font-serifTC">
+            KK魔法學院(Discord活動) ‧ 針織毛線(@循之循毛線編織、@杉木咖啡) ‧ 圖片來源 Unsplash。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="text-center py-6">
+      <button onclick="navigateTo('works')" class="px-6 py-3 rounded-full border border-rose text-rose hover:bg-rose hover:text-midnight font-bold tracking-widest text-xs transition-all duration-300 shadow-lg shadow-rose/10">
+        探索完整神秘作品集冊 🔮
+      </button>
+    </section>
+  </div>
+
+  <!-- ==========================================
+     PAGE B: 關於我 ABOUT
+     ========================================== -->
+  <div id="page-about" class="page-fade max-w-7xl mx-auto px-6 py-8 w-full flex-grow hidden space-y-12">
+    <section class="text-center max-w-4xl mx-auto space-y-4">
+      <h1 class="text-2xl md:text-3xl font-bold text-lilacwhite tracking-widest">全端工程師</h1>
+      <div class="w-16 h-[1px] bg-rose mx-auto"></div>
+      <p class="text-xs md:text-sm text-lilacwhite/70 leading-relaxed font-serifTC">
+        始終相信每一條程式碼皆有其生命與靈魂。在技術的骨架中，灌注藝術與細膩的心流。
+        擅長利用全端開發能力架設優雅系統，在冷酷的邏輯世界中，傳遞溫潤、包覆人心的使用者體驗。
+      </p>
+    </section>
+
+    <!-- 經歷時間軸容器 -->
+    <section class="relative bg-gradient-to-b from-[#2B2333]/90 to-[#1F222A]/90 border border-lavender/15 rounded-[2rem] p-6 md:p-10 shadow-2xl">
+      <div class="text-center mb-10">
+        <span class="text-xs text-rose tracking-[0.2em] font-bold uppercase block">✦ EXPERIENCE TIMELINE ✦</span>
+        <h2 class="text-lg font-bold mt-2">生命地圖與技術歷程</h2>
+      </div>
+
+      <div class="absolute left-1/2 -translate-x-1/2 top-32 bottom-20 w-[2px] bg-lavender/25 z-0"></div>
+
+      <!-- 時間軸項目 1 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10 mb-12">
+        <div class="md:text-right pr-0 md:pr-10">
+          <span class="inline-block bg-rose/15 border border-rose/30 text-rose text-[10px] font-mono px-3 py-1 rounded-full mb-2">2020.01 - 至今</span>
+          <h3 class="text-base font-bold text-lilacwhite">暨履歷與電商平台併簡易 ERP</h3>
+          <p class="text-xs text-lilacwhite/60 mt-2 leading-relaxed font-serifTC">
+            整合進銷存管理與塔羅流年占卜功能的全端大成項目。後端使用穩定代碼邏輯，前端融入了暖色調與空靈感，協助用戶在管理業務的同時獲得心靈指引。
+          </p>
+        </div>
+        <div class="absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-midnight border-2 border-rose shadow-lg shadow-rose/60 hidden md:block"></div>
+        <div class="pl-0 md:pl-10 h-44 rounded-xl overflow-hidden border border-lavender/10 shadow-lg">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=500&q=80" alt="技術專案" class="w-full h-full object-cover">
+        </div>
+      </div>
+
+      <!-- 時間軸項目 2 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10 mb-12">
+        <div class="order-2 md:order-1 pr-0 md:pr-10 h-44 rounded-xl overflow-hidden border border-lavender/10 shadow-lg">
+          <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=500&q=80" alt="書籍占卜" class="w-full h-full object-cover">
+        </div>
+        <div class="absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-midnight border-2 border-rose shadow-lg shadow-rose/60 hidden md:block"></div>
+        <div class="order-1 md:order-2 pl-0 md:pl-10">
+          <span class="inline-block bg-rose/15 border border-rose/30 text-rose text-[10px] font-mono px-3 py-1 rounded-full mb-2">2018.05 - 2019.12</span>
+          <h3 class="text-base font-bold text-lilacwhite">KK 魔法學院 Discord 社群工具研發</h3>
+          <p class="text-xs text-lilacwhite/60 mt-2 leading-relaxed font-serifTC">
+            主持魔法學院社群功能對接計畫，將占卜邏輯寫入全端機器人中，建立自動化星盤分析工具，讓十萬社群用戶體驗極速、精緻的心靈回饋。
+          </p>
+        </div>
+      </div>
+
+      <!-- 時間軸項目 3 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
+        <div class="md:text-right pr-0 md:pr-10">
+          <span class="inline-block bg-rose/15 border border-rose/30 text-rose text-[10px] font-mono px-3 py-1 rounded-full mb-2">2015.10 - 2018.04</span>
+          <h3 class="text-base font-bold text-lilacwhite">草本植物療癒與編織工坊計畫</h3>
+          <p class="text-xs text-lilacwhite/60 mt-2 leading-relaxed font-serifTC">
+            主持多場線上手作工坊。將針織毛線與香氛融合，建立一套獨特的心靈復健輔助療法，並策劃個人身心靈品牌的數位化整合推廣。
+          </p>
+        </div>
+        <div class="absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-midnight border-2 border-rose shadow-lg shadow-rose/60 hidden md:block"></div>
+        <div class="pl-0 md:pl-10 h-44 rounded-xl overflow-hidden border border-lavender/10 shadow-lg">
+          <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=500&q=80" alt="針織手作" class="w-full h-full object-cover">
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ==========================================
+     PAGE C: 作品集 WORKS
+     ========================================== -->
+  <div id="page-works" class="page-fade max-w-7xl mx-auto px-6 py-8 w-full flex-grow hidden space-y-8">
+    <section class="max-w-2xl mx-auto space-y-5 text-center">
+      <h1 class="text-2xl md:text-3xl font-bold tracking-[0.2em]">作品集冊</h1>
+      <div class="w-12 h-[1px] bg-rose mx-auto"></div>
+      
+      <!-- 藥丸搜尋框 -->
+      <div class="relative shadow-xl">
+        <input type="text" id="searchInput" oninput="filterCards()" placeholder="搜尋專案名稱..." 
+               class="w-full bg-nebula/90 text-lilacwhite placeholder-lilacwhite/40 pl-12 pr-6 py-3 rounded-full border border-lavender/20 focus:outline-none focus:border-rose focus:ring-1 focus:ring-rose text-sm font-serifTC transition-all">
+        <svg class="w-5 h-5 text-rose absolute left-4 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        </svg>
+      </div>
+
+      <!-- 篩選 Tag 按鈕群 -->
+      <div class="flex flex-wrap justify-center gap-2 pt-2">
+        <button onclick="filterTag('all')" id="tag-all" class="tag-btn px-4 py-1.5 rounded-full text-xs font-semibold border transition-all duration-300 bg-rose text-midnight border-rose shadow-md">
+          全部主題
+        </button>
+        <button onclick="filterTag('程式專案')" id="tag-程式專案" class="tag-btn px-4 py-1.5 rounded-full text-xs font-semibold border transition-all duration-300 bg-lavender/10 text-lavender border-lavender/30 hover:border-rose/60">
+          程式專案
+        </button>
+        <button onclick="filterTag('計畫主持')" id="tag-計畫主持" class="tag-btn px-4 py-1.5 rounded-full text-xs font-semibold border transition-all duration-300 bg-lavender/10 text-lavender border-lavender/30 hover:border-rose/60">
+          計畫主持
+        </button>
+        <button onclick="filterTag('神秘占卜')" id="tag-神秘占卜" class="tag-btn px-4 py-1.5 rounded-full text-xs font-semibold border transition-all duration-300 bg-lavender/10 text-lavender border-lavender/30 hover:border-rose/60">
+          神秘占卜
+        </button>
+        <button onclick="filterTag('療癒心靈')" id="tag-療癒心靈" class="tag-btn px-4 py-1.5 rounded-full text-xs font-semibold border transition-all duration-300 bg-lavender/10 text-lavender border-lavender/30 hover:border-rose/60">
+          療癒心靈
+        </button>
+      </div>
+    </section>
+
+    <!-- 網格主板底層 -->
+    <div class="bg-gradient-to-b from-[#2B2333]/90 to-[#1F222A]/90 border border-lavender/15 rounded-[2rem] p-6 md:p-10 shadow-2xl">
+      <!-- 8 宮格塔羅卡片 -->
+      <div id="gridContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        
+        <!-- 卡片 1 (編織毛線) - 有販售 -->
+        <div class="card-item bg-nebula p-3 rounded-2xl border-double border-4 border-rose/40 shadow-xl hover:border-rose hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between relative group" data-category="療癒心靈" data-title="編織生命系列" data-key="編織生命系列">
+          <div class="absolute top-1 left-1 text-rose/60 text-[8px]">✦</div>
+          <div class="absolute top-1 right-1 text-rose/60 text-[8px]">✦</div>
+          <div class="absolute bottom-1 left-1 text-rose/60 text-[8px]">✦</div>
+          <div class="absolute bottom-1 right-1 text-rose/60 text-[8px]">✦</div>
+          
+          <div class="relative overflow-hidden rounded-lg h-40">
+            <img src="https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?auto=format&fit=crop&w=500&q=80" alt="針織毛線" class="w-full h-full object-cover filter sepia-[20%] group-hover:sepia-0 group-hover:scale-105 transition-all duration-500">
+            <span class="absolute top-2 left-2 bg-rose text-midnight text-[9px] font-bold px-2 py-0.5 rounded tracking-wider shadow">療癒心靈</span>
+            <span class="absolute top-2 right-2 bg-midnight/80 border border-rose/30 text-rose text-[9px] font-bold px-2 py-0.5 rounded tracking-wider font-cinzel">FOR SALE</span>
+          </div>
+          <div class="p-3 pt-4 flex-grow flex flex-col justify-between">
+            <div class="text-center">
+              <p class="text-[9px] text-rose font-mono tracking-widest">◈ CARD I ◈</p>
+              <h3 class="text-sm font-bold text-lilacwhite mt-1 mb-2 tracking-widest">編織生命系列</h3>
+              <p class="text-[11px] text-lilacwhite/60 leading-relaxed line-clamp-2">透過經緯線段的交織，在柔軟觸感中找回內在秩序與安全感。</p>
+            </div>
+            <!-- 按鈕組 -->
+            <div class="mt-4 pt-3 border-t border-rose/10 flex gap-2 justify-center">
+              <button onclick="showDetail('編織生命系列')" class="bg-rose/10 hover:bg-rose hover:text-midnight border border-rose/30 text-rose text-xs px-3 py-1.5 rounded transition-all duration-300 tracking-wider flex-grow text-center">
+                解鎖細節 ➔
+              </button>
+              <button onclick="addToCart('編織生命系列')" class="bg-rose text-midnight hover:bg-lilacwhite font-bold text-xs px-3 py-1.5 rounded transition-all duration-300 flex items-center justify-center gap-1 shadow-md shadow-rose/10">
+                <span>🛒</span>
+                <span class="font-cinzel">NT$1,680</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 卡片 2 (暨履歷與電商平台併簡易 ERP) - 展示無販售 -->
+        <div class="card-item bg-nebula p-3 rounded-2xl border-double border-4 border-rose/40 shadow-xl hover:border-rose hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between relative group" data-category="程式專案" data-title="暨履歷與電商平台併簡易 ERP" data-key="履歷電商 ERP 系統">
+          <div class="absolute top-1 left-1 text-rose/60 text-[8px]">✦</div>
+          <div class="absolute top-1 right-1 text-rose/60 text-[8px]">✦</div>
+          <div class="absolute bottom-1 left-1 text-rose/60 text-[8px]">✦</div>
+          <div class="absolute bottom-1 right-1 text-rose/60 text-[8px]">✦</div>
+          
+          <div class="relative overflow-hidden rounded-lg h-40">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=500&q=80" alt="ERP專案" class="w-full h-full object-cover filter sepia-[20%] group-hover:sepia-0 group-hover:scale-105 transition-all duration-500">
+            <span class="absolute top-2 left-2 bg-rose text-midnight text-[9px] font-bold px-2 py-0.5 rounded tracking-wider shadow">程式專案</span>
+          </div>
+          <div class="p-3 pt-4 flex-grow flex flex-col justify-between">
+            <div class="text-center">
+              <p class="text-[9px] text-rose font-mono tracking-widest">◈ CARD II ◈</p>
+              <h3 class="text-sm font-bold text-lilacwhite mt-1 mb-2 tracking-widest truncate">履歷電商 ERP 系統</h3>
+              <p class="text-[11px] text-lilacwhite/60 leading-relaxed line-clamp-2">整合進銷存、會員機制與塔羅流年占卜的高階全端系統。</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-rose/10 flex justify-center">
+              <button onclick="showDetail('履歷電商 ERP 系統')" class="bg-rose/10 hover:bg-rose hover:text-midnight border border-rose/30 text-rose text-xs px-4 py-1.5 rounded transition-all duration-300 tracking-wider w-full text-center">
+                解鎖作品細節 ➔ (系統展示)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 卡片 3 (草本魔藥) - 有販售 -->
+        <div class="card-item bg-nebula p-3 rounded-2xl border-double border-4 border-rose/40 shadow-xl hover:border-rose hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between relative group" data-category="療癒心靈" data-title="草本魔藥能量" data-key="草本魔藥能量">
+          <div class="absolute top-1 left-1 text-rose/60 text-[8px]">✦</div>
+          <div class="absolute top-1 right-1 text-rose/60 text-[8px]">✦</div>
+          <div class="absolute bottom-1 left-1 text-rose/60 text-[8px]">✦</div>
+          <div class="absolute bottom-1 right-1 text-rose/60 text-[8px]">✦</div>
+          
+          <div class="relative overflow-hidden rounded-lg h-40">
+            <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=500&q=80" alt="植物" class="w-full h-full object-cover filter sepia-[20%] group-hover:sepia-0 group-hover:scale-105 transition-all duration-500">
+            <span class="absolute top-2 left-2 bg-rose text-midnight text-[9px] font-bold px-2 py-0.5 rounded tracking-wider shadow">療癒心靈</span>
+            <span class="absolute top-2 right-2 bg-midnight/80 border border-rose/30 text-rose text-[9px] font-bold px-2 py-0.5 rounded tracking-wider font-cinzel">FOR SALE</span>
+          </div>
+          <div class="p-3 pt-4 flex-grow flex flex-col justify-between">
+            <div class="text-center">
+              <p class="text-[9px] text-rose font-mono tracking-widest">◈ CARD III ◈</p>
+              <h3 class="text-sm font-bold text-lilacwhite mt-1 mb-2 tracking-widest">草本魔藥能量</h3>
+              <p class="text-[11px] text-lilacwhite/60 leading-relaxed line-clamp-2">融合乾燥花草與香氛魔法，淨化空間氣場磁場。</p>
+            </div>
+            <!-- 按鈕組 -->
+            <div class="mt-4 pt-3 border-t border-rose/10 flex gap-2 justify-center">
+              <button onclick="showDetail('草本魔藥能量')" class="bg-rose/10 hover:bg-rose hover:text-midnight border border-rose/30 text-rose text-xs px-3 py-1.5 rounded transition-all duration-300 tracking-wider flex-grow text-center">
+                解鎖細節 ➔
+              </button>
+              <button onclick="addToCart('草本魔藥能量')" class="bg-rose text-midnight hover:bg-lilacwhite font-bold text-xs px-3 py-1.5 rounded transition-all duration-300 flex items-center justify-center gap-1 shadow-md shadow-rose/10">
+                <span>🛒</span>
+                <span class="font-cinzel">NT$880</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 卡片 4 (生命星盤) - 有販售 -->
+        <div class="card-item bg-nebula p-3 rounded-2xl border-double border-4 border-rose/40 shadow-xl hover:border-rose hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between relative group" data-category="神秘占卜" data-title="生命星盤引導" data-key="生命星盤引導">
+          <div class="absolute top-1 left-1 text-rose/60 text-[8px]">✦</div>
+          <div class="absolute top-1 right-1 text-rose/60 text-[8px]">✦</div>
+          <div class="absolute bottom-1 left-1 text-rose/60 text-[8px]">✦</div>
+          <div class="absolute bottom-1 right-1 text-rose/60 text-[8px]">✦</div>
+          
+          <div class="relative overflow-hidden rounded-lg h-40">
+            <img src="https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?auto=format&fit=crop&w=500&q=80" alt="星盤" class="w-full h-full object-cover filter sepia-[20%] group-hover:sepia-0 group-hover:scale-105 transition-all duration-500">
+            <span class="absolute top-2 left-2 bg-rose text-midnight text-[9px] font-bold px-2 py-0.5 rounded tracking-wider shadow">神秘占卜</span>
+            <span class="absolute top-2 right-2 bg-midnight/80 border border-rose/30 text-rose text-[9px] font-bold px-2 py-0.5 rounded tracking-wider font-cinzel">CONSULT</span>
+          </div>
+          <div class="p-3 pt-4 flex-grow flex flex-col justify-between">
+            <div class="text-center">
+              <p class="text-[9px] text-rose font-mono tracking-widest">◈ CARD IV ◈</p>
+              <h3 class="text-sm font-bold text-lilacwhite mt-1 mb-2 tracking-widest">生命星盤引導</h3>
+              <p class="text-[11px] text-lilacwhite/60 leading-relaxed line-clamp-2">讀取黃道十二宮的原生星印，探究靈魂最初的生命課題。</p>
+            </div>
+            <!-- 按鈕組 -->
+            <div class="mt-4 pt-3 border-t border-rose/10 flex gap-2 justify-center">
+              <button onclick="showDetail('生命星盤引導')" class="bg-rose/10 hover:bg-rose hover:text-midnight border border-rose/30 text-rose text-xs px-3 py-1.5 rounded transition-all duration-300 tracking-wider flex-grow text-center">
+                解鎖細節 ➔
+              </button>
+              <button onclick="addToCart('生命星盤引導')" class="bg-rose text-midnight hover:bg-lilacwhite font-bold text-xs px-3 py-1.5 rounded transition-all duration-300 flex items-center justify-center gap-1 shadow-md shadow-rose/10">
+                <span>🛒</span>
+                <span class="font-cinzel">NT$2,500</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 空狀態 -->
+      <div id="emptyState" class="hidden text-center py-16">
+        <span class="text-3xl">🔮</span>
+        <h3 class="text-sm font-bold text-rose mt-4">無對應之卡片專案</h3>
+        <p class="text-xs text-lilacwhite/40">請嘗試更換分類或篩選條件</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+     PAGE D: 作品詳細 WORKS-DETAIL
+     ========================================== -->
+  <div id="page-detail" class="page-fade max-w-7xl mx-auto px-6 py-8 w-full flex-grow hidden">
+    <!-- 頂部麵包屑 Breadcrumbs -->
+    <div class="flex items-center gap-2 text-xs text-lilacwhite/40 mb-8 font-mono">
+      <button onclick="navigateTo('works')" class="hover:text-rose transition-colors">WORKS</button>
+      <span>/</span>
+      <span id="detail-category-crumb" class="text-rose">CATEGORY</span>
+      <span>/</span>
+      <span id="detail-title-crumb" class="text-lilacwhite">PROJECT NAME</span>
+    </div>
+
+    <!-- 1. 簡述與主標題橫幅 -->
+    <section class="bg-gradient-to-r from-[#2F243A] via-[#202530] to-midnight border border-lavender/10 rounded-2xl p-8 mb-8 text-center relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-t from-midnight/80 to-transparent"></div>
+      <div class="relative z-10 space-y-3">
+        <span id="detail-badge" class="inline-block bg-rose/15 border border-rose/30 text-rose text-[10px] font-bold px-3 py-1 rounded-full tracking-widest uppercase">程式專案</span>
+        <h1 id="detail-main-title" class="text-xl md:text-3xl font-bold tracking-widest text-lilacwhite font-serifTC">
+          暨履歷與電商平台併簡易 ERP
+        </h1>
+        <div class="w-16 h-[1px] bg-rose mx-auto"></div>
+        <p id="detail-brief" class="text-xs md:text-sm text-lilacwhite/60 max-w-2xl mx-auto leading-relaxed font-serifTC">
+          這是一套將繁重電商ERP功能與生命靈書占卜模組高度整合之專案，融合溫慢療癒之 UI 給予系統全新生命。
+        </p>
+      </div>
+    </section>
+
+    <!-- 1.5 購物與預訂橫幅區 -->
+    <div id="detail-purchase-section" class="hidden bg-gradient-to-r from-[#2F2430] to-nebula border border-rose/30 rounded-2xl p-5 mb-8 flex flex-col sm:flex-row justify-between items-center gap-4 shadow-xl">
+      <div class="flex items-center gap-4 text-left">
+        <span class="text-3xl">✨</span>
+        <div>
+          <h4 class="text-sm font-bold text-lilacwhite font-serifTC">喜愛此作品嗎？本項目開放販售 / 靈性諮詢</h4>
+          <p class="text-xs text-lilacwhite/60">宇宙精緻工藝，由 Jane & Sami 限量提供溫暖與指引。</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-5">
+        <span id="detail-purchase-price" class="text-xl font-bold text-rose font-cinzel">NT$ 1,680</span>
+        <button id="detail-purchase-btn" class="bg-rose text-midnight hover:bg-lilacwhite font-bold py-2.5 px-6 rounded-full text-xs tracking-widest transition-all duration-300 flex items-center gap-2 shadow-lg shadow-rose/20">
+          <span>🛒</span> 加入購物車
+        </button>
+      </div>
+    </div>
+
+    <!-- 2. 目錄與詳細內容雙欄佈局 -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <!-- 左側：懸浮磨砂玻璃目錄 (TOC) -->
+      <aside class="lg:col-span-1 space-y-4">
+        <div class="bg-nebula/85 backdrop-blur-md border border-lavender/15 rounded-2xl p-5 sticky top-24 shadow-xl">
+          <p class="text-[10px] text-rose font-mono tracking-widest mb-4">✦ DIRECTORY 目錄</p>
+          <ul class="space-y-3 text-xs">
+            <li>
+              <a href="#section-intro" class="toc-link block py-1.5 px-3 rounded-lg text-rose bg-rose/10 border-l-2 border-rose font-semibold transition-all">
+                01. 專案背景與願景
+              </a>
+            </li>
+            <li>
+              <a href="#section-stack" class="toc-link block py-1.5 px-3 rounded-lg text-lilacwhite/60 hover:text-rose hover:bg-rose/5 border-l-2 border-transparent transition-all">
+                02. 全端技術架構
+              </a>
+            </li>
+            <li>
+              <a href="#section-database" class="toc-link block py-1.5 px-3 rounded-lg text-lilacwhite/60 hover:text-rose hover:bg-rose/5 border-l-2 border-transparent transition-all">
+                03. 資料庫結構設計
+              </a>
+            </li>
+            <li>
+              <a href="#section-spirit" class="toc-link block py-1.5 px-3 rounded-lg text-lilacwhite/60 hover:text-rose hover:bg-rose/5 border-l-2 border-transparent transition-all">
+                04. 靈性美學之交織
+              </a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- 右側：深度詳細描述與展示圖片 -->
+      <article class="lg:col-span-3 space-y-10">
+        <!-- 大圖展示區 -->
+        <div class="w-full h-80 rounded-2xl overflow-hidden border border-rose/20 shadow-2xl relative group">
+          <img id="detail-main-img" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80" alt="作品大圖展示" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-midnight/90 via-transparent to-transparent"></div>
+          <span class="absolute bottom-4 left-4 text-[10px] text-rose font-mono tracking-widest bg-midnight/80 px-3 py-1.5 rounded border border-rose/30">✦ PHOTO REFERENCE / UNSPLASH ✦</span>
+        </div>
+
+        <!-- 01. 專案背景與願景 -->
+        <section id="section-intro" class="scroll-mt-24 bg-nebula/40 border border-lavender/10 rounded-2xl p-6 md:p-8 space-y-4">
+          <h2 class="text-base md:text-lg font-bold text-rose flex items-center gap-2">
+            <span>01.</span> 專案背景與願景
+          </h2>
+          <div class="h-[1px] bg-lavender/10"></div>
+          <p id="detail-desc-1" class="text-xs md:text-sm text-lilacwhite/75 leading-relaxed font-serifTC">
+            本專案旨在解決電商營運管理者面臨的高壓繁瑣工作環境。我們不只提供高效率的進銷存分析，更首度在商用後台中引入「每日靜心卡牌」與「流年靈數計算機」，協助創業家在面對複雜商業決策時，能保有一份沈穩與靈魂直覺。
+          </p>
+        </section>
+
+        <!-- 02. 全端技術架構 -->
+        <section id="section-stack" class="scroll-mt-24 bg-nebula/40 border border-lavender/10 rounded-2xl p-6 md:p-8 space-y-4">
+          <h2 class="text-base md:text-lg font-bold text-rose flex items-center gap-2">
+            <span>02.</span> 全端技術架構
+          </h2>
+          <div class="h-[1px] bg-lavender/10"></div>
+          <p id="detail-desc-2" class="text-xs md:text-sm text-lilacwhite/75 leading-relaxed font-serifTC">
+            架構基於輕量高效之核心理念，後端使用穩定的 API 傳輸，確保商品數據、訂單狀態與占卜運算皆能在 100ms 內極速運算。前端利用精細計算的微光漸層與磨砂玻璃卡片佈局，擺脫以往後台系統乾癟死板之氣息。
+          </p>
+        </section>
+
+        <!-- 03. 資料庫結構設計 -->
+        <section id="section-database" class="scroll-mt-24 bg-nebula/40 border border-lavender/10 rounded-2xl p-6 md:p-8 space-y-4">
+          <h2 class="text-base md:text-lg font-bold text-rose flex items-center gap-2">
+            <span>03.</span> 資料庫結構設計
+          </h2>
+          <div class="h-[1px] bg-lavender/10"></div>
+          <p id="detail-desc-3" class="text-xs md:text-sm text-lilacwhite/75 leading-relaxed font-serifTC">
+            為了支撐複雜的靈性功能，資料庫除了儲存一般的商品表與訂單表，更設計了符合十二宮與塔羅對應的關聯型關聯結構，完美確保所有流年、占卜預測數據讀寫皆滿足安全隔離規範。
+          </p>
+        </section>
+
+        <!-- 04. 靈性美學之交織 -->
+        <section id="section-spirit" class="scroll-mt-24 bg-nebula/40 border border-lavender/10 rounded-2xl p-6 md:p-8 space-y-4">
+          <h2 class="text-base md:text-lg font-bold text-rose flex items-center gap-2">
+            <span>04.</span> 靈性美學之交織
+          </h2>
+          <div class="h-[1px] bg-lavender/10"></div>
+          <p id="detail-desc-4" class="text-xs md:text-sm text-lilacwhite/75 leading-relaxed font-serifTC">
+            將「暮色占卜與晨曦草本」的色彩代碼與 UI 層級結合。系統的每一處 hover 動效、分隔線與卡牌呼吸發光，都是對使用者心靈頻率的溫和撫慰，讓每一次系統使用皆成一場自我覺察。
+          </p>
+        </section>
+
+        <!-- 返回按鈕 -->
+        <div class="pt-4 text-center">
+          <button onclick="navigateTo('works')" class="px-5 py-2.5 rounded-full border border-rose/40 text-rose hover:bg-rose hover:text-midnight font-bold tracking-widest text-xs transition-all duration-300">
+            ← 返回作品集冊
+          </button>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <!-- ==========================================
+     PAGE E: 結帳表單 CHECKOUT (全新融合驗證機制與品牌美學)
+     ========================================== -->
+  <div id="page-checkout" class="page-fade max-w-4xl mx-auto px-6 py-8 w-full flex-grow hidden space-y-8">
+    <section class="text-center space-y-3">
+      <h1 class="text-2xl md:text-3xl font-bold tracking-[0.2em]">靈性結帳儀式</h1>
+      <div class="w-12 h-[1px] bg-rose mx-auto"></div>
+      <p class="text-xs text-lilacwhite/60">請檢入您的真實資料，啟動豐盛意圖的顯化配送。</p>
+    </section>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      
+      <!-- 左欄：訂餐/訂購資料填寫表單 (2/3 寬度) -->
+      <form id="checkoutForm" onsubmit="submitOrder(event)" class="md:col-span-2 bg-nebula/90 border border-lavender/15 rounded-3xl p-6 md:p-8 space-y-6 shadow-xl">
+        
+        <!-- 姓名輸入 (附帶 reactive 邊框驗證) -->
+        <div class="space-y-2">
+          <label class="block text-xs font-semibold text-rose tracking-wider">訂購人姓名 (Name)</label>
+          <input type="text" id="orderName" oninput="validateField('orderName')" placeholder="請輸入 2 ~ 10 字"
+                 class="w-full bg-midnight/80 text-lilacwhite placeholder-lilacwhite/30 px-4 py-3 rounded-xl border border-lavender/20 focus:outline-none text-sm transition-all">
+          <p id="err-orderName" class="text-[10px] text-rose/80 hidden">請輸入 2 ~ 10 個中英文字元</p>
+        </div>
+
+        <!-- 電話輸入 (前綴 09 固定 + 後 8 碼) -->
+        <div class="space-y-2">
+          <label class="block text-xs font-semibold text-rose tracking-wider">聯絡手機號碼 (Mobile Phone)</label>
+          <div class="flex">
+            <span class="bg-midnight/60 border border-r-0 border-lavender/20 text-lavender font-mono px-4 py-3 rounded-l-xl text-sm flex items-center justify-center">09</span>
+            <input type="text" id="orderPhone" oninput="validateField('orderPhone')" placeholder="電話後八碼 (數字)"
+                   class="w-full bg-midnight/80 text-lilacwhite placeholder-lilacwhite/30 px-4 py-3 rounded-r-xl border border-lavender/20 focus:outline-none text-sm transition-all">
+          </div>
+          <p id="err-orderPhone" class="text-[10px] text-rose/80 hidden">請輸入數字，且必須為恰好 8 碼手機後續數字</p>
+        </div>
+
+        <!-- 付款與取餐配置 -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          
+          <!-- 付款方式 -->
+          <div class="space-y-2">
+            <label class="block text-xs font-semibold text-rose tracking-wider">付款方式 (Payment)</label>
+            <select id="payFor" onchange="validateField('payFor')"
+                    class="w-full bg-midnight/80 text-lilacwhite px-4 py-3 rounded-xl border border-lavender/20 focus:outline-none text-sm transition-all">
+              <option value="" disabled selected>=== 選擇一種付款方式 ===</option>
+              <option value="現金">現金 (現場付清)</option>
+              <option value="信用卡">信用卡 (線上安全支付)</option>
+              <option value="LINE PAY">LINE PAY</option>
+              <option value="悠遊Pay">悠遊Pay</option>
+            </select>
+            <p id="err-payFor" class="text-[10px] text-rose/80 hidden">請選擇一種支付模式</p>
+          </div>
+
+          <!-- 用餐/諮詢人數 -->
+          <div class="space-y-2">
+            <label class="block text-xs font-semibold text-rose tracking-wider">參與/諮詢人數 (Guests)</label>
+            <input type="number" id="orderPerson" oninput="validateField('orderPerson')" value="1" min="1" max="30"
+                   class="w-full bg-midnight/80 text-lilacwhite px-4 py-3 rounded-xl border border-lavender/20 focus:outline-none text-sm transition-all text-center">
+            <p id="err-orderPerson" class="text-[10px] text-rose/80 hidden">請輸入人數：1 ~ 30 人</p>
+          </div>
+
+        </div>
+
+        <!-- 取餐配送方式 (內用 / 店取 / 外送) -->
+        <div class="space-y-3">
+          <label class="block text-xs font-semibold text-rose tracking-wider">取餐與配送方式 (Delivery Method)</label>
+          <div class="flex flex-wrap gap-4">
+            <label class="flex items-center gap-2 cursor-pointer bg-midnight/40 hover:bg-midnight/80 border border-lavender/10 px-4 py-2.5 rounded-xl transition-all">
+              <input type="radio" name="pickUp" value="內用" checked class="accent-rose">
+              <span class="text-xs">內用 (Dine-in)</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer bg-midnight/40 hover:bg-midnight/80 border border-lavender/10 px-4 py-2.5 rounded-xl transition-all">
+              <input type="radio" name="pickUp" value="到店取餐" class="accent-rose">
+              <span class="text-xs">到店自取 (Pickup)</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer bg-midnight/40 hover:bg-midnight/80 border border-lavender/10 px-4 py-2.5 rounded-xl transition-all">
+              <input type="radio" name="pickUp" value="外送到府" class="accent-rose">
+              <span class="text-xs">外送到府 (Delivery)</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 備註輸入 (字數統計) -->
+        <div class="space-y-2">
+          <div class="flex justify-between items-center">
+            <label class="block text-xs font-semibold text-rose tracking-wider">備註與能量調配需求 (Memo)</label>
+            <span class="text-[10px] text-lilacwhite/40" id="memoCharCount">0 / 30 字</span>
+          </div>
+          <textarea id="orderMemo" oninput="validateField('orderMemo')" rows="3" placeholder="例如：去冰、不加辣、卡片寄送祝禱需求..."
+                    class="w-full bg-midnight/80 text-lilacwhite placeholder-lilacwhite/30 px-4 py-3 rounded-xl border border-lavender/20 focus:outline-none text-sm transition-all"></textarea>
+          <p id="err-orderMemo" class="text-[10px] text-rose/80 hidden">請精簡在 30 個字元內</p>
+        </div>
+
+        <button type="submit" class="w-full bg-rose text-midnight font-bold py-3.5 rounded-xl hover:bg-lilacwhite transition-all duration-300 text-xs tracking-widest shadow-lg shadow-rose/20 uppercase">
+          送出訂單 ‧ 啟動星軌能量 ➔
+        </button>
+
+      </form>
+
+      <!-- 右欄：購買清單總計 & 實時摘要 (1/3 寬度) -->
+      <aside class="space-y-6">
+        <div class="bg-gradient-to-b from-[#2B2333] to-[#1F222A] border border-lavender/15 rounded-3xl p-6 shadow-xl space-y-4">
+          <h3 class="text-xs font-bold text-rose tracking-widest border-b border-lavender/10 pb-3">● 購買清單 (Cart Summary)</h3>
+          
+          <ul id="checkout-summary-items" class="space-y-3 max-h-48 overflow-y-auto pr-1">
+            <!-- 動態注入結帳清單 -->
+          </ul>
+
+          <div class="border-t border-lavender/10 pt-4 space-y-2 text-xs">
+            <div class="flex justify-between">
+              <span class="text-lilacwhite/50">商品數量：</span>
+              <span id="checkout-summary-count" class="font-bold text-rose">0 個</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-lilacwhite/50">支付方式：</span>
+              <span id="checkout-summary-pay" class="font-bold text-lavender">尚未選擇</span>
+            </div>
+            <div class="flex justify-between items-center pt-2 border-t border-lavender/5">
+              <span class="text-sm font-semibold">總計金額：</span>
+              <span id="checkout-summary-total" class="text-base font-bold text-rose font-cinzel">NT$ 0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 導引返回 -->
+        <button onclick="navigateTo('works')" class="w-full py-2.5 rounded-xl border border-lavender/30 text-lavender hover:text-rose hover:border-rose text-xs tracking-wider transition-all">
+          返回購物袋重整 🔮
+        </button>
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- ==========================================
+     PAGE F: 訂單查詢 ORDER INQUIRY (全新神祕學風格查詢系統)
+     ========================================== -->
+  <div id="page-inquiry" class="page-fade max-w-4xl mx-auto px-6 py-8 w-full flex-grow hidden space-y-8">
+    <section class="text-center space-y-3">
+      <h1 class="text-2xl md:text-3xl font-bold tracking-[0.2em]">尋索生命訂單</h1>
+      <div class="w-12 h-[1px] bg-rose mx-auto"></div>
+      <p class="text-xs text-lilacwhite/60">輸入您的訂單編號或聯絡電話，即可在靈性磁場中追蹤配送現狀。</p>
+    </section>
+
+    <!-- 查詢控制區域 -->
+    <div class="bg-nebula/90 border border-lavender/15 rounded-3xl p-6 md:p-8 max-w-xl mx-auto shadow-xl space-y-5">
+      <div class="space-y-2">
+        <label class="block text-xs font-semibold text-rose tracking-wider text-center sm:text-left">請輸入訂單編號或手機號碼 (全10碼)</label>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <input type="text" id="inquiryInput" placeholder="例如: JS-20260527-XXXX 或 09XXXXXXXX"
+                 class="flex-grow bg-midnight/80 text-lilacwhite placeholder-lilacwhite/30 px-5 py-3 rounded-xl border border-lavender/20 focus:outline-none text-sm tracking-wide transition-all">
+          <button onclick="searchOrders()" class="bg-rose text-midnight hover:bg-lilacwhite font-bold px-6 py-3 rounded-xl text-xs tracking-widest transition-all duration-300 shadow-md uppercase shrink-0">
+            尋索軌跡 🔍
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 查詢結果展示區 -->
+    <div id="inquiryResults" class="max-w-2xl mx-auto space-y-6 hidden">
+      <!-- 查詢到的訂單卡片會動態加載於此 -->
+    </div>
+
+    <!-- 無查詢結果或初始狀態 -->
+    <div id="inquiryEmpty" class="text-center py-16 max-w-md mx-auto space-y-3">
+      <span class="text-3xl block">🪐</span>
+      <h3 class="text-sm font-bold text-rose">未開啟尋索</h3>
+      <p class="text-xs text-lilacwhite/40 leading-relaxed">請在上方輸入您結帳時取得的訂單編號（如 JS-XXXXXXXX-XXXX）或手機號碼，調閱已被寫入命理星盤中的歷史訂單。</p>
+    </div>
+  </div>
+
+  <!-- ==========================================
+     8. 購物車滑入式側邊欄 (Cart Drawer & Overlay)
+     ========================================== -->
+  <div id="cartOverlay" onclick="toggleCart()" class="fixed inset-0 bg-midnight/80 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-500"></div>
+  <div id="cartDrawer" class="fixed inset-y-0 right-0 w-full max-w-md bg-nebula/95 backdrop-blur-lg border-l border-lavender/10 z-50 shadow-2xl transform translate-x-full transition-transform duration-500 flex flex-col justify-between hidden">
+    <!-- Header -->
+    <div class="p-6 border-b border-lavender/10 flex justify-between items-center">
+      <h3 class="font-cinzel text-lg tracking-[0.15em] text-rose flex items-center gap-2">
+        <span>MY BAG</span> <span class="text-xs font-serifTC text-lilacwhite/40">(購物車)</span>
+      </h3>
+      <button onclick="toggleCart()" class="text-lilacwhite/60 hover:text-rose transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Items List -->
+    <div id="cart-items-list" class="p-6 overflow-y-auto flex-grow space-y-4">
+      <!-- 購物車商品動態加載 -->
+    </div>
+
+    <!-- Footer -->
+    <div class="p-6 border-t border-lavender/10 space-y-4 bg-midnight/40">
+      <div class="flex justify-between items-center">
+        <span class="text-xs text-lilacwhite/60 font-serifTC">總計金額 (Subtotal):</span>
+        <span id="cart-total-price" class="text-lg font-bold text-rose font-cinzel">NT$ 0</span>
+      </div>
+      <!-- 修改按鈕引導：點擊確認結帳引導至 PAGE E 填表，而非直接完成 -->
+      <button onclick="proceedToCheckout()" class="w-full bg-rose text-midnight font-bold py-3 rounded-xl hover:bg-lilacwhite transition-all duration-300 text-xs tracking-widest shadow-lg shadow-rose/20 text-center uppercase font-serifTC">
+        填寫配送與付款資訊 ➔
+      </button>
+    </div>
+  </div>
+
+  <!-- Toast 提示容器 -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 space-y-2 pointer-events-none"></div>
+
+  <!-- ==========================================
+     9. 古典磨砂玻璃塔羅 Modal 彈窗
+     ========================================== -->
+  <div id="tarotModal" class="fixed inset-0 bg-midnight/80 backdrop-blur-md z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-500">
+    <!-- 彈窗主體 -->
+    <div class="bg-gradient-to-b from-nebula via-nebula to-[#1A1C23] max-w-md w-full rounded-3xl p-6 border-double border-4 border-rose/60 shadow-2xl relative transform scale-90 transition-all duration-500" id="modalBody">
+      <div class="absolute top-1.5 left-1.5 text-rose text-xs">✦</div>
+      <div class="absolute top-1.5 right-1.5 text-rose text-xs">✦</div>
+      <div class="absolute bottom-1.5 left-1.5 text-rose text-xs">✦</div>
+      <div class="absolute bottom-1.5 right-1.5 text-rose text-xs">✦</div>
+
+      <!-- 關閉按鈕 -->
+      <button onclick="closeTarotModal()" class="absolute top-4 right-4 text-lilacwhite/40 hover:text-rose transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+
+      <!-- 內容區 -->
+      <div class="text-center space-y-4 pt-4">
+        <span class="text-3xl inline-block animate-bounce">🔮</span>
+        <div class="space-y-1">
+          <span id="modalCategory" class="text-[10px] bg-rose/10 text-rose border border-rose/30 px-3 py-0.5 rounded-full uppercase font-bold tracking-widest font-mono">結帳</span>
+          <h2 id="modalTitle" class="text-xl font-bold text-lilacwhite tracking-widest pt-1 font-serifTC">卡片標題</h2>
+        </div>
+        <div class="w-12 h-[1px] bg-rose mx-auto"></div>
+        
+        <!-- 神祕占卜語錄 -->
+        <div class="bg-midnight/60 rounded-xl p-4 border border-lavender/10 text-left">
+          <p id="modalReading" class="text-xs text-lilacwhite/80 leading-relaxed font-serifTC">占卜解析加載中...</p>
+        </div>
+
+        <button onclick="closeTarotModal()" class="w-full bg-rose text-midnight font-bold py-2.5 rounded-xl hover:bg-lilacwhite transition-all duration-300 text-xs tracking-widest shadow-lg shadow-rose/20 uppercase font-serifTC">
+          收回卡牌 感謝指引
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+     前置 JavaScript 控制與電商購物車邏輯
+     ========================================== -->
+  <script>
+    // 專案的詳細資料資料庫 (有販售、標價屬性)
+    const projectDatabase = {
+      "編織生命系列": {
+        category: "療癒心靈",
+        title: "編織生命系列",
+        brief: "透過經緯線段的交織，在柔軟觸感中縫合防線，找回內在秩序與安全感。",
+        img: "https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?auto=format&fit=crop&w=1200&q=80",
+        desc1: "編織生命系列專案，源自於對都市高壓族群的焦慮症狀探尋。手編毛線的規律動作是天然的動態冥想，能有效降低大腦皮質醇的分泌。",
+        desc2: "本系統建構了一套「針織進度與心靈記錄模組」，結合高畫質多維度視覺與工坊社群。我們為每組針法配對神祕學幾何含義，讓手工創作具有儀式感。",
+        desc3: "資料庫儲存了數十種來自跨國工坊的編織規律（Patterns），每筆規律與心靈狀態標籤高度關聯。系統會依據您每日的占卜結果，智慧推薦今日編織針法。",
+        desc4: "視覺上高度契合「方案三：神祕塔羅雙線星環」的包裝，雙層細框、玫瑰粉色。每一次您解開一條線頭，代表解鎖一項心靈創傷的精美引導。",
+        isForSale: true,
+        price: 1680,
+        priceString: "NT$ 1,680"
+      },
+      "履歷電商 ERP 系統": {
+        category: "程式專案",
+        title: "暨履歷與電商平台併簡易 ERP",
+        brief: "整合進銷存、會員機制與塔羅流年占卜的高階全端系統，將極客邏輯與極致美學完美統一。",
+        img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+        desc1: "針對個人工作坊的多功能、跨界系統平台。我們打破傳統後台系統冰冷的黑白格線，旨在用神祕溫慢的晨曦與草本調，提供創業家優雅從容的使用體驗。",
+        desc2: "後端使用嚴密、可擴展的高安全 API 結構，負責高速處理庫存波動與進出帳報表。前端則是純手寫的高階 CSS 發光與玻璃磨砂背板。",
+        desc3: "資料庫設計涵蓋「進銷存模組」與「生命靈數流年流月模型」這兩個看似平行的架構。通過我們首創的演算法，使商務流速與管理者靈魂運轉完美契合。",
+        desc4: "利用我們設計的薰衣草紫與煙燻玫瑰粉，整套 ERP 後台儀表板的色彩極具儀式感，讓管理繁瑣業務時，宛如一場與自己生命藍圖對話的占卜儀式。",
+        isForSale: false
+      },
+      "草本魔藥能量": {
+        category: "療癒心靈",
+        title: "草本魔藥能量工坊",
+        brief: "融合乾燥花草與香氛魔法，製作專屬能量蠟燭與天然淨化噴霧，守護內在氣場磁場。",
+        img: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80",
+        desc1: "結合魔藥學植物精靈的靈性配方。專案目標是讓使用者理解大自然的療癒力從來不是憑空捏造，而是分子與靈性能量的協同效應。",
+        desc2: "我們開發了「個人調香與五行缺能對接系統」。藉由網頁端的前端心理學問卷，系統會自動推薦調製蠟燭所最需的薄荷灰綠等草本精油比例。",
+        desc3: "資料庫收集、整理了數百種古今植物配方的活性數值、元素歸屬、以及其對應的神祕學符號，為療癒師提供最具權威性的參考指南。",
+        desc4: "本頁面與卡片全套整合了玫瑰粉與自然尤加利深綠色調。讓您在查閱草本魔藥調配公式時，彷彿漫步在深夜被露水打濕的晨曦森林之中。",
+        isForSale: true,
+        price: 880,
+        priceString: "NT$ 880"
+      },
+      "生命星盤引導": {
+        category: "神秘占卜",
+        title: "生命星盤引導平台",
+        brief: "窺探誕生之刻的天體運行軌跡，讀取黃道十二宮帶給靈魂的原生印記、考驗與指引。",
+        img: "https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?auto=format&fit=crop&w=1200&q=80",
+        desc1: "每個人誕生的當下，夜空天體的定格照即為我們的生命星盤。這是一套高精度的天文星盤生成器，用於揭示最深層的潛意識本質。",
+        desc2: "系統基於瑞士星曆表代碼庫，提供毫秒級的上升、太陽、月亮星座與十二宮相位計算。網頁端則利用 Canvas 繪製散發紫金光芒的動態星軌圖。",
+        desc3: "資料庫包含十二宮主星、相位特質與流年過境（Transits）解析，能在大流量訪問下，保持高速且正確的數據存取，兼具強大安全性。",
+        desc4: "我們使用「暮色占卜」配色。深夜灰藍的背景之上，點點繁星與玫瑰粉外發光的星軌交相輝映，是將全端科技與遠古占星智慧結合的最美典範。",
+        isForSale: true,
+        price: 2500,
+        priceString: "NT$ 2,500"
+      }
+    };
+
+    // ==========================================
+    // A. 全域狀態管理與歷史訂單儲存區
+    // ==========================================
+    let cart = {}; // 格式: { "專案Key": { title, price, img, quantity, category } }
+    let orderHistory = []; // 用於存放歷史訂單
+
+    // 訂單表單驗證狀態指標 (Flags)
+    let validationStates = {
+      orderName: null,
+      orderPhone: null,
+      payFor: null,
+      orderPerson: true,
+      orderMemo: null
+    };
+
+    // 1. 開關購物袋側邊欄
+    function toggleCart() {
+      const drawer = document.getElementById('cartDrawer');
+      const overlay = document.getElementById('cartOverlay');
+      
+      if (drawer.classList.contains('translate-x-full')) {
+        drawer.classList.remove('hidden');
+        overlay.classList.remove('hidden');
+        setTimeout(() => {
+          drawer.classList.remove('translate-x-full');
+          overlay.classList.remove('opacity-0');
+        }, 30);
+      } else {
+        drawer.classList.add('translate-x-full');
+        overlay.classList.add('opacity-0');
+        setTimeout(() => {
+          drawer.classList.add('hidden');
+          overlay.classList.add('hidden');
+        }, 500);
+      }
+    }
+
+    // 2. 加入商品
+    function addToCart(itemKey) {
+      const product = projectDatabase[itemKey];
+      if (!product || !product.isForSale) return;
+
+      if (cart[itemKey]) {
+        cart[itemKey].quantity += 1;
+      } else {
+        cart[itemKey] = {
+          title: product.title,
+          price: product.price,
+          img: product.img,
+          category: product.category,
+          quantity: 1
+        };
+      }
+
+      updateCartUI();
+      showToast(`已成功將「${product.title}」加入購物袋 🔮`);
+    }
+
+    // 3. 刪除商品
+    function removeFromCart(itemKey) {
+      delete cart[itemKey];
+      updateCartUI();
+      showToast("已從購物袋中移除物件");
+    }
+
+    // 4. 數量增減
+    function changeQuantity(itemKey, delta) {
+      if (!cart[itemKey]) return;
+      cart[itemKey].quantity += delta;
+      if (cart[itemKey].quantity <= 0) {
+        delete cart[itemKey];
+      }
+      updateCartUI();
+    }
+
+    // 5. 更新購物車 UI 渲染
+    function updateCartUI() {
+      const list = document.getElementById('cart-items-list');
+      list.innerHTML = '';
+      
+      let totalCount = 0;
+      let totalPrice = 0;
+      
+      const keys = Object.keys(cart);
+      if (keys.length === 0) {
+        list.innerHTML = `
+          <div class="text-center py-20 text-lilacwhite/30 space-y-3">
+            <span class="text-3xl block">🛒</span>
+            <p class="text-xs font-serifTC">購物袋空空如也</p>
+            <p class="text-[10px] font-serifTC">來尋找與您磁場契合的靈性物件吧！</p>
+          </div>
+        `;
+      } else {
+        keys.forEach(key => {
+          const item = cart[key];
+          totalCount += item.quantity;
+          totalPrice += item.price * item.quantity;
+          
+          const itemHTML = `
+            <div class="flex gap-4 bg-midnight/40 p-3 rounded-xl border border-lavender/10 items-center justify-between">
+              <img src="${item.img}" class="w-12 h-12 rounded-lg object-cover border border-rose/20 flex-shrink-0">
+              <div class="flex-grow min-w-0 text-left">
+                <span class="text-[9px] text-rose font-mono uppercase tracking-widest">${item.category}</span>
+                <h4 class="text-xs font-bold text-lilacwhite truncate font-serifTC">${item.title}</h4>
+                <p class="text-xs text-rose font-semibold font-cinzel mt-1">NT$ ${item.price.toLocaleString()}</p>
+              </div>
+              <div class="flex items-center gap-2 border border-lavender/25 rounded-lg px-2 py-1 bg-nebula">
+                <button onclick="changeQuantity('${key}', -1)" class="text-rose hover:text-lilacwhite text-xs px-1 font-bold">-</button>
+                <span class="text-xs font-semibold px-1 text-lilacwhite font-cinzel">${item.quantity}</span>
+                <button onclick="changeQuantity('${key}', 1)" class="text-rose hover:text-lilacwhite text-xs px-1 font-bold">+</button>
+              </div>
+              <button onclick="removeFromCart('${key}')" class="text-lilacwhite/40 hover:text-rose p-1 transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                </svg>
+              </button>
+            </div>
+          `;
+          list.insertAdjacentHTML('beforeend', itemHTML);
+        });
+      }
+      
+      // 更新徽章
+      const badge = document.getElementById('cart-badge');
+      badge.textContent = totalCount;
+      if (totalCount > 0) {
+        badge.classList.remove('scale-0');
+        badge.classList.add('scale-100');
+      } else {
+        badge.classList.remove('scale-100');
+        badge.classList.add('scale-0');
+      }
+      
+      document.getElementById('cart-total-price').textContent = `NT$ ${totalPrice.toLocaleString()}`;
+    }
+
+    // 6. 前往結帳表單 (SPA 轉換)
+    function proceedToCheckout() {
+      const keys = Object.keys(cart);
+      if (keys.length === 0) {
+        showToast("您的購物袋還是空的，無法啟動結帳儀式");
+        return;
+      }
+      toggleCart(); // 關閉側邊欄
+      renderCheckoutSummary(); // 載入摘要
+      navigateTo('checkout'); // 進入結帳頁
+    }
+
+    // 7. 渲染結帳頁右欄摘要
+    function renderCheckoutSummary() {
+      const container = document.getElementById('checkout-summary-items');
+      container.innerHTML = '';
+      let totalCount = 0;
+      let totalPrice = 0;
+
+      Object.keys(cart).forEach(key => {
+        const item = cart[key];
+        totalCount += item.quantity;
+        totalPrice += item.price * item.quantity;
+
+        const html = `
+          <li class="flex justify-between text-xs py-1 text-lilacwhite/80">
+            <span class="truncate pr-2">${item.title} x ${item.quantity}</span>
+            <span class="font-mono text-rose">NT$ ${(item.price * item.quantity).toLocaleString()}</span>
+          </li>
+        `;
+        container.insertAdjacentHTML('beforeend', html);
+      });
+
+      document.getElementById('checkout-summary-count').textContent = `${totalCount} 個`;
+      document.getElementById('checkout-summary-total').textContent = `NT$ ${totalPrice.toLocaleString()}`;
+      
+      const paySelect = document.getElementById('payFor');
+      document.getElementById('checkout-summary-pay').textContent = paySelect.value || "尚未選擇";
+    }
+
+    // ==========================================
+    // B. 精準表單即時驗證 (對照 Vue.js 邏輯優化)
+    // ==========================================
+    function validateField(fieldId) {
+      const element = document.getElementById(fieldId);
+      const errElement = document.getElementById(`err-${fieldId}`);
+      const val = element.value.trim();
+      let isValid = false;
+
+      if (fieldId === 'orderName') {
+        if (val.length === 0) {
+          validationStates.orderName = null;
+        } else if (val.length > 1 && val.length < 11) {
+          isValid = true;
+          validationStates.orderName = true;
+        } else {
+          validationStates.orderName = false;
+        }
+      } 
+      else if (fieldId === 'orderPhone') {
+        const isNumeric = /^\d+$/.test(val);
+        if (val.length === 0) {
+          validationStates.orderPhone = null;
+        } else if (isNumeric && val.length === 8) {
+          isValid = true;
+          validationStates.orderPhone = true;
+        } else {
+          validationStates.orderPhone = false;
+        }
+      } 
+      else if (fieldId === 'payFor') {
+        if (val !== "") {
+          isValid = true;
+          validationStates.payFor = true;
+          // 同步右側總結
+          document.getElementById('checkout-summary-pay').textContent = val;
+        } else {
+          validationStates.payFor = false;
+        }
+      } 
+      else if (fieldId === 'orderPerson') {
+        const num = parseInt(val, 10);
+        if (num >= 1 && num <= 30) {
+          isValid = true;
+          validationStates.orderPerson = true;
+        } else {
+          validationStates.orderPerson = false;
+        }
+      } 
+      else if (fieldId === 'orderMemo') {
+        // 更新字數統計
+        document.getElementById('memoCharCount').textContent = `${val.length} / 30 字`;
+        if (val.length === 0) {
+          validationStates.orderMemo = null;
+          isValid = true;
+        } else if (val.length > 0 && val.length < 31) {
+          isValid = true;
+          validationStates.orderMemo = true;
+        } else {
+          validationStates.orderMemo = false;
+        }
+      }
+
+      // 渲染對應驗證樣式與微發光邊框
+      const state = validationStates[fieldId];
+      if (state === true) {
+        element.className = "w-full bg-midnight/80 text-lilacwhite placeholder-lilacwhite/30 px-4 py-3 rounded-xl border border-rose focus:outline-none text-sm transition-all shadow-[0_0_8px_rgba(205,155,155,0.4)]";
+        if (errElement) errElement.classList.add('hidden');
+      } else if (state === false) {
+        element.className = "w-full bg-midnight/80 text-lilacwhite placeholder-lilacwhite/30 px-4 py-3 rounded-xl border border-[#E07A5F] focus:outline-none text-sm transition-all shadow-[0_0_8px_rgba(224,122,95,0.4)]";
+        if (errElement) errElement.classList.remove('hidden');
+      } else {
+        element.className = "w-full bg-midnight/80 text-lilacwhite placeholder-lilacwhite/30 px-4 py-3 rounded-xl border border-lavender/20 focus:outline-none text-sm transition-all";
+        if (errElement) errElement.classList.add('hidden');
+      }
+    }
+
+    // ==========================================
+    // C. 提交訂單、生成編號並存入記憶體
+    // ==========================================
+    function submitOrder(event) {
+      event.preventDefault();
+
+      // 強制觸發一次全表單檢查
+      validateField('orderName');
+      validateField('orderPhone');
+      validateField('payFor');
+      validateField('orderPerson');
+      validateField('orderMemo');
+
+      // 檢查表單狀態是否完全正確
+      if (validationStates.orderName !== true || 
+          validationStates.orderPhone !== true || 
+          validationStates.payFor !== true || 
+          validationStates.orderPerson !== true || 
+          (validationStates.orderMemo === false)) {
+        showToast("填寫資訊有誤，請根據標示修正欄位");
+        return;
+      }
+
+      const orderNameVal = document.getElementById('orderName').value.trim();
+      const orderPhoneVal = "09" + document.getElementById('orderPhone').value.trim();
+      const payForVal = document.getElementById('payFor').value;
+      const orderPersonVal = document.getElementById('orderPerson').value;
+      const orderMemoVal = document.getElementById('orderMemo').value.trim() || "無備註需求";
+      const pickUpVal = document.querySelector('input[name="pickUp"]:checked').value;
+
+      // 生成古典訂單編號 (JS-YYYYMMDD-四位數)
+      const dateStr = "20260527"; // 保持您當前時間
+      const randomSuffix = Math.floor(1000 + Math.random() * 9000);
+      const orderId = `JS-${dateStr}-${randomSuffix}`;
+
+      // 計算總價
+      let totalPrice = 0;
+      let orderItems = [];
+      Object.keys(cart).forEach(key => {
+        const item = cart[key];
+        totalPrice += item.price * item.quantity;
+        orderItems.push({
+          title: item.title,
+          quantity: item.quantity,
+          price: item.price
+        });
+      });
+
+      // 建立並儲存訂單實體
+      const orderRecord = {
+        orderId: orderId,
+        name: orderNameVal,
+        phone: orderPhoneVal,
+        payment: payForVal,
+        guests: orderPersonVal,
+        memo: orderMemoVal,
+        delivery: pickUpVal,
+        items: orderItems,
+        total: totalPrice,
+        status: "已寫入靈星盤 (能量配對中)",
+        date: "2026-05-27 15:48"
+      };
+
+      orderHistory.push(orderRecord);
+
+      // 結帳完成重置表單與購物車
+      cart = {};
+      updateCartUI();
+      document.getElementById('checkoutForm').reset();
+      resetValidationStyles();
+
+      // 跳出結帳成功 Modal
+      openTarotModal(
+        '靈性顯化訂單成功',
+        '付款與配送成立',
+        `感謝您的信任！您的結帳儀式已順利成立。\n\n🔮 訂單編號：${orderId}\n👤 訂購人姓名：${orderNameVal}\n📞 聯絡手機：${orderPhoneVal}\n🚗 取餐/配送方式：${pickUpVal}\n💵 總支付金額：NT$ ${totalPrice.toLocaleString()}\n\n此筆訂單明細已存入本站檔案。您可以複製訂單編號或手機號碼，隨時前往「訂單查詢」尋索此筆訂單的能量運作狀態。✦`
+      );
+    }
+
+    // 重設驗證外觀
+    function resetValidationStyles() {
+      const fields = ['orderName', 'orderPhone', 'payFor', 'orderPerson', 'orderMemo'];
+      fields.forEach(f => {
+        const el = document.getElementById(f);
+        el.className = "w-full bg-midnight/80 text-lilacwhite placeholder-lilacwhite/30 px-4 py-3 rounded-xl border border-lavender/20 focus:outline-none text-sm transition-all";
+        validationStates[f] = (f === 'orderPerson' ? true : null);
+        const err = document.getElementById(`err-${f}`);
+        if (err) err.classList.add('hidden');
+      });
+      document.getElementById('memoCharCount').textContent = "0 / 30 字";
+    }
+
+    // ==========================================
+    // D. 訂單查詢邏輯 (Inquiry)
+    // ==========================================
+    function searchOrders() {
+      const inputVal = document.getElementById('inquiryInput').value.trim();
+      const resultsContainer = document.getElementById('inquiryResults');
+      const emptyContainer = document.getElementById('inquiryEmpty');
+
+      if (inputVal === "") {
+        showToast("請輸入訂單編號或聯絡手機查尋");
+        return;
+      }
+
+      // 搜尋匹配 (符合電話或訂單號)
+      const matched = orderHistory.filter(order => {
+        return order.orderId.toLowerCase() === inputVal.toLowerCase() || 
+               order.phone === inputVal ||
+               order.phone === "09" + inputVal; // 容錯前綴
+      });
+
+      resultsContainer.innerHTML = '';
+
+      if (matched.length === 0) {
+        resultsContainer.classList.add('hidden');
+        emptyContainer.innerHTML = `
+          <span class="text-3xl block">🔮</span>
+          <h3 class="text-sm font-bold text-rose">星空中未尋得此音訊</h3>
+          <p class="text-xs text-lilacwhite/40">找不到匹配 ${inputVal} 的訂單，請確認輸入是否正確 (例如手機10碼、或包含 JS- 前綴的完整訂單號)。</p>
+        `;
+        emptyContainer.classList.remove('hidden');
+      } else {
+        emptyContainer.classList.add('hidden');
+        
+        matched.forEach(order => {
+          let itemsHtml = order.items.map(i => `
+            <div class="flex justify-between text-xs py-1 text-lilacwhite/80">
+              <span>${i.title} x ${i.quantity}</span>
+              <span class="font-mono text-rose">NT$ ${(i.price * i.quantity).toLocaleString()}</span>
+            </div>
+          `).join('');
+
+          const cardHtml = `
+            <div class="bg-nebula p-6 rounded-3xl border-double border-4 border-rose/40 shadow-2xl space-y-4">
+              <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-lavender/10 pb-3 gap-2">
+                <div>
+                  <span class="text-[10px] text-rose font-mono tracking-widest block">ORDER ID</span>
+                  <h3 class="text-base font-bold text-lilacwhite font-cinzel tracking-wider">${order.orderId}</h3>
+                </div>
+                <span class="bg-rose/10 border border-rose/30 text-rose text-[10px] px-3 py-1 rounded-full font-serifTC">${order.status}</span>
+              </div>
+
+              <div class="space-y-2">
+                <span class="text-[10px] text-lavender font-mono tracking-widest block">● 購買品項</span>
+                <div class="bg-midnight/40 p-4 rounded-xl space-y-2 border border-lavender/10">
+                  ${itemsHtml}
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-4 text-xs">
+                <div>
+                  <span class="text-lilacwhite/40">訂購姓名：</span><span class="text-lilacwhite font-bold">${order.name}</span>
+                </div>
+                <div>
+                  <span class="text-lilacwhite/40">聯絡手機：</span><span class="text-lilacwhite font-bold">${order.phone}</span>
+                </div>
+                <div>
+                  <span class="text-lilacwhite/40">配送取餐：</span><span class="text-lilacwhite font-bold">${order.delivery}</span>
+                </div>
+                <div>
+                  <span class="text-lilacwhite/40">支付模式：</span><span class="text-lilacwhite font-bold">${order.payment}</span>
+                </div>
+                <div class="col-span-2">
+                  <span class="text-lilacwhite/40">能量備註：</span><span class="text-lilacwhite/70 italic">${order.memo}</span>
+                </div>
+              </div>
+
+              <div class="border-t border-lavender/5 pt-4 flex justify-between items-center text-xs">
+                <span class="text-lilacwhite/40">寫入日期: ${order.date}</span>
+                <span class="text-sm font-bold text-rose font-cinzel">總計：NT$ ${order.total.toLocaleString()}</span>
+              </div>
+            </div>
+          `;
+          resultsContainer.insertAdjacentHTML('beforeend', cardHtml);
+        });
+
+        resultsContainer.classList.remove('hidden');
+      }
+    }
+
+    // ==========================================
+    // E. 基礎 SPA 導航路由
+    // ==========================================
+    function navigateTo(pageId) {
+      document.getElementById('page-index').classList.add('hidden');
+      document.getElementById('page-about').classList.add('hidden');
+      document.getElementById('page-works').classList.add('hidden');
+      document.getElementById('page-detail').classList.add('hidden');
+      document.getElementById('page-checkout').classList.add('hidden');
+      document.getElementById('page-inquiry').classList.add('hidden');
+
+      document.getElementById('page-' + pageId).classList.remove('hidden');
+      
+      // 更新 Menu 激活狀態
+      const links = document.querySelectorAll('.nav-link');
+      links.forEach(link => {
+        if (link.id === `nav-${pageId}`) {
+          link.classList.add('text-rose');
+        } else {
+          link.classList.remove('text-rose');
+        }
+      });
+
+      window.scrollTo(0, 0);
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('hidden');
+    }
+
+    // ==========================================
+    // F. 作品詳情頁載入
+    // ==========================================
+    function showDetail(projectKey) {
+      const data = projectDatabase[projectKey] || projectDatabase["履歷電商 ERP 系統"];
+
+      document.getElementById('detail-category-crumb').textContent = data.category.toUpperCase();
+      document.getElementById('detail-title-crumb').textContent = data.title;
+      document.getElementById('detail-badge').textContent = data.category;
+      document.getElementById('detail-main-title').textContent = data.title;
+      document.getElementById('detail-brief').textContent = data.brief;
+      document.getElementById('detail-main-img').src = data.img;
+      
+      document.getElementById('detail-desc-1').textContent = data.desc1;
+      document.getElementById('detail-desc-2').textContent = data.desc2;
+      document.getElementById('detail-desc-3').textContent = data.desc3;
+      document.getElementById('detail-desc-4').textContent = data.desc4;
+
+      const purchaseSection = document.getElementById('detail-purchase-section');
+      if (data.isForSale) {
+        purchaseSection.classList.remove('hidden');
+        purchaseSection.classList.add('flex');
+        document.getElementById('detail-purchase-price').textContent = data.priceString;
+        
+        const btn = document.getElementById('detail-purchase-btn');
+        btn.setAttribute('onclick', `addToCart('${projectKey}')`);
+      } else {
+        purchaseSection.classList.remove('flex');
+        purchaseSection.classList.add('hidden');
+      }
+
+      navigateTo('detail');
+    }
+
+    // ==========================================
+    // G. Works 過濾標籤功能
+    // ==========================================
+    function filterTag(tag) {
+      activeTag = tag;
+      const buttons = document.querySelectorAll('.tag-btn');
+      buttons.forEach(btn => {
+        if (btn.id === `tag-${tag}`) {
+          btn.className = "tag-btn px-4 py-1.5 rounded-full text-xs font-semibold border transition-all duration-300 bg-rose text-midnight border-rose shadow-md";
+        } else {
+          btn.className = "tag-btn px-4 py-1.5 rounded-full text-xs font-semibold border transition-all duration-300 bg-lavender/10 text-lavender border-lavender/30 hover:border-rose/60";
+        }
+      });
+      filterCards();
+    }
+
+    function filterCards() {
+      const searchVal = document.getElementById('searchInput').value.trim().toLowerCase();
+      const cards = document.querySelectorAll('.card-item');
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const category = card.getAttribute('data-category');
+        const title = card.getAttribute('data-title').toLowerCase();
+        const desc = card.querySelector('p').textContent.toLowerCase();
+
+        const matchesTag = (activeTag === 'all' || category === activeTag);
+        const matchesSearch = (title.includes(searchVal) || desc.includes(searchVal));
+
+        if (matchesTag && matchesSearch) {
+          card.classList.remove('hidden');
+          card.classList.add('flex');
+          visibleCount++;
+        } else {
+          card.classList.remove('flex');
+          card.classList.add('hidden');
+        }
+      });
+
+      const emptyState = document.getElementById('emptyState');
+      if (visibleCount === 0) {
+        emptyState.classList.remove('hidden');
+      } else {
+        emptyState.classList.add('hidden');
+      }
+    }
+
+    // ==========================================
+    // H. Classical Tarot Modal 彈窗與關閉後動作
+    // ==========================================
+    function openTarotModal(title, category, readingText) {
+      const modal = document.getElementById('tarotModal');
+      const modalBody = document.getElementById('modalBody');
+      
+      document.getElementById('modalTitle').textContent = title;
+      document.getElementById('modalCategory').textContent = category;
+      document.getElementById('modalReading').textContent = readingText;
+
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modalBody.classList.remove('scale-90');
+      modalBody.classList.add('scale-100');
+    }
+
+    function closeTarotModal() {
+      const modal = document.getElementById('tarotModal');
+      const modalBody = document.getElementById('modalBody');
+
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      modalBody.classList.remove('scale-100');
+      modalBody.classList.add('scale-90');
+
+      // 結帳成功關閉後，引導返回 Works 頁面
+      if (document.getElementById('modalCategory').textContent === '結帳成功') {
+        navigateTo('works');
+      }
+    }
+
+    // Toast 提示
+    function showToast(message) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = "bg-nebula border border-rose/40 text-lilacwhite text-xs px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 pointer-events-auto transform translate-y-4 opacity-0 transition-all duration-300";
+      toast.innerHTML = `<span>✨</span> <span class="font-serifTC">${message}</span>`;
+      container.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.classList.remove('translate-y-4', 'opacity-0');
+      }, 10);
+      
+      setTimeout(() => {
+        toast.classList.add('translate-y-4', 'opacity-0');
+        setTimeout(() => {
+          toast.remove();
+        }, 300);
+      }, 3000);
+    }
+
+    // 目錄與導航亮點
+    const tocLinks = document.querySelectorAll('.toc-link');
+    tocLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        tocLinks.forEach(l => l.className = "toc-link block py-1.5 px-3 rounded-lg text-lilacwhite/60 hover:text-rose hover:bg-rose/5 border-l-2 border-transparent transition-all");
+        this.className = "toc-link block py-1.5 px-3 rounded-lg text-rose bg-rose/10 border-l-2 border-rose font-semibold transition-all";
+      });
+    });
+  </script>
+</body>
+</html>
