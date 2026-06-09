@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JANE & SAMI | 首頁 INDEX</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Google Fonts: 襯線體與無襯線體組合 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600&display=swap" rel="stylesheet">
+    <!-- 獨立客製化 CSS 檔 -->
+    <link rel="stylesheet" href="../css/codeAi_artiface.css">
+</head>
+
+<body>
+    <div id="app" class="d-flex flex-column min-vh-100">
+        
+        <!-- 導覽列 (Navbar) -->
+        <nav class="navbar navbar-expand-lg sticky-top">
+            <div class="container">
+                <a class="navbar-brand brand-serif" href="index.html">JANE & SAMI</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="index.html">首頁 INDEX</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">關於我 ABOUT</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="works.html">作品集 WORKS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="order_search.html">訂單查詢 ORDER N</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 右側圖標功能區 -->
+                <div class="nav-icons d-none d-lg-flex gap-2">
+                    <a href="checkout.html" class="btn btn-link position-relative text-decoration-none text-light">
+                        <i class="bi bi-bag"></i>
+                        <span v-if="cartCount > 0" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-dark" style="font-size: 0.65rem;">
+                            {{ cartCount }}
+                        </span>
+                    </a>
+                    <a href="#" class="btn btn-link text-decoration-none text-light">
+                        <i class="bi bi-person"></i>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 主要內容區塊 -->
+        <main class="flex-grow-1 py-5 container">
+            
+            <!-- 核心橫幅 (Hero Banner) -->
+            <div class="row justify-content-center mb-4">
+                <div class="col-lg-11">
+                    <div class="bg-panel p-4 p-md-5 text-center">
+                        <div class="mb-4">
+                            <h1 class="hero-title display-5 fw-bold brand-serif">
+                                全端工程師 <span class="title-arrow-icon"><i class="bi bi-arrow-right-circle"></i></span>
+                            </h1>
+                        </div>
+                        <p class="hero-intro mx-auto text-light">
+                            具備系統分析視野與電商營運經驗的 Full-stack Engineer，從介面設計 (Frontend) 到資料庫管理 (Backend) 的完整整合能力，專注於透過程式碼將複雜的商務邏輯轉化為直覺、高效的系統解決方案。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 下方雙欄技術與參閱資訊 -->
+            <div class="row justify-content-center g-4">
+                <!-- 左側：多媒體圖塊組合區 -->
+                <div class="col-lg-5 col-md-6">
+                    <div class="bg-panel p-4 h-100 d-flex flex-column gap-3 justify-content-between">
+                        <div class="d-flex gap-3 align-items-stretch" style="height: 110px;">
+                            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=300&q=80" class="img-block-thumb rounded-3" alt="Desk workspace">
+                            <div class="flex-grow-1 img-block-placeholder rounded-3"></div>
+                        </div>
+                        <div class="d-flex gap-3 align-items-stretch" style="height: 110px;">
+                            <div class="flex-grow-1 img-block-placeholder rounded-3"></div>
+                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=300&q=80" class="img-block-thumb rounded-3" alt="Coding">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 右側：技術標註與圖物參閱文字說明區 -->
+                <div class="col-lg-6 col-md-6">
+                    <div class="bg-panel p-4 h-100 d-flex flex-column justify-content-center">
+                        <div class="mb-4 pb-3 border-bottom border-secondary-subtle">
+                            <h5 class="brand-serif text-accent mb-2">技術標註 {TECHNICAL STACK}</h5>
+                            <p class="small-code-muted mb-0">BUILT WITH PHP / MYSQL / BOOTSTRAP. DESIGNED IN FIGMA.</p>
+                        </div>
+                        <div>
+                            <h5 class="brand-serif text-accent mb-2">圖物參閱 {REFERENCE}</h5>
+                            <p class="small text-muted lh-base mb-0">
+                                KK魔法學院(Discord活動)、針織毛線(@窗之隙毛線編織、@柯米嘟嘟)、圖片來源:Unsplash。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 底部探索跳轉按鈕 -->
+            <div class="text-center mt-5">
+                <a href="works.html" class="btn btn-explore rounded-pill px-4 py-2">
+                    <span class="clover-icon text-success">🍀</span> 探索完整作品集冊 <span class="clover-icon text-success">🍀</span>
+                </a>
+            </div>
+
+        </main>
+
+        <!-- 頁尾 (Footer) -->
+        <footer>
+            <div class="container">
+                <p class="footer-info mb-1">台中市豐原區</p>
+                <p class="footer-info mb-3">aehow4432@gmail.com / 0956-566-576</p>
+                <hr class="footer-divider mx-auto mb-3">
+                <p class="footer-copyright mb-0 brand-serif">JANE & SAMI © 2026 JANE & SAMI. ALL RIGHTS RESERVED.</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Bootstrap 5 Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Vue 3 核心框架 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    
+    <script>
+        // 初始化本頁面的 Vue 應用程式
+        Vue.createApp({
+            data() {
+                return {
+                    // 自本地瀏覽器暫存 (localStorage) 讀取跨頁面共用的購物車數量
+                    cartCount: parseInt(localStorage.getItem('jane_sami_cart_count')) || 0
+                }
+            }
+        }).mount("#app");
+    </script>
+</body>
+
+</html>
