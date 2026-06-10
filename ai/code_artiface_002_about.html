@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JANE & SAMI | 關於我 ABOUT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght=300;400;500;700&family=Noto+Serif+TC:wght=400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/codeAi_artiface.css">
+    
+    <style>
+        /* ================= 專屬於 About 頁面的內部輔助微調 ================= */
+        .timeline-section {
+            position: relative;
+            padding-left: 35px;
+        }
+        
+        /* 縱向時間軸主幹軸線 */
+        .timeline-section::before {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 15px;
+            bottom: 15px;
+            width: 1px;
+            background-color: var(--panel-border);
+        }
+
+        /* 時間軸節點外觀 */
+        .timeline-block {
+            position: relative;
+            margin-bottom: 4rem;
+        }
+
+        .timeline-block::before {
+            content: '';
+            position: absolute;
+            left: -35px;
+            top: 10px;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background-color: var(--bg-dark);
+            border: 2px solid var(--accent-pink);
+            z-index: 2;
+            box-shadow: 0 0 8px var(--accent-pink);
+        }
+
+        /* 經歷圖片外框優化 */
+        .timeline-img-wrapper {
+            border: 1px solid var(--panel-border);
+            padding: 6px;
+            border-radius: 12px;
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .timeline-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: filter 0.3s;
+        }
+
+        .timeline-img:hover {
+            filter: brightness(1.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class="d-flex flex-column min-vh-100">
+        
+        <nav class="navbar navbar-expand-lg sticky-top">
+            <div class="container">
+                <a class="navbar-brand brand-serif" href="./code_artiface_001_index.html">JANE & SAMI</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="bi bi-list text-accent" style="font-size: 1.5rem;"></i>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="./code_artiface_001_index.html">首頁 INDEX</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="./code_artiface_002_about.html">關於我 ABOUT</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">作品集 WORKS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">訂單查詢 ORDER N</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="nav-icons d-none d-lg-flex gap-2">
+                    <a href="#" class="btn btn-link position-relative text-decoration-none text-light">
+                        <i class="bi bi-bag"></i>
+                        <span v-if="cartCount > 0" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-dark" style="font-size: 0.65rem;">
+                            {{ cartCount }}
+                        </span>
+                    </a>
+                    <a href="#" class="btn btn-link text-decoration-none text-light">
+                        <i class="bi bi-person"></i>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <main class="flex-grow-1 py-5 container">
+            
+            <div class="text-center mb-5">
+                <h1 class="hero-title display-6 fw-bold brand-serif">全端工程師</h1>
+                <p class="hero-intro mx-auto text-light mt-3">
+                    具備系統分析視野與電商營運經驗的 Full-stack Engineer，從介面設計 (Frontend) 到資料庫管理 (Backend) 的完整整合能力，專注於透過程式碼將複雜的商務邏輯轉化為直覺、高效的系統解決方案。
+                </p>
+            </div>
+
+            <div class="bg-panel p-4 p-md-5 mx-auto" style="max-width: 1020px;">
+                
+                <div class="text-center mb-5">
+                    <h6 class="brand-serif text-accent mb-2" style="letter-spacing: 2px;">✦ EXPERIENCE TIMELINE ✦</h6>
+                    <h3 class="brand-serif fw-bold text-light">生命地圖與技術歷程</h3>
+                </div>
+
+                <div class="timeline-section">
+                    
+                    <div class="timeline-block row align-items-center g-4">
+                        <div class="col-md-5 text-md-end order-1 order-md-1">
+                            <span class="badge bg-dark border border-secondary text-accent mb-2 px-3 py-1 rounded-pill" style="font-size: 0.8rem;">2026.02 - 至今</span>
+                            <h4 class="fw-bold text-light brand-serif mb-2">智慧生成與跨平台APP整合實務班</h4>
+                            <p class="small text-muted lh-base mb-0">
+                                透過 AI 協助程式的開發，在學習底層結構 HTML、CSS、JS、Vue 等語言後，能夠充分運用 AI 所寫出來的程式碼。
+                            </p>
+                        </div>
+                        <div class="col-md-7 order-2 order-md-2">
+                            <div class="timeline-img-wrapper">
+                                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80" class="timeline-img" alt="智慧生成班模擬圖">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-block row align-items-center g-4">
+                        <div class="col-md-5 order-1 order-md-2">
+                            <span class="badge bg-dark border border-secondary text-accent mb-2 px-3 py-1 rounded-pill" style="font-size: 0.8rem;">2025.02 - 2025.08</span>
+                            <h4 class="fw-bold text-light brand-serif mb-2">機械製圖與3D列印</h4>
+                            <p class="small text-muted lh-base mb-0">
+                                本組以「達摩蹺蹺板」為主題，透過 AutoCAD 與 SolidWorks 併轉換成 3D 可列印檔的軟體 (Ultimaker Cura) 進行列印製作。
+                            </p>
+                        </div>
+                        <div class="col-md-7 order-2 order-md-1">
+                            <div class="timeline-img-wrapper">
+                                <img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=800&q=80" class="timeline-img" alt="3D列印模擬圖">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-block row align-items-center g-4">
+                        <div class="col-md-5 text-md-end order-1 order-md-1">
+                            <span class="badge bg-dark border border-secondary text-accent mb-2 px-3 py-1 rounded-pill" style="font-size: 0.8rem;">2022.10 - 2024.09</span>
+                            <h4 class="fw-bold text-light brand-serif mb-2">旺旺友聯產物保險公司 | 資訊部專員</h4>
+                            <p class="small text-muted lh-base mb-0">
+                                使用者需求分析、系統分析、資料清理 / 歸納 / 產製。
+                            </p>
+                        </div>
+                        <div class="col-md-7 order-2 order-md-2">
+                            <div class="timeline-img-wrapper">
+                                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" class="timeline-img" alt="資訊部工作模擬圖">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-block row align-items-center g-4">
+                        <div class="col-md-5 order-1 order-md-2">
+                            <span class="badge bg-dark border border-secondary text-accent mb-2 px-3 py-1 rounded-pill" style="font-size: 0.8rem;">2019.09 - 2022.08</span>
+                            <h4 class="fw-bold text-light brand-serif mb-2">明祐科技有限公司 | 行政、蝦皮電商</h4>
+                            <p class="small text-muted lh-base mb-0">
+                                客服、美編、行銷、財報分析、進出貨管理。
+                            </p>
+                        </div>
+                        <div class="col-md-7 order-2 order-md-1">
+                            <div class="timeline-img-wrapper">
+                                <img src="https://images.unsplash.com/photo-1563013544-824ae1d704d3?auto=format&fit=crop&w=800&q=80" class="timeline-img" alt="電商營運模擬圖">
+                            </div>
+                        </div>
+                    </div>
+
+                </div> </div> </main>
+
+        <footer>
+            <div class="container">
+                <p class="footer-info mb-1">台中市豐原區</p>
+                <p class="footer-info mb-3">aehow4432@gmail.com / 0956-566-576</p>
+                <hr class="footer-divider mx-auto mb-3">
+                <p class="footer-copyright mb-0 brand-serif">JANE & SAMI © 2026 JANE & SAMI. ALL RIGHTS RESERVED.</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    // 自瀏覽器快取取得即時購物車商品總數
+                    cartCount: parseInt(localStorage.getItem('jane_sami_cart_count')) || 0
+                }
+            }
+        }).mount("#app");
+    </script>
+</body>
+
+</html>

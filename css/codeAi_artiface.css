@@ -1,0 +1,274 @@
+/* ==========================================================================
+   JANE & SAMI - 全網頁共用核心樣式表 (custom.css)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. 全域變數與基本設定 (Variables & Base)
+   -------------------------------------------------------------------------- */
+:root {
+    /* 色彩系統 */
+    --bg-dark: #191920;               /* 網頁主背景深色 */
+    --panel-bg: #26242e;             /* 區塊面板背景色 */
+    --panel-border: #3b3846;         /* 面板線條與邊框色 */
+    --accent-pink: #d8a7a7;          /* 核心玫瑰金色 */
+    --accent-pink-hover: #c48f8f;    /* 玫瑰金懸停/聚焦色 */
+    --text-light: #e0e0e0;           /* 主要文字淺灰 */
+    --text-muted: #8c8b96;           /* 次要/說明文字深灰 */
+    
+    /* 字型宣告 */
+    --font-serif: 'Noto Serif TC', serif;
+    --font-sans: 'Noto Sans TC', sans-serif;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    font-family: var(--font-sans);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    
+    /* 點陣背景設計：利用金屬灰微粒子打造 24px * 24px 點陣網格 */
+    background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    background-size: 24px 24px;
+    background-attachment: fixed;
+}
+
+/* 字型與色彩輔助類別 */
+.brand-serif {
+    font-family: var(--font-serif);
+    letter-spacing: 1px;
+}
+
+.text-accent {
+    color: var(--accent-pink) !important;
+}
+
+.small-code-muted {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+}
+
+/* 實體通用面板結構 */
+.bg-panel {
+    background-color: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* --------------------------------------------------------------------------
+   2. 導覽列優化 (Navbar Customization)
+   -------------------------------------------------------------------------- */
+.navbar {
+    background-color: rgba(25, 25, 32, 0.9);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 0.8rem 0;
+}
+
+.navbar-brand {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #ffffff !important;
+    transition: text-shadow 0.3s;
+}
+
+.navbar-brand:hover {
+    text-shadow: 0 0 12px rgba(216, 167, 167, 0.6);
+}
+
+.navbar-nav .nav-link {
+    color: var(--text-muted) !important;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin: 0 12px;
+    padding: 0.5rem 0;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: #ffffff !important;
+}
+
+/* 導覽列動態下底線特效 */
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background-color: var(--accent-pink);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.navbar-nav .nav-link:hover::after,
+.navbar-nav .nav-link.active::after {
+    width: 100%;
+}
+
+.nav-icons .btn-link {
+    font-size: 1.15rem;
+    transition: transform 0.2s, color 0.2s;
+    padding: 0.375rem 0.75rem;
+}
+
+.nav-icons .btn-link:hover {
+    color: var(--accent-pink) !important;
+    transform: scale(1.08);
+}
+
+/* --------------------------------------------------------------------------
+   3. 首頁核心元件樣式 (Index Core Elements)
+   -------------------------------------------------------------------------- */
+/* 大型橫幅標題下劃線 */
+.hero-title {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 12px;
+    margin-bottom: 1.5rem;
+}
+
+.hero-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 35%;
+    right: 35%;
+    height: 1px;
+    background-color: var(--accent-pink);
+}
+
+.title-arrow-icon {
+    font-size: 0.85em;
+    vertical-align: middle;
+    margin-left: 4px;
+    color: var(--accent-pink);
+}
+
+.hero-intro {
+    max-width: 820px;
+    line-height: 1.8;
+    font-size: 0.95rem;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+
+/* 首頁左側多媒體圖塊組合區 */
+.img-block-thumb {
+    width: 105px;
+    object-fit: cover;
+    border: 1px solid var(--panel-border);
+    transition: filter 0.3s;
+}
+
+.img-block-thumb:hover {
+    filter: brightness(1.1);
+}
+
+.img-block-placeholder {
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* 底部探索按鈕客製化 */
+.btn-explore {
+    border: 1px solid var(--panel-border);
+    color: var(--text-light);
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+
+.btn-explore:hover {
+    border-color: var(--accent-pink);
+    color: var(--accent-pink);
+    background-color: rgba(216, 167, 167, 0.05);
+    box-shadow: 0 0 15px rgba(216, 167, 167, 0.15);
+}
+
+.clover-icon {
+    display: inline-block;
+    margin: 0 4px;
+    font-size: 0.95rem;
+}
+
+/* --------------------------------------------------------------------------
+   4. 後續分支頁面通用排版組件 (預留擴充)
+   -------------------------------------------------------------------------- */
+/* 表單控制元件深度客製 (用於結帳與查詢頁面) */
+.form-control, .form-select {
+    background-color: #1f1d25;
+    border: 1px solid var(--panel-border);
+    color: #ffffff;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: #1f1d25;
+    border-color: var(--accent-pink);
+    color: #ffffff;
+    box-shadow: 0 0 0 0.25rem rgba(216, 167, 167, 0.18);
+}
+
+.form-control::placeholder {
+    color: #5c5a66;
+}
+
+/* 狀態標籤 (Badge) 全局標準 */
+.badge-state {
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* --------------------------------------------------------------------------
+   5. 頁尾佈局 (Footer)
+   -------------------------------------------------------------------------- */
+footer {
+    margin-top: auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 2.5rem 0;
+    background-color: rgba(20, 20, 26, 0.95);
+}
+
+.footer-info {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+}
+
+.footer-divider {
+    width: 160px;
+    border-top: 1px solid var(--panel-border);
+    opacity: 1;
+}
+
+.footer-copyright {
+    font-size: 0.75rem;
+    color: #62606e;
+    letter-spacing: 1px;
+}
+
+/* 頁面流暢載入動畫 */
+@keyframes fadeInPage {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+main {
+    animation: fadeInPage 0.4s ease-out forwards;
+}

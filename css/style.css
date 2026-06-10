@@ -15,8 +15,15 @@
 
     /* 透明係數 */
     --rose-10: rgb(205, 155, 155, 0.1);
+    --rose-50: rgb(205, 155, 155, 0.5);
     --midnight-70: rgb(28, 30, 36, 0.7);
+    --lilacwhite-30: rgb(241, 235, 245, 0.3);
     --lilacwhite-60: rgb(241, 235, 245, 0.6);
+
+    /* 漸層色系 */
+    --midnight-deep: linear-gradient(180deg, #282B35, #1E1E1E);
+    --lavender-deep: linear-gradient(180deg, #4A3E56, #25202D);
+
 
     /* ========== 字型規範 ========== */
     /* 中文 */
@@ -33,15 +40,23 @@
     font-family: var(--font-en);
 }
 
+.img-cv {
+    background-position: center center;
+    background-size: cover;
+}
+
 body {
     color: var(--lilacwhite);
     background-color: var(--midnight);
+    font-family: var(--font-cn);
 
     /* 網格背景 */
     background-image: radial-gradient(var(--rose-10) 1.5px, transparent 0);
     background-size: 20px 20px;
 }
 
+
+/* ========== header CSS 設定 ========== */
 .navbar {
     background-color: var(--midnight);
     box-shadow: 0 -2px 5px 1px var(--lilacwhite);
@@ -51,19 +66,32 @@ body {
     color: var(--lilacwhite);
     font-family: var(--font-en);
     font-size: 28px;
+    transition: color 0.3s ease, border-color 0.3s ease;
+    border-bottom: 2px solid transparent;
 }
 
 .nav-link {
     color: var(--lilacwhite);
     font-family: var(--font-cn);
+    transition: color 0.3s ease, border-color 0.3s ease;
+    border-bottom: 2px solid transparent;
 }
 
-.navbar-brand:hover, .nav-link:hover {
+.navbar-brand:hover,
+.nav-link:hover {
     color: var(--rose);
 }
 
-.active {
+.nav-link:active {
     color: var(--rose) !important;
+    opacity: 0.8;
+    transform: scale(0.98);
+}
+
+.navbar-nav .nav-link.active {
+    color: var(--rose);
+    font-weight: 700;
+    border-bottom: 2px solid var(--rose);
 }
 
 .toggler-icon {
@@ -72,7 +100,7 @@ body {
     /* vertical-align: middle; */
 }
 
-.icon-icon{
+.icon-icon {
     color: var(--lilacwhite);
     font-size: 1.5rem;
 }
@@ -83,6 +111,7 @@ body {
     font-weight: 700;
 }
 
+/* ========== Footer CSS 設定 ========== */
 .footer-copyright {
     font-size: 10px;
 }
@@ -90,4 +119,10 @@ body {
 .footer-logo {
     color: var(--rose);
     font-size: 18px;
+}
+
+.footer {
+    background-color: var(--midnight-70);
+    padding: 20px 0;
+    border-top: 1px solid var(--lilacwhite-30);
 }
