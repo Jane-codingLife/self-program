@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="css/style.css">
     <style>
         /* Content 內容物 CSS 設定 */
+
+        /* 1. 標題 Hero Title */
         .title-box {
             background: var(--midnight-deep);
             border: 1px solid var(--lilacwhite-30) !important;
@@ -33,6 +35,38 @@
             font-size: 14px;
         }
 
+        .title-icon {
+            border-radius: 50%;
+            transition: all 0.5s ease;
+        }
+
+        .title-icon:hover {
+            box-shadow: 0 0 10px 2px var(--rose-50);
+        }
+
+        /* 2. 按鈕 Button Link */
+        .btn-box {
+            border: 1px solid var(--rose-50);
+            border-radius: 50px;
+            transition: all 0.5s ease;
+        }
+
+        .btn-box .btn {
+            color: var(--rose);
+            transition: all 0.5s ease;
+        }
+
+        .btn-box:hover {
+            background-color: var(--rose);
+            box-shadow: 0 0 10px 2px var(--rose-50);
+        }
+
+        .btn-box .btn:hover {
+            color: var(--lilacwhite);
+            font-weight: 700;
+        }
+
+        /* 3. 圖卡 Card View */
         .tag-outbox {
             border: 1px solid var(--lilacwhite-30) !important;
             border-radius: 15px;
@@ -46,14 +80,51 @@
             background-color: var(--nebula);
             height: 200px;
         }
-        
+
         .tag-box {
             background: var(--rose-50);
+            border: 1px solid var(--rose);
+            border-radius: 15px;
+            text-align: center;
+            align-content: center;
+            font-size: 12px;
+            padding: 15px;
+
+            /* 關鍵修改：啟動 Flexbox 布局 */
+            display: flex;
+
+            /* 關鍵修改：允許標籤如果寬度不夠時，自動換到下一行 */
+            flex-wrap: wrap;
+
+            gap: 5px 8px;
+            align-items: center;
+            justify-content: center;
         }
 
+        .tag-item {
+            border-radius: 50px;
+            background: var(--midnight-70);
+            padding: 2px 10px;
+            box-shadow: 0 2px 0px var(--rose-50);
+
+            /* 關鍵修改：將 span 改為 block 屬性，確保 padding 與 box-shadow 渲染完全不變形 */
+            display: inline-block;
+            /* 避免英文字元或標籤在邊界被奇怪的切斷 */
+            white-space: nowrap;
+        }
+
+        .txt-title {
+            font-size: 20px;
+            color: var(--rose);
+        }
+
+        /* RWD 手機區塊修正 */
         @media screen and (max-width: 575px) {
-            .title-box {
-                border-radius: 0px;
+
+            .title-box,
+            .img-tag-box,
+            .txt-tag-box {
+                border-radius: 0;
                 border-right: 0;
                 border-left: 0;
             }
@@ -113,13 +184,13 @@
 
         <!-- 內容物 -->
         <div class="container">
-            <!-- 1. 標題 Title -->
+            <!-- 1. 標題 Hero Title -->
             <div class="row d-flex justify-content-center">
                 <div class="col-12 text-center mt-4 title-box px-2 px-lg-5">
                     <div class="d-inline-block">
                         <div class="d-flex align-items-center justify-content-center">
                             <span class="title-text px-3">全端工程師</span>
-                            <img src="img/Icon-01.png" class="title-icon">
+                            <a href="./pages/uc01-about.html"><img src="img/Icon-01.png" class="title-icon"></a>
                         </div>
                         <div class="title-line w-25 mx-auto border-top border-2 mb-3"></div>
                     </div>
@@ -129,38 +200,71 @@
                     </div>
                 </div>
             </div>
-            <!-- 2. 圖卡 Card View -->
+
+            <!-- 2. 按鈕 Button Link -->
+            <div class="row d-flex justify-content-center mt-4">
+                <div class="col-lg-3 d-flex btn-box">
+                    <div class="btn flex-fill">🍀 探索完整作品集冊 🍀</div>
+                </div>
+            </div>
+
+            <!-- 3. 圖卡 Card View -->
             <div class="row my-4">
                 <!-- 圖籤 -->
                 <div class="col-12 col-md-6 p-0 mb-3 mb-md-0 ps-md-0  pe-md-2">
                     <div class="img-tag-box tag-outbox p-3">
                         <div class="row d-flex">
                             <div class="col-4">
-                                <img src="./img/index-01.avif" class="img-fluid rounded-3">
+                                <img src="./img/index-00.avif" class="img-fluid rounded-3"
+                                    style="height: 120px;width: 100%; object-fit: cover; border: 1px solid var(--lilacwhite-30);">
                             </div>
                             <div class="col-8 d-flex">
-                                <div class="tag-box w-100 h-100">#aaa</div>
+                                <div class="tag-box w-100 h-100">
+                                    <span class="tag-item">#編織</span>
+                                    <span class="tag-item">#鉤織</span>
+                                    <span class="tag-item">#玩偶</span>
+                                    <span class="tag-item">#毛線</span>
+                                    <span class="tag-item">#商品製</span>
+                                    <span class="tag-item">#新鮮玩有趣</span>
+                                </div>
                             </div>
                         </div>
                         <div class="row d-flex flex-row flex-row-reverse mt-3">
                             <div class="col-4">
-                                <img src="./img/index-02.avif" class="img-fluid rounded-3">
+                                <img src="./img/index-02.avif" class="img-fluid rounded-3"
+                                    style="height: 120px;width: 100%; object-fit: cover; border: 1px solid var(--lilacwhite-30);">
                             </div>
                             <div class="col-8 d-flex">
-                                <div class="tag-box w-100 h-100">#bbb</div>
+                                <div class="tag-box w-100 h-100">
+                                    <span class="tag-item">#編織</span>
+                                    <span class="tag-item">#鉤織</span>
+                                    <span class="tag-item">#玩偶</span>
+                                    <span class="tag-item">#毛線</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- 文註 -->
-                <div class="col-12 col-md-6 p-0 mb-3 mb-md-0 pe-md-0  ps-md-2">
-                    <div class="txt-tag-box tag-outbox">
-
+                <div class="col-12 col-md-6 p-0 mb-3 mb-md-0 pe-md-0  ps-md-2 d-flex flex-column">
+                    <div class="txt-tag-box tag-outbox h-100 d-flex flex-column justify-content-center">
+                        <div class="row p-4">
+                            <div class="col-12">
+                                <p class=""><span class="txt-title">技術標註 </span><span class="font-en"
+                                        style="font-size: 14px;">{Technical Stack}</span></p>
+                                <p class="font-en" style="font-size: 11px;">Built with PHP / MySQL / Bootstrap. Designed
+                                    in Figma.</p>
+                            </div>
+                            <div class="border-top my-3 w-75 mx-auto"></div>
+                            <div class="col-12">
+                                <p class=""><span class="txt-title">圖物參閱 </span><span class="font-en"
+                                        style="font-size: 14px;">{Reference}</span></p>
+                                <p style="font-size: 11px;">KK魔法學院(Discord活動)、針織毛線(@雀之翎毛線編織、@柯米嘟嘟)、圖片來源:Unsplash。</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- 3. 按鈕 Button Link -->
-            <div class="row"></div>
         </div>
 
         <!-- 頁尾資訊 -->

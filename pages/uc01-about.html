@@ -11,6 +11,17 @@
     <link rel="stylesheet" href="../css/style.css">
     <style>
         /* Content 內容物 CSS 設定 */
+        .title-text {
+            font-size: 30px;
+        }
+
+        .title-line {
+            border-top-color: var(--rose-50) !important;
+        }
+
+        .title-info {
+            font-size: 14px;
+        }
     </style>
 </head>
 
@@ -66,10 +77,25 @@
 
         <!-- 內容物 -->
         <div class="container">
-            <!-- Time Title -->
-            <div class="row"></div>
+            <!-- 1. 標題 Hero Title -->
+            <div class="row d-flex justify-content-center">
+                <div class="col-12 text-center mt-4 title-box px-2 px-lg-5">
+                    <div class="d-inline-block">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <span class="title-text px-3">全端工程師</span>
+                        </div>
+                        <div class="title-line w-25 mx-auto border-top border-2 mb-3"></div>
+                    </div>
+                    <div class="title-info text-center px-sm-2 px-lg-5">
+                        具備系統分析視野與電商營運經驗的全端工程
+                        (Full-stackEngineer)，從介面設計（Frontend）到資料庫管理（Backend）的完整整合能力，專注於透過程式碼將複雜的商務邏輯轉化為直覺、高效的系統解決方案。
+                    </div>
+                </div>
+            </div>
             <!-- Timeline -->
-            <div class="row"></div>
+            <div class="row timeline-box">
+                
+            </div>
         </div>
 
         <!-- 頁尾資訊 -->
@@ -87,7 +113,7 @@
         </footer>
 
     </div>
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
 
