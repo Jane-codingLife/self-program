@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jane & Sami | 個人品牌作品集</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/website_ai_style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">Jane & Sami</a>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active">首頁</a></li>
+                <li><a href="#about" class="nav-link">關於我</a></li>
+                <li><a href="#portfolio" class="nav-link">作品集</a></li>
+                <li><a href="#contact" class="nav-link">聯絡我</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main id="app">
+
+        <section id="home" class="section-hero">
+            <div class="hero-content">
+                <h1 class="brand-title">Jane & Sami</h1>
+                <p class="brand-subtitle">探索程式、塔羅與植物醫藥的交織美學</p>
+                <div class="tarot-divider">✦ ✦ ✦</div>
+                <a href="#portfolio" class="btn-primary">瀏覽作品</a>
+            </div>
+        </section>
+
+        <section id="about" class="section-about">
+            <div class="container">
+                <h2 class="section-title">關於我<span>About Me</span></h2>
+                <div class="about-grid">
+                    <div class="about-avatar-wrapper">
+                        <div class="about-avatar"></div>
+                    </div>
+                    <div class="about-text">
+                        <h3>全端開發者 & 神祕學實踐者</h3>
+                        <p>專注於全端程式開發（PHP/MySQL/Python），並將嚴謹的資料結構邏輯，優雅地實踐於塔羅符號學與植物魔法的研究中。我相信代碼與星辰一樣，都是用來解構世界的語言。</p>
+                        <ul class="skill-tags">
+                            <li>Full-Stack Dev</li>
+                            <li>Tarot Numerology</li>
+                            <li>Herbalism</li>
+                            <li>UI/UX Design</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio" class="section-portfolio">
+            <div class="container">
+                <h2 class="section-title">精選作品<span>Portfolio</span></h2>
+                
+                <div class="portfolio-filter">
+                    <button class="filter-btn active">全部作品</button>
+                    <button class="filter-btn">程式開發</button>
+                    <button class="filter-btn">神祕學工作坊</button>
+                    <button class="filter-btn">手作工藝</button>
+                </div>
+
+                <div class="portfolio-grid">
+                    <article class="portfolio-card">
+                        <div class="card-img-placeholder">
+                            <span>全端系統開發</span>
+                        </div>
+                        <div class="card-body">
+                            <span class="card-tag">Web Dev</span>
+                            <h3 class="card-title">Jane & Sami 個人品牌全端系統</h3>
+                            <p class="card-desc">整合預約機制、塔羅資料庫管理與前端視覺的響應式整合平台。</p>
+                            <a href="#" class="card-link">深入查看 →</a>
+                        </div>
+                    </article>
+
+                    <article class="portfolio-card">
+                        <div class="card-img-placeholder">
+                            <span>神祕學網誌</span>
+                        </div>
+                        <div class="card-body">
+                            <span class="card-tag">Workshop</span>
+                            <h3 class="card-title">生命數字與塔羅圖像符號</h3>
+                            <p class="card-desc">探討 0-10 數字邏輯與大阿爾克那圖像對應的數位化工程。</p>
+                            <a href="#" class="card-link">閱讀文章 →</a>
+                        </div>
+                    </article>
+
+                    <article class="portfolio-card">
+                        <div class="card-img-placeholder">
+                            <span>魔法藥草學</span>
+                        </div>
+                        <div class="card-body">
+                            <span class="card-tag">Handicrafts</span>
+                            <h3 class="card-title">植物醫藥調配工作坊</h3>
+                            <p class="card-desc">將天然植物草本透過美學與星盤能量，轉化為實體工藝品的紀錄。</p>
+                            <a href="#" class="card-link">深入查看 →</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section-contact">
+            <div class="container">
+                <h2 class="section-title">與我聯絡<span>Contact</span></h2>
+                <div class="contact-wrapper">
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <label for="name">您的姓名 Name</label>
+                            <input type="text" id="name" required placeholder="請輸入姓名">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">電子郵件 Email</label>
+                            <input type="email" id="email" required placeholder="example@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">訊息內容 Message</label>
+                            <textarea id="message" rows="5" required placeholder="請留下您想說的話..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">傳送訊息</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 Jane & Sami. All Rights Reserved. Designed with Soul & Code.</p>
+    </footer>
+
+    <button id="topBtn" class="top-btn" title="返回頂部">✦</button>
+
+</body>
+</html>
