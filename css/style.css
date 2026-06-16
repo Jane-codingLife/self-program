@@ -1,128 +1,240 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Noto+Serif+TC:wght@200..900&display=swap');
 
+/* ==========================================================================
+   1. 品牌色彩變數宣告 (:root) - 湖水綠與天空渲染色調
+   ========================================================================== */
 :root {
-    /* ========== 色彩規範 ========== */
-    /* 午夜暗藍灰 */
-    --midnight: #1C1E24;
-    /* 星雲灰藍 */
-    --nebula: #282B35;
-    /* 煙燻玫瑰粉 */
-    --rose: #CD9B9B;
-    /* 薰衣草紫 */
-    --lavender: #957DAD;
-    /* 淡紫調白 */
-    --lilacwhite: #F1EBF5;
+    /* 背景與基底色 - 帶來自然森林的舒適與呼吸感 
+       --bg-main：迷霧冷杉（大面積背景）：帶微綠調的極舒適極淺灰，保護眼睛
+       --bg-card：清晰純白（卡片與容器）：建立層次感
+       --bg-dark-section：溪流卵石（交錯區塊背景）：舒服的淡綠灰色 
+    */
+    --bg-main: #F4F7F6;
+    --bg-card: #FFFFFF;
+    --bg-dark-section: #EAF0EE;
 
-    /* 透明係數 */
-    --rose-10: rgb(205, 155, 155, 0.1);
-    --rose-50: rgb(205, 155, 155, 0.5);
-    --midnight-70: rgb(28, 30, 36, 0.7);
-    --lilacwhite-30: rgb(241, 235, 245, 0.3);
-    --lilacwhite-60: rgb(241, 235, 245, 0.6);
+    /* 核心品牌色 - 湖水綠與薄荷 
+       --primary：深沉湖水綠（主色調）：代表神祕沉穩的森林湖泊，用於標題與主按鈕
+       --secondary：初茶薄荷（次要強調色）：早晨陽光穿透樹葉的嫩綠，用於標籤與點綴 
+       --border-color：柔和植物邊框細線 
+    */
+    --primary: #1E4D4A;
+    --secondary: #5C9387;
+    --border-color: rgba(92, 147, 135, 0.25);
 
-    /* 漸層色系 */
-    --midnight-deep: linear-gradient(180deg, #282B35, #1E1E1E);
-    --lavender-deep: linear-gradient(180deg, #4A3E56, #25202D);
+    /* 天空渲染色組 - 融入清晨大雨初晴的微光渲染 
+       --sky-light：晨曦微光天空藍
+       --sky-mid：湖面水氣薄霧藍 
+    */
+    --sky-light: #D4E7E6;
+    --sky-mid: #A2C5BF;
 
+    /* 高品質文字色彩 - 避免生硬的純黑 
+       --text-main：岩石炭黑（主內文）：帶深綠基調的炭灰，極高印刷質感
+       --text-muted：迷霧林木（次要細節）：柔和的灰綠色
+       --text-light：純淨高光白（用於暗色背景上的文字）
+    */
+    --text-main: #2C3532;
+    --text-muted: #5A6965;
+    --text-light: #FFFFFF;
 
-    /* ========== 字型規範 ========== */
-    /* 中文 */
-    --font-cn: "Noto Serif TC", serif;
-    /* 英文 */
-    --font-en: "Cinzel", serif;
+    /* 字體規範 */
+    --font-en: 'Cinzel', serif;
+    --font-zh: 'Noto Serif TC', serif;
 }
 
-.font-cn {
-    font-family: var(--font-cn);
+/* ==========================================================================
+   2. 全域重設與基礎排版
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.font-en {
-    font-family: var(--font-en);
-}
-
-.img-cv {
-    background-position: center center;
-    background-size: cover;
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
 }
 
 body {
-    color: var(--lilacwhite);
-    background-color: var(--midnight);
-    font-family: var(--font-cn);
-
-    /* 網格背景 */
-    background-image: radial-gradient(var(--rose-10) 1.5px, transparent 0);
-    background-size: 20px 20px;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: var(--font-zh), system-ui, -apple-system, sans-serif;
+    line-height: 1.75;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
 }
 
-
-/* ========== header CSS 設定 ========== */
-.navbar {
-    background-color: var(--midnight);
-    box-shadow: 0 -2px 5px 1px var(--lilacwhite);
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 20px;
 }
 
-.navbar-brand {
-    color: var(--lilacwhite);
+/* 網頁通用大標題（高級森林感排版） .h2/.h3 + .section + span
+   雙語複合式大標題（Bilingual Heading）排版技巧：
+    主標題下加上一小段精緻的英文副標題（如：作品集 <span>Portfolio</span>）
+*/
+.section-title {
+    font-family: var(--font-zh);
+    font-size: 2.2rem;
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 60px;
+    letter-spacing: 3px;
+    position: relative;
+}
+
+.section-title span {
+    display: block;
     font-family: var(--font-en);
-    font-size: 28px;
-    transition: color 0.3s ease, border-color 0.3s ease;
-    border-bottom: 2px solid transparent;
+    font-size: 0.85rem;
+    color: var(--secondary);
+
+    /* uppercase: 英文強制大寫 
+       lowercase: 英文強制小寫
+       capitalize: 首字母大寫
+       none: 取消轉換
+       full-width: 轉換全形字 */
+    text-transform: uppercase;
+
+    letter-spacing: 5px;
+    margin-top: 8px;
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   3. 全域導覽列 (Navbar) - 清晰與微毛玻璃質感
+   ========================================================================== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: rgba(244, 247, 246, 0.85);
+    /* 搭配背景的半透明迷霧感 */
+    border-bottom: 1px solid var(--border-color);
+    backdrop-filter: blur(12px);
+    /* 現代高質感毛玻璃效果 */
+    transition: background-color 0.3s;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    font-family: var(--font-en);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: none;
+    letter-spacing: 2px;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 55px;
 }
 
 .nav-link {
-    color: var(--lilacwhite);
-    font-family: var(--font-cn);
-    transition: color 0.3s ease, border-color 0.3s ease;
-    border-bottom: 2px solid transparent;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.3s, transform 0.3s;
+    letter-spacing: 1px;
 }
 
-.navbar-brand:hover,
-.nav-link:hover {
-    color: var(--rose);
+.nav-link:hover,
+.nav-link.active {
+    color: var(--primary);
+    border-bottom: 5px solid var(--primary);
+    border-radius: 50%;
 }
 
-.nav-link:active {
-    color: var(--rose) !important;
-    opacity: 0.8;
-    transform: scale(0.98);
-}
-
-.navbar-nav .nav-link.active {
-    color: var(--rose);
-    font-weight: 700;
-    border-bottom: 2px solid var(--rose);
-}
-
-.toggler-icon {
-    color: var(--lilacwhite);
-    font-size: 2rem;
-    /* vertical-align: middle; */
-}
-
-.icon-icon {
-    color: var(--lilacwhite);
-    font-size: 1.5rem;
-}
-
-.cart-menu {
-    background-color: var(--lilacwhite-60);
-    color: var(--midnight);
-    font-weight: 700;
-}
-
-/* ========== Footer CSS 設定 ========== */
-.footer-copyright {
-    font-size: 10px;
-}
-
-.footer-logo {
-    color: var(--rose);
-    font-size: 18px;
-}
-
+/* ==========================================================================
+   4.頁尾與返回頂部 (Footer & Top Button)
+   ========================================================================== */
+/* 頁尾改用深湖水綠封底，呈現穩重完結感 */
 .footer {
-    background-color: var(--midnight-70);
-    padding: 20px 0;
-    border-top: 1px solid var(--lilacwhite-30);
+    text-align: center;
+    padding: 25px;
+    padding-bottom: 55px;
+    background-color: var(--primary); 
+    color: #C5D5D2;
+    font-size: clamp(0.5rem, 2vw, 0.85rem);
+    letter-spacing: 0.5px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.top-btn {
+    position: fixed;
+    bottom: 35px;
+    right: 35px;
+    width: 46px;
+    height: 46px;
+    background-color: var(--bg-card);
+    border: 1px solid rgba(92, 147, 135, 0.3);
+    color: var(--primary);
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(30, 77, 74, 0.1);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 999;
+}
+
+.top-btn:hover {
+    background-color: var(--primary);
+    color: var(--text-light);
+    border-color: var(--primary);
+    transform: translateY(-3px);
+}
+
+.footer-rwd-btn {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+    text-align: center;
+    background-color: rgba(244, 247, 246, 0.85);
+    font-size: 2rem;
+    letter-spacing: 20px;
+    padding: 5px auto;
+}
+
+.footer-rwd-btn a {
+    color: var(--text-main);
+    transition: all 0.3s, transform 0.3s;
+}
+
+.footer-rwd-btn a:hover {
+    color: var(--text-muted);
+}
+
+/* ==========================================================================
+   RWD 響應式斷點
+   ========================================================================== */
+@media screen and (max-width: 996px) {
+    .top-btn {
+        display: none;
+    }
+}
+@media screen and (max-width: 768px) {
+    .nav-menu {
+        display: none;
+    }
 }

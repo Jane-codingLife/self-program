@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的HTML文件</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/website_ai_style.css">
+    <style>
+        /* ==========================================================================
+   追加：高品質自然森林系時間軸樣式 (Timeline Styles)
+   ========================================================================== */
+
+        .about-timeline-wrapper {
+            margin-top: 90px;
+            padding-top: 40px;
+            border-top: 1px dashed var(--border-color);
+            /* 與上方的 Skill Tags 優雅區隔 */
+        }
+
+        .timeline-main-title {
+            font-family: var(--font-zh);
+            font-size: 1.6rem;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 60px;
+            letter-spacing: 2px;
+        }
+
+        .timeline-main-title span {
+            display: block;
+            font-family: var(--font-en);
+            font-size: 0.8rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-top: 5px;
+            font-weight: 700;
+        }
+
+        /* 時間軸主骨架樹幹 */
+        .timeline-tree {
+            position: relative;
+            list-style: none;
+            padding: 0;
+            margin: 0 auto;
+            max-width: 1000px;
+        }
+
+        /* 用偽元素畫出貫穿中央的「主軸藤蔓線」 */
+        .timeline-tree::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary), rgba(92, 147, 135, 0.1));
+            transform: translateX(-50%);
+            pointer-events: none;
+        }
+
+        /* 單個時間節點盒子 */
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            /* 佔據左半邊或右半邊 */
+            margin-bottom: 50px;
+            display: flex;
+            transition: all 0.4s ease;
+        }
+
+        /* 節點 ✦ 圖標（位於中央軸線上） */
+        .timeline-dot {
+            position: absolute;
+            top: 25px;
+            width: 32px;
+            height: 32px;
+            background-color: var(--bg-card);
+            border: 2px solid var(--secondary);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 10;
+            box-shadow: 0 0 10px rgba(30, 77, 74, 0.15);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* ==========================================================================
+   左右對開排版邏輯 (利用 margin-left 與 text-align 分流)
+   ========================================================================== */
+
+        /* 左邊項目：靠左排，右邊空出來 */
+        .item-left {
+            left: 0;
+            justify-content: flex-end;
+            padding-right: 45px;
+        }
+
+        .item-left .timeline-dot {
+            right: -16px;
+            /* 剛好卡在中央軸線 */
+        }
+
+        /* 右邊項目：靠右排，左邊空出來 */
+        .item-right {
+            left: 50%;
+            justify-content: flex-start;
+            padding-left: 45px;
+        }
+
+        .item-right .timeline-dot {
+            left: -16px;
+            /* 剛好卡在中央軸線 */
+        }
+
+        /* ==========================================================================
+   時間軸卡片主體 (延續湖水綠清新與舒服質感)
+   ========================================================================== */
+        .timeline-card-content {
+            background-color: var(--bg-card);
+            border: 1px solid rgba(92, 147, 135, 0.15);
+            padding: 24px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 440px;
+            box-shadow: 0 8px 24px rgba(44, 53, 50, 0.04);
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
+        }
+
+        /* 懸停動效：卡片輕微浮起、亮色 */
+        .timeline-item:hover .timeline-card-content {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(30, 77, 74, 0.08);
+            border-color: rgba(30, 77, 74, 0.25);
+        }
+
+        .timeline-item:hover .timeline-dot {
+            background-color: var(--primary);
+            color: var(--bg-card);
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(30, 77, 74, 0.3);
+        }
+
+        /* 內部元件語彙 */
+        .timeline-date {
+            display: block;
+            font-family: var(--font-en);
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--secondary);
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        /* 專屬類別精緻標籤 (Badge) */
+        .timeline-badge {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-code {
+            background-color: #E6F2F0;
+            color: #1E4D4A;
+        }
+
+        .badge-mystic {
+            background-color: #F1EDF5;
+            color: #7B6693;
+        }
+
+        /* 帶有一點淡淡的神祕紫 */
+        .badge-craft {
+            background-color: #FAF4EE;
+            color: #A67B5B;
+        }
+
+        .badge-edu {
+            background-color: #EBF1F5;
+            color: #4A7B9D;
+        }
+
+        .timeline-title {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            font-family: var(--font-zh);
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 4px;
+        }
+
+        .timeline-location {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .timeline-desc {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            text-align: justify;
+            line-height: 1.6;
+        }
+
+        /* ==========================================================================
+   時間軸流體響應式設計 (RWD 斷點安全防護)
+   ========================================================================== */
+        @media (max-width: 820px) {
+
+            /* 核心魔法：小螢幕下將藤蔓線移至最左側 */
+            .timeline-tree::before {
+                left: 16px;
+                transform: none;
+            }
+
+            /* 每個項目恢復 100% 滿版，全自動改為靠左對齊排列 */
+            .timeline-item {
+                width: 100%;
+                margin-bottom: 40px;
+                padding-left: 45px;
+                padding-right: 0;
+            }
+
+            .item-left,
+            .item-right {
+                left: 0;
+                justify-content: flex-start;
+            }
+
+            /* 所有小手節點統一往左邊線靠攏固定 */
+            .timeline-item .timeline-dot {
+                left: 0px !important;
+                right: auto !important;
+            }
+
+            .timeline-card-content {
+                max-width: 100%;
+                /* 防止在大手機或平板上被寬度截斷 */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="about-timeline-wrapper">
+            <h3 class="timeline-main-title">核心歷程 <span>My Journey</span></h3>
+
+            <ol class="timeline-tree">
+
+                <li class="timeline-item item-right">
+                    <div class="timeline-dot">✦</div>
+                    <article class="timeline-card-content">
+                        <time class="timeline-date">2026.03 - 2026.08</time>
+                        <span class="timeline-badge badge-code">進修培訓</span>
+                        <h4 class="timeline-title">智慧生成式全端程式開發實務班</h4>
+                        <p class="timeline-location">勞動部勞動力發展署 職訓專班</p>
+                        <p class="timeline-desc">深耕全端技術架構（PHP, MySQL, Python），並將資料結構邏輯與跨平台應用程式整合（Vue 3, Bootstrap
+                            5），以此建構 Jane & Sami 品牌全端系統基礎。</p>
+                    </article>
+                </li>
+
+                <li class="timeline-item item-left">
+                    <div class="timeline-dot">✦</div>
+                    <article class="timeline-card-content">
+                        <time class="timeline-date">2026.01 - 2026.05</time>
+                        <span class="timeline-badge badge-mystic">神祕學實踐</span>
+                        <h4 class="timeline-title">生命靈數、大阿爾克那占卜工作坊</h4>
+                        <p class="timeline-location">Jane & Sami 專題工作坊</p>
+                        <p class="timeline-desc">進行 0-10 數字邏輯與西方符號學的系統化解構，設計出塔羅 JSON 結構管理模型，並實際運用於地方線下占卜工作坊與個人品牌策展。</p>
+                    </article>
+                </li>
+
+                <li class="timeline-item item-right">
+                    <div class="timeline-dot">✦</div>
+                    <article class="timeline-card-content">
+                        <time class="timeline-date">2025.06 - 2025.12</time>
+                        <span class="timeline-badge badge-craft">工藝認證</span>
+                        <h4 class="timeline-title">魔幻藥學精油與植物醫藥調配大師課程</h4>
+                        <p class="timeline-location">自然魔法工藝學苑</p>
+                        <p class="timeline-desc">深入研習西洋草本魔法學、星盤能量對應調配技術。將天然草本植物透過美學轉化為實體工藝香氛作品，奠定 Jane & Sami 實體手工藝產品線。
+                        </p>
+                    </article>
+                </li>
+
+                <li class="timeline-item item-left">
+                    <div class="timeline-dot">✦</div>
+                    <article class="timeline-card-content">
+                        <time class="timeline-date">2017.09 - 2021.06</time>
+                        <span class="timeline-badge badge-edu">高等學歷</span>
+                        <h4 class="timeline-title">資訊管理暨數位多媒體學士</h4>
+                        <p class="timeline-location">國立臺灣大學/科技大學</p>
+                        <p class="timeline-desc">系統化養成網頁前端開發（HTML, CSS）、資料庫管理系統與 UI/UX 介面設計邏輯，為跨領域數位美學平台開發提供扎實基礎。</p>
+                    </article>
+                </li>
+
+            </ol>
+        </div>
+    </div>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+
+    </script>
+</body>
+
+</html>
