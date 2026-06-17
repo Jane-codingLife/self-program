@@ -156,6 +156,66 @@
         }
 
         /* ==============================================================
+            數據看板區塊 (section-countResume)
+           ============================================================== */
+        .section-countResume {
+            background-color: var(--bg-dark-section);
+            border-top: 1px solid rgba(92, 147, 135, 0.1);
+            border-bottom: 1px solid rgba(92, 147, 135, 0.1);
+            position: relative;
+        }
+
+        .section-countResume .container {
+            padding: 50px 100px;
+        }
+
+        .count-card {
+            background-color: var(--bg-card);
+            padding: 30px 20px;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid rgba(92, 147, 135, 0.12);
+            box-shadow: 0 8px 20px rgba(44, 53, 50, 0.03);
+            display: flex;
+            flex-direction: column-reverse;
+            gap: 8px;
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s;
+        }
+
+        .count-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(30, 77, 74, 0.25);
+            box-shadow: 0 12px 25px rgba(30, 77, 74, 0.06);
+        }
+
+        .count-label {
+            font-family: var(--font-zh);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin: 0 !important;
+            letter-spacing: 1px;
+        }
+
+        .count-number {
+            font-family: var(--font-en);
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.1;
+            letter-spacing: 0.5px;
+        }
+
+        .count-number small {
+            font-family: var(--font-zh);
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--secondary);
+            margin-left: 4px;
+            letter-spacing: 0px;
+        }
+
+        /* ==============================================================
             作品集與網誌區塊 / 精選作品 (Portfolio Section)
            ============================================================== */
         .section-portfolio {
@@ -394,42 +454,54 @@
                 padding: 10px 20px;
             }
 
-            /* .container {
+            .section-countResume .container {
                 padding: 60px 20px;
-            } */
+            }
+
+            .count-card {
+                padding: 22px 15px;
+            }
+
+            .count-number {
+                font-size: 1.9rem;
+            }
+
+            .count-number small {
+                font-size: 0.8rem;
+            }
 
         }
     </style>
 </head>
 
 <body>
-    <div class="header">
-        <nav class="navbar navbar-expand-lg">
-            <div class="container nav-container justify-content-center">
-                <a class="navbar-brand nav-logo" href="#">
-                    <!-- Logo 也加入這兒 -->
-                    Jane & Sami
-                </a>
-                <div class="collapse navbar-collapse justify-content-center">
-                    <ul class="navbar-nav nav-menu">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#home">首頁</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#about">關於我</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#portfolio">作品集</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#contact">聯絡我</a>
-                        </li>
-                    </ul>
-                </div>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container nav-container justify-content-center">
+            <a class="navbar-brand nav-logo" href="#">
+                <!-- Logo 也加入這兒 -->
+                Jane & Sami
+            </a>
+            <div class="collapse navbar-collapse justify-content-center">
+                <ul class="navbar-nav nav-menu">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#home">首頁</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">關於我</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#portfolio">作品集</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">聯絡我</a>
+                    </li>
+                </ul>
             </div>
-        </nav>
-    </div>
+        </div>
+    </nav>
 
+    <!-- 內容區塊 -->
     <div class="content">
         <!-- Hero 首頁看板 ( < 待設計可輪轉 > ) -->
         <section id="home" class="section-hero">
@@ -444,7 +516,9 @@
         <!-- About 關於我 -->
         <section id="about" class="section-about">
             <div class="container">
-                <a href="" class="text-decoration-none"><div class="h2 section-title">關於我 <i class="bi bi-signpost"></i><span>About Me</span></div></a>
+                <a href="" class="text-decoration-none">
+                    <div class="h2 section-title">關於我 <i class="bi bi-signpost"></i><span>About Me</span></div>
+                </a>
                 <div class="about-grid">
                     <div class="about-avatar-wrapper d-flex justify-content-center">
                         <div class="about-avatar"></div>
@@ -471,10 +545,46 @@
             </div>
         </section>
 
+        <!-- 數據統計：工作經驗、作品集、證照/書 -->
+        <section id="countResume" class="section-countResume">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-6 col-lg-3">
+                        <div class="count-card">
+                            <p class="count-label">工作經驗</p>
+                            <span class="count-number">2-3 <small>年</small></span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="count-card">
+                            <p class="count-label">精選作品</p>
+                            <span class="count-number">10+ <small>組</small></span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="count-card">
+                            <p class="count-label">專業證照</p>
+                            <span class="count-number">5 <small>份</small></span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="count-card">
+                            <p class="count-label">修讀時數</p>
+                            <span class="count-number">900+ <small>hr</small></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-0 m-0" style="background-color: var(--bg-card); height: 100px;">
+
         <!-- Protfolio 精選作品集 (3 card) -->
         <section id="portfolio" class="section-portfolio">
             <div class="container">
-                <a href="" class="text-decoration-none"><div class="h2 section-title">精選作品 <i class="bi bi-signpost-2"></i><span>Portfolio</span></div></a>
+                <a href="" class="text-decoration-none">
+                    <div class="h2 section-title">精選作品 <i class="bi bi-signpost-2"></i><span>Portfolio</span></div>
+                </a>
 
                 <div class="portfolio-filter">
                     <button class="filter-btn">程式開發</button>
@@ -549,13 +659,12 @@
         </section>
     </div>
 
+    <!-- 頁尾 footer -->
     <div class="footer">
         <div class="footer-text">
             <p>&copy; 2026 Jane & Sami. All Rights Reserved. Designed with Soul & Code.</p>
         </div>
     </div>
-
-    <button id="top-btn" class="top-btn" title="返回頂部">✦</button>
 
     <!-- RWD 選單 -->
     <div class="footer-rwd-btn d-lg-none sticky-bottom">
@@ -564,6 +673,8 @@
         <a href="#portfolio"><i class="bi bi-journals"></i></a>
         <a href="#contact"><i class="bi bi-chat-heart"></i></a>
     </div>
+
+    <!-- <button id="top-btn" class="top-btn" title="返回頂部">✦</button> -->
 
     <script src="js/bootstrap.bundle.min.js"></script>
 </body>
