@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jane & Sami | 網誌</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
     <style>
 
     </style>
@@ -14,7 +14,7 @@
 
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg show-nav">
         <div class="container nav-container justify-content-center">
             <a class="navbar-brand nav-logo" href="#">
                 <!-- Logo 也加入這兒 -->
@@ -39,15 +39,34 @@
         </div>
     </nav>
 
-    <!-- 內容區塊 -->
+    <!-- 內容區塊：Timeline -->
     <div class="content">
-        <!-- Hero Title -->
-        <section class="hero-title">
-            
-        </section>
-        <!-- Timeline -->
         <section class="section-timeline">
-
+            <section class="section-title"><span></span></section>
+            <ol class="timeline-tree">
+                <li class="timeline-item item-right">
+                    <div class="timeline-dot">✦</div>
+                    <article class="timeline-card">
+                        <time class="timeline-timebox">2026.03 - 2026.08</time>
+                        <span class="timeline-badge badge-tag">進修培訓</span>
+                        <h4 class="timeline-title">智慧生成式全端程式開發實務班</h4>
+                        <p class="timeline-location">勞動部勞動力發展署 職訓專班</p>
+                        <p class="timeline-desc">深耕全端技術架構（PHP, MySQL, Python），並將資料結構邏輯與跨平台應用程式整合（Vue 3, Bootstrap
+                            5），以此建構 Jane & Sami 品牌全端系統基礎。</p>
+                        <ul class="timeline-hashtag">
+                            <li>#前後端</li>
+                            <li>#HTML</li>
+                            <li>#CSS</li>
+                            <li>#JavaScript</li>
+                            <li>#Vue</li>
+                            <li>#PHP</li>
+                            <li>#MySQL</li>
+                            <li>#XAMPP</li>
+                        </ul>
+                    </article>
+                </li>
+                <li class="timeline-item item-left"></li>
+            </ol>
         </section>
     </div>
 
@@ -68,7 +87,7 @@
 
     <!-- <button id="top-btn" class="top-btn" title="返回頂部">✦</button> -->
 
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
 

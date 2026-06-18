@@ -120,6 +120,11 @@ body {
     backdrop-filter: blur(12px);
     /* 現代高質感毛玻璃效果 */
     transition: background-color 0.3s;
+    transform: translateY(-100px);
+}
+
+.show-nav {
+    transform: translateY(0);
 }
 
 .nav-container {
