@@ -552,25 +552,25 @@
                     <div class="col-6 col-lg-3">
                         <div class="count-card">
                             <p class="count-label">工作經驗</p>
-                            <span class="count-number">2-3 <small>年</small></span>
+                            <span class="count-number c1">2.5+ <small>年</small></span>
                         </div>
                     </div>
                     <div class="col-6 col-lg-3">
                         <div class="count-card">
                             <p class="count-label">精選作品</p>
-                            <span class="count-number">10+ <small>組</small></span>
+                            <span class="count-number c2">10+ <small>組</small></span>
                         </div>
                     </div>
                     <div class="col-6 col-lg-3">
                         <div class="count-card">
                             <p class="count-label">專業證照</p>
-                            <span class="count-number">5 <small>份</small></span>
+                            <span class="count-number c3">5 <small>份</small></span>
                         </div>
                     </div>
                     <div class="col-6 col-lg-3">
                         <div class="count-card">
                             <p class="count-label">修讀時數</p>
-                            <span class="count-number">900+ <small>hr</small></span>
+                            <span class="count-number c4">900+ <small>hr</small></span>
                         </div>
                     </div>
                 </div>
@@ -677,6 +677,35 @@
     <!-- <button id="top-btn" class="top-btn" title="返回頂部">✦</button> -->
 
     <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/counterup2@2.0.2/dist/index.js">	</script>
+    <script>
+        const counterUp = window.counterUp.default
+
+        const callback = entries => {
+            entries.forEach(entry => {
+                const el = entry.target
+                if (entry.isIntersecting && !el.classList.contains('is-visible')) {
+                    counterUp(el, {
+                        duration: 1000,
+                        delay: 16,
+                    })
+                    el.classList.add('is-visible')
+                }
+            })
+        }
+
+        const IO = new IntersectionObserver(callback, { threshold: 1 })
+
+        const el1 = document.querySelector('.c1')
+        IO.observe(el1)
+        const el2 = document.querySelector('.c2')
+        IO.observe(el2)
+        const el3 = document.querySelector('.c3')
+        IO.observe(el3)
+        const el4 = document.querySelector('.c4')
+        IO.observe(el4)
+
+    </script>
 </body>
 
 </html>
