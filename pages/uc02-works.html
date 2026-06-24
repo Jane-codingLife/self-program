@@ -4,12 +4,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jane & Sami | 網誌</title>
+    <title>Jane & Sami | 精選作品集</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/all.min.css">
     <style>
+        .content {
+            padding-top: 100px;
+            background: linear-gradient(180deg, var(--sky-light) 0%, var(--bg-main) 150px);
+        }
 
+        /* ==============================================================
+            portfolio-hero：搜尋功能區塊優化 (.search-box)
+           ============================================================== */
+        .search-box {
+            max-width: 700px;
+            margin: 0 auto 40px auto;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(30, 77, 74, 0.04);
+            border-radius: 30px;
+        }
+
+        .search-box input {
+            border: 1px solid rgba(92, 147, 135, 0.25);
+            /* 留出左側給放大鏡圖標的空間 */
+            padding: 15px 25px 15px 55px;
+            border-radius: 30px;
+            width: 100%;
+            font-size: 0.98rem;
+            color: var(--text-main);
+            background-color: var(--bg-card);
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(30, 77, 74, 0.08);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 22px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary) !important; /* 強制切換為初茶薄荷綠 */
+            font-size: 1.15rem;
+        }
+
+        /* ==============================================================
+            portfolio-hero：快速搜尋標籤組優化 (.portfolio-filter)
+           ============================================================== */
+        .portfolio-tag {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 55px;
+            flex-wrap: wrap;
+        }
+
+        .tag-btn {
+            background-color: var(--bg-card);
+            border: 1px solid rgba(92, 147, 135, 0.15);
+            color: var(--text-muted);
+            padding: 8px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* 當滑鼠懸停 (Hover) 與激活狀態 (Active) 的高級流體渲染 */
+        .tag-btn:hover,
+        .tag-btn.active {
+            border-color: transparent;
+            color: var(--text-light) !important;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            box-shadow: 0 4px 15px rgba(30, 77, 74, 0.18);
+            transform: translateY(-1px);
+        }
+
+        /* ==============================================================
+            portfolio-grid：作品八宮格卡片矩陣優化 (.portfolio-grid)
+           ============================================================== */
+        .portfolio-card {
+            background-color: var(--bg-card);
+            border-radius: 16px; /* 舒服自然的有機圓角 */
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(44, 53, 50, 0.04);
+            border: 1px solid rgba(92, 147, 135, 0.12);
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s, border-color 0.3s;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-6px); /* 溫柔浮起 */
+            box-shadow: 0 20px 40px rgba(30, 77, 74, 0.08);
+            border-color: rgba(30, 77, 74, 0.25);
+        }
+
+        .card-img {
+            height: 220px;
+            background: linear-gradient(135deg, var(--sky-light) 0%, #C2DBD7 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.15rem;
+            letter-spacing: 1.5px;
+            border-bottom: 1px solid rgba(92, 147, 135, 0.08);
+        }
+
+        .card-body {
+            padding: 28px;
+        }
+
+        .card-tag {
+            font-family: var(--font-en);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            margin: 10px 0 14px 0;
+            color: var(--text-main);
+            font-family: var(--font-zh);
+            font-weight: 700;
+        }
+
+        .card-desc {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            margin-bottom: 24px;
+            height: 52px;
+            overflow: hidden;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        .read-more {
+            display: block;
+            justify-self: center;
+            background-color: var(--bg-main);
+            color: var(--primary) !important;
+            text-decoration: none !important;
+            padding: 11px 50px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            border: 1px solid rgba(92, 147, 135, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .read-more:hover {
+            background: linear-gradient(90deg, var(--primary) 0%, #296662 100%);
+            color: var(--text-light) !important;
+            box-shadow: 0 4px 12px rgba(30, 77, 74, 0.15);
+        }
+
+        /* ==============================================================
+            number-page / scroll-page：切頁標籤
+           ============================================================== */
+        .number-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 90px;
+        }
+        .page-number-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid rgba(92, 147, 135, 0.2);
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none !important;
+            font-family: var(--font-en);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .page-number-btn:hover, 
+        .page-number-btn.active {
+            background-color: var(--primary);
+            color: var(--text-light) !important;
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(30, 77, 74, 0.15);
+        }
+
+        .scroll-page {
+            text-align: center;
+            padding: 15px 0 30px 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .scroll-page i {
+            margin-right: 8px;
+            animation: rotateLoader 2s infinite linear; /* 讓加載圖標優雅旋轉 */
+        }
+
+        @keyframes rotateLoader {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 
@@ -30,10 +242,10 @@
                         <a class="nav-link" href="./uc01-about.html">關於我</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">作品集</a>
+                        <a class="nav-link active" href="./uc02-works.html">作品集</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#contact">聯絡我</a>
+                        <a class="nav-link" href="../index.html#contact">聯絡我</a>
                     </li>
                 </ul>
             </div>
@@ -41,9 +253,126 @@
     </nav>
 
     <!-- 內容區塊 -->
-    <div class="works content">
-        
-    </div>
+    <main class="works content">
+        <!-- 標題與查詢區塊 -->
+        <section class="portfolio-hero container">
+            <!-- 標題 -->
+            <div class="section-title">
+                精選作品集<i class="bi bi-journals ms-2"></i>
+                <span>Protfoilo</span>
+            </div>
+            <!-- 查詢欄 -->
+            <div class="search-box">
+                <i class="bi bi-search"></i>
+                <input type="text" placeholder="輸入關鍵字搜尋作品項目（例如：Vue, 針織, 藥草）...">
+            </div>
+            <!-- 快速查詢標籤：預設全部作品 -->
+            <div class="portfolio-tag">
+                <button class="tag-btn active">全部作品</button>
+                <button class="tag-btn">程式開發</button>
+                <button class="tag-btn">手作工藝</button>
+                <button class="tag-btn">玄學工作坊</button>
+                <button class="tag-btn">魔法藥草學</button>
+            </div>
+        </section>
+        <!-- 卡片區塊(xl-3*8, md-6*4, 1*4)-->
+        <section class="portfolio-grid container pt-0">
+            <div class="portfolio-list row">
+                <div class="portfolio-item col-12 col-md-6 col-xl-3 mb-3">
+                    <article class="portfolio-card">
+                        <div class="card-img">
+                            <img src="" alt="">
+                            <div class="card-badge">程式開發</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-tag">程式開發</div>
+                            <h3 class="card-title">Jane & Sami 個人品牌全端系統</h3>
+                            <p class="card-desc">整合預約機制、塔羅資料庫管理與前端視覺的響應式整合平台。</p>
+                        </div>
+                        <div class="card-btn">
+                            <button class="btn read-more">
+                                詳細查閱
+                                <i class="fa-solid fa-arrow-pointer" style="color: var(--primary);"></i>
+                            </button>
+                        </div>
+                    </article>
+                </div>
+                <div class="portfolio-item col-12 col-md-6 col-xl-3 mb-3">
+                    <article class="portfolio-card">
+                        <div class="card-img">
+                            <img src="" alt="">
+                            <div class="card-badge">程式開發</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-tag">程式開發</div>
+                            <h3 class="card-title">Jane & Sami 個人品牌全端系統</h3>
+                            <p class="card-desc">整合預約機制、塔羅資料庫管理與前端視覺的響應式整合平台。</p>
+                        </div>
+                        <div class="card-btn">
+                            <button class="btn read-more">
+                                詳細查閱
+                                <i class="fa-solid fa-arrow-pointer" style="color: var(--primary);"></i>
+                            </button>
+                        </div>
+                    </article>
+                </div>
+                <div class="portfolio-item col-12 col-md-6 col-xl-3 mb-3">
+                    <article class="portfolio-card">
+                        <div class="card-img">
+                            <img src="" alt="">
+                            <div class="card-badge">程式開發</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-tag">程式開發</div>
+                            <h3 class="card-title">Jane & Sami 個人品牌全端系統</h3>
+                            <p class="card-desc">整合預約機制、塔羅資料庫管理與前端視覺的響應式整合平台。</p>
+                        </div>
+                        <div class="card-btn">
+                            <button class="btn read-more">
+                                詳細查閱
+                                <i class="fa-solid fa-arrow-pointer" style="color: var(--primary);"></i>
+                            </button>
+                        </div>
+                    </article>
+                </div>
+                <div class="portfolio-item col-12 col-md-6 col-xl-3 mb-3">
+                    <article class="portfolio-card">
+                        <div class="card-img">
+                            <img src="" alt="">
+                            <div class="card-badge">程式開發</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-tag">程式開發</div>
+                            <h3 class="card-title">Jane & Sami 個人品牌全端系統</h3>
+                            <p class="card-desc">整合預約機制、塔羅資料庫管理與前端視覺的響應式整合平台。</p>
+                        </div>
+                        <div class="card-btn">
+                            <button class="btn read-more">
+                                詳細查閱
+                                <i class="fa-solid fa-arrow-pointer" style="color: var(--primary);"></i>
+                            </button>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <!-- 分頁模式(手機版採用下拉載入) -->
+        <div class="number-page d-none d-md-flex">
+            <a href="#" class="page-number-btn page-arrow-btn">
+                <i class="fa-solid fa-angle-left" style="color: var(--primary);"></i>
+            </a>
+            <a href="#" class="page-number-btn active">1</a>
+            <a href="#" class="page-number-btn">2</a>
+            <a href="#" class="page-number-btn">3</a>
+            <a href="#" class="page-number-btn page-arrow-btn">
+                <i class="fa-solid fa-angle-right" style="color: var(--primary);"></i>
+            </a>
+        </div>
+        <div class="scroll-page d-md-none">
+            <i class="fa-solid fa-arrow-rotate-right" style="color: var(--secondary);"></i>
+            <span>向上滑動或下拉以載入更多作品...</span>
+        </div>
+    </main>
 
     <!-- 頁尾 footer -->
     <div class="footer">
@@ -55,9 +384,9 @@
     <!-- RWD 選單 -->
     <div class="footer-rwd-btn d-lg-none sticky-bottom">
         <a href="../index.html"><i class="bi bi-house-heart-fill"></i></a>
-        <a href="#"><i class="bi bi-bluesky"></i></a>
-        <a href="#portfolio"><i class="bi bi-journals"></i></a>
-        <a href="#contact"><i class="bi bi-chat-heart"></i></a>
+        <a href="./uc01-about.html"><i class="bi bi-bluesky"></i></a>
+        <a href="./uc02-works.html"><i class="bi bi-journals"></i></a>
+        <a href="../index.html#contact"><i class="bi bi-chat-heart"></i></a>
     </div>
 
     <!-- <button id="top-btn" class="top-btn" title="返回頂部">✦</button> -->

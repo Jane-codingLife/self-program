@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant-TW">
 
 <head>
     <meta charset="UTF-8">
@@ -8,100 +8,182 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/all.min.css">
     <style>
-        /* ==============================================================
-            作品集分頁專屬擴充樣式 (Premium Portfolio Style)
-           ============================================================== */
-        .portfolio-page-hero {
-            padding-top: 140px; /* 避開上方固定毛玻璃導覽列 */
-            padding-bottom: 40px;
-            background: linear-gradient(180deg, var(--sky-light) 0%, var(--bg-main) 100%);
-            text-align: center;
+        /* ==========================================================================
+           作品集分頁專屬擴充樣式 - 暮光森林與湖水綠色調改版
+           ========================================================================== */
+        
+        body {
+            background-color: var(--bg-main); /* 預先套用舒服的迷霧冷杉淺底 */
+            color: var(--text-main);
         }
 
-        /* 搜尋引擎區塊容器 */
-        .search-engine-wrapper {
+        .content {
+            padding-top: 140px; /* 完美避開上方固定毛玻璃導覽列 */
+            background: linear-gradient(180deg, var(--sky-light) 0%, var(--bg-main) 150px);
+        }
+
+        /* 1. 搜尋功能區塊優化 (.search-box) */
+        .search-box {
             max-width: 700px;
             margin: 0 auto 40px auto;
             position: relative;
-        }
-
-        /* 高階感自然搜尋框 */
-        .search-input-group {
-            position: relative;
-            box-shadow: 0 8px 25px rgba(30, 77, 74, 0.04);
+            box-shadow: 0 10px 30px rgba(30, 77, 74, 0.04); /* 輕盈森林微風陰影 */
             border-radius: 30px;
-            overflow: hidden;
         }
 
-        .search-control {
-            border: 1px solid rgba(92, 147, 135, 0.2);
-            padding: 16px 25px 16px 55px;
+        .search-box input {
+            border: 1px solid rgba(92, 147, 135, 0.25);
+            padding: 15px 25px 15px 55px; /* 留出左側給放大鏡圖標的空間 */
             border-radius: 30px;
             width: 100%;
-            font-size: 1rem;
+            font-size: 0.98rem;
             color: var(--text-main);
-            background-color: var(--bg-card);
+            background-color: var(--bg-card); /* 純白底突顯清晰 */
             transition: all 0.3s ease;
         }
 
-        .search-control:focus {
+        .search-box input:focus {
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(30, 77, 74, 0.08);
+            border-color: var(--primary); /* 聚焦時亮起深湖水綠 */
+            box-shadow: 0 0 0 4px rgba(30, 77, 74, 0.08); /* 柔和外圈光暈 */
         }
 
-        .search-icon-inside {
+        .search-box i {
             position: absolute;
             left: 22px;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--secondary);
-            font-size: 1.2rem;
+            color: var(--secondary) !important; /* 強制切換為初茶薄荷綠 */
+            font-size: 1.15rem;
         }
 
-        /* 快速搜尋快速過濾標籤組 */
-        .portfolio-tags-group {
+        /* 2. 快速搜尋標籤組優化 (.portfolio-filter) */
+        .portfolio-filter {
             display: flex;
             justify-content: center;
             gap: 12px;
-            margin-bottom: 50px;
+            margin-bottom: 55px;
             flex-wrap: wrap;
         }
 
-        .tag-btn {
+        .filter-btn {
             background-color: var(--bg-card);
             border: 1px solid rgba(92, 147, 135, 0.15);
             color: var(--text-muted);
-            padding: 8px 22px;
-            border-radius: 20px;
-            font-size: 0.88rem;
-            font-weight: 500;
+            padding: 8px 24px;
+            border-radius: 25px;
             cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        .tag-btn:hover, .tag-btn.active {
-            color: var(--text-light);
-            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+        /* 當滑鼠懸停 (Hover) 與激活狀態 (Active) 的高級流體渲染 */
+        .filter-btn:hover,
+        .filter-btn.active {
             border-color: transparent;
-            box-shadow: 0 4px 12px rgba(30, 77, 74, 0.15);
+            color: var(--text-light) !important;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%); /* 天空至湖泊的交織漸層 */
+            box-shadow: 0 4px 15px rgba(30, 77, 74, 0.18);
             transform: translateY(-1px);
         }
 
-        /* 作品矩陣格線調整 */
-        .portfolio-list-grid {
+        /* 3. 作品八宮格卡片矩陣優化 (.portfolio-grid) */
+        .portfolio-grid {
             margin-bottom: 60px;
         }
 
-        /* 精品級網頁版分頁頁碼器 (Pagination) */
-        .premium-pagination {
+        .portfolio-card {
+            background-color: var(--bg-card);
+            border-radius: 16px; /* 舒服自然的有機圓角 */
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(44, 53, 50, 0.04);
+            border: 1px solid rgba(92, 147, 135, 0.12);
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s, border-color 0.3s;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-6px); /* 溫柔浮起 */
+            box-shadow: 0 20px 40px rgba(30, 77, 74, 0.08);
+            border-color: rgba(30, 77, 74, 0.25);
+        }
+
+        /* 卡片上方模擬水氣與清晨天空的渲染塊 */
+        .card-img-placeholder {
+            height: 220px;
+            background: linear-gradient(135deg, var(--sky-light) 0%, #C2DBD7 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.15rem;
+            letter-spacing: 1.5px;
+            border-bottom: 1px solid rgba(92, 147, 135, 0.08);
+        }
+
+        .card-body {
+            padding: 28px;
+        }
+
+        .card-tag {
+            font-family: var(--font-en);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            margin: 10px 0 14px 0;
+            color: var(--text-main);
+            font-family: var(--font-zh);
+            font-weight: 700;
+        }
+
+        .card-desc {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            margin-bottom: 24px;
+            height: 52px;
+            overflow: hidden;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        /* 新增：卡片內部的高級精品感 Detail 按鈕細節優化 */
+        .card-link {
+            display: block;
+            text-align: center;
+            background-color: var(--bg-main);
+            color: var(--primary) !important;
+            text-decoration: none !important;
+            padding: 11px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            border: 1px solid rgba(92, 147, 135, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .card-link:hover {
+            background: linear-gradient(90deg, var(--primary) 0%, #296662 100%);
+            color: var(--text-light) !important;
+            box-shadow: 0 4px 12px rgba(30, 77, 74, 0.15);
+        }
+
+        /* 4. 網頁版分頁器優化 (.pagination-container) */
+        .pagination-container {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 10px;
-            margin-bottom: 100px;
+            margin-bottom: 90px;
         }
 
         .page-number-btn {
@@ -114,224 +196,230 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            text-decoration: none;
+            text-decoration: none !important;
             font-family: var(--font-en);
             font-weight: 600;
             font-size: 0.95rem;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        .page-number-btn:hover, .page-number-btn.active {
+        .page-number-btn:hover, 
+        .page-number-btn.active {
             background-color: var(--primary);
             color: var(--text-light) !important;
             border-color: var(--primary);
-            box-shadow: 0 4px 10px rgba(30, 77, 74, 0.12);
+            box-shadow: 0 4px 12px rgba(30, 77, 74, 0.15);
         }
 
-        .page-arrow-btn {
-            color: var(--primary);
-            font-size: 1.1rem;
-        }
-
-        /* 手機端下拉加載提示 (預留給 Infinite Scroll) */
-        .mobile-infinite-loader {
+        /* 5. 手機端下拉加載提示優化 (.scroll-page) */
+        .scroll-page {
             text-align: center;
-            padding: 20px 0;
+            padding: 15px 0 30px 0;
             color: var(--text-muted);
             font-size: 0.9rem;
             letter-spacing: 1px;
         }
-        
-        /* 響應式卡片內部按鈕升級 */
-        .portfolio-card .btn-detail-link {
-            display: block;
-            text-align: center;
-            background-color: var(--bg-main);
-            color: var(--primary);
-            text-decoration: none;
-            padding: 10px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.88rem;
-            transition: all 0.3s;
-            border: 1px solid rgba(92, 147, 135, 0.15);
+
+        .scroll-page i {
+            margin-right: 8px;
+            animation: rotateLoader 2s infinite linear; /* 讓加載圖標優雅旋轉 */
         }
 
-        .portfolio-card .btn-detail-link:hover {
-            background: linear-gradient(90deg, var(--primary) 0%, #296662 100%);
-            color: var(--text-light);
-            box-shadow: 0 4px 12px rgba(30, 77, 74, 0.15);
+        @keyframes rotateLoader {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 
 <body>
-    <div class="header">
-        <nav class="navbar navbar-expand-lg">
-            <div class="container nav-container justify-content-center">
-                <a class="navbar-brand nav-logo" href="index.html">Jane & Sami</a>
-                <div class="collapse navbar-collapse justify-content-center">
-                    <ul class="navbar-nav nav-menu">
-                        <li class="nav-item"><a class="nav-link" href="index.html#home">首頁</a></li>
-                        <li class="nav-item"><a class="nav-link" href="index.html#about">關於我</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="portfolio.html">作品集</a></li>
-                        <li class="nav-item"><a class="nav-link" href="index.html#contact">聯絡我</a></li>
-                    </ul>
-                </div>
+    <nav class="navbar navbar-expand-lg show-nav">
+        <div class="container nav-container justify-content-center">
+            <a class="navbar-brand nav-logo" href="../index.html">Jane & Sami</a>
+            <div class="collapse navbar-collapse justify-content-center">
+                <ul class="navbar-nav nav-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="../index.html">首頁</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./uc01-about.html">關於我</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="./uc02-works.html">作品集</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#contact">聯絡我</a>
+                    </li>
+                </ul>
             </div>
-        </nav>
-    </div>
+        </div>
+    </nav>
 
     <main class="content">
-        <section class="portfolio-page-hero">
-            <div class="container">
-                <div class="h2 section-title">精選作品集<i class="bi bi-journals ms-2"></i><span>My Creations</span></div>
+        <div class="container">
+            <div class="h2 section-title">精選作品集<i class="bi bi-journals ms-2"></i><span>Portfolio</span></div>
+
+            <div class="search-box">
+                <i class="bi bi-search"></i>
+                <input type="text" placeholder="輸入關鍵字搜尋作品項目（例如：Vue, 針織, 藥草）...">
+            </div>
+
+            <div class="portfolio-filter">
+                <button class="filter-btn active">全部作品</button>
+                <button class="filter-btn">程式開發</button>
+                <button class="filter-btn">手作工藝</button>
+                <button class="filter-btn">玄學工作坊</button>
+                <button class="filter-btn">魔法藥草學</button>
+            </div>
+
+            <div class="portfolio-grid row g-4">
                 
-                <div class="search-engine-wrapper">
-                    <div class="search-input-group">
-                        <i class="bi bi-search search-icon-inside"></i>
-                        <input type="text" class="search-control" placeholder="輸入關鍵字搜尋作品項目（例如：Vue, 針織, 藥草）...">
-                    </div>
+                <div class="col-12 col-md-6 col-xl-3">
+                    <article class="portfolio-card h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="card-img-placeholder"><span>程式開發</span></div>
+                            <div class="card-body">
+                                <span class="card-tag">Web Dev</span>
+                                <h3 class="card-title">Jane & Sami 個人品牌全端系統</h3>
+                                <p class="card-desc">整合預約機制、塔羅資料庫管理與前端視覺的響應式整合平台。</p>
+                            </div>
+                        </div>
+                        <div class="px-4 pb-4">
+                            <a href="portfolio-detail.html?id=1" class="card-link">詳細資料 <i class="bi bi-arrow-right-short"></i></a>
+                        </div>
+                    </article>
                 </div>
 
-                <div class="portfolio-tags-group">
-                    <button class="tag-btn active">全部作品</button>
-                    <button class="tag-btn">程式開發</button>
-                    <button class="tag-btn">手作工藝</button>
-                    <button class="tag-btn">玄學工作坊</button>
-                    <button class="tag-btn">魔法藥草學</button>
+                <div class="col-12 col-md-6 col-xl-3">
+                    <article class="portfolio-card h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="card-img-placeholder"><span>玄學工作坊</span></div>
+                            <div class="card-body">
+                                <span class="card-tag">Life Science</span>
+                                <h3 class="card-title">生命數字與塔羅圖像符號</h3>
+                                <p class="card-desc">探討 0-10 數字邏輯與大阿爾克那圖像對應的數位化工程。</p>
+                            </div>
+                        </div>
+                        <div class="px-4 pb-4">
+                            <a href="portfolio-detail.html?id=2" class="card-link">詳細資料 <i class="bi bi-arrow-right-short"></i></a>
+                        </div>
+                    </article>
                 </div>
+
+                <div class="col-12 col-md-6 col-xl-3">
+                    <article class="portfolio-card h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="card-img-placeholder"><span>手作工藝</span></div>
+                            <div class="card-body">
+                                <span class="card-tag">Handicrafts</span>
+                                <h3 class="card-title">針與線的交織舞動</h3>
+                                <p class="card-desc">探索一針一線中組織的流動生命與細膩觸感結構成型。</p>
+                            </div>
+                        </div>
+                        <div class="px-4 pb-4">
+                            <a href="portfolio-detail.html?id=3" class="card-link">詳細資料 <i class="bi bi-arrow-right-short"></i></a>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="col-12 col-md-6 col-xl-3">
+                    <article class="portfolio-card h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="card-img-placeholder"><span>魔法藥草學</span></div>
+                            <div class="card-body">
+                                <span class="card-tag">Herbalism</span>
+                                <h3 class="card-title">植物醫藥大師調配工藝</h3>
+                                <p class="card-desc">將西洋草本魔法與星盤能量結合，打造實體天然魔法工藝香氛作品。</p>
+                            </div>
+                        </div>
+                        <div class="px-4 pb-4">
+                            <a href="portfolio-detail.html?id=4" class="card-link">詳細資料 <i class="bi bi-arrow-right-short"></i></a>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="col-12 col-md-6 col-xl-3">
+                    <article class="portfolio-card h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="card-img-placeholder"><span>程式開發</span></div>
+                            <div class="card-body">
+                                <span class="card-tag">Python Script</span>
+                                <h3 class="card-title">Tkinter 塔羅藥草管理系統</h3>
+                                <p class="card-desc">利用 Python 建立本地端 GUI 介面，高效串接 JSON 檔案紀錄進行神秘學研究。</p>
+                            </div>
+                        </div>
+                        <div class="px-4 pb-4">
+                            <a href="portfolio-detail.html?id=5" class="card-link">詳細資料 <i class="bi bi-arrow-right-short"></i></a>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="col-12 col-md-6 col-xl-3">
+                    <article class="portfolio-card h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="card-img-placeholder"><span>玄學工作坊</span></div>
+                            <div class="card-body">
+                                <span class="card-tag">Divination</span>
+                                <h3 class="card-title">八字命理理法實戰應用</h3>
+                                <p class="card-desc">運用嚴謹的工程師思維，將傳統八字格局進行數位化邏輯歸納與決策諮詢優化。 但在上班推出角度提交，法院他們的技能麻煩各自設為十分今日，上有忘記跟我說話逐漸加快力道職業決定沉默郵件出生說話，指出到我犯罪客戶福建像是會在至少一陣百度不是為止一致，第二章電腦服飾嚴格文本瘋狂收費不。</p>
+                            </div>
+                        </div>
+                        <div class="px-4 pb-4">
+                            <a href="portfolio-detail.html?id=6" class="card-link">詳細資料 <i class="bi bi-arrow-right-short"></i></a>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="col-12 col-md-6 col-xl-3">
+                    <article class="portfolio-card h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="card-img-placeholder"><span>手作工藝</span></div>
+                            <div class="card-body">
+                                <span class="card-tag">Handicrafts</span>
+                                <h3 class="card-title">大自然編織工藝選集</h3>
+                                <p class="card-desc">收集森林植物自然染色的天然纖維線材，以針織轉化為實體品牌周邊。</p>
+                            </div>
+                        </div>
+                        <div class="px-4 pb-4">
+                            <a href="portfolio-detail.html?id=7" class="card-link">詳細資料 <i class="bi bi-arrow-right-short"></i></a>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="col-12 col-md-6 col-xl-3">
+                    <article class="portfolio-card h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="card-img-placeholder"><span>程式開發</span></div>
+                            <div class="card-body">
+                                <span class="card-tag">Database</span>
+                                <h3 class="card-title">神秘學符號學 MySQL 模組</h3>
+                                <p class="card-desc">設計高擴充性關聯式資料庫，管理 78 張塔羅牌義與星盤關聯大數據。</p>
+                            </div>
+                        </div>
+                        <div class="px-4 pb-4">
+                            <a href="portfolio-detail.html?id=8" class="card-link">詳細資料 <i class="bi bi-arrow-right-short"></i></a>
+                        </div>
+                    </article>
+                </div>
+
             </div>
-        </section>
+        </div>
 
-        <section class="portfolio-list-grid">
-            <div class="container">
-                <div class="row g-4"> <div class="col-10 mx-auto col-md-6 col-xl-3">
-                        <article class="portfolio-card h-100 d-flex flex-column justify-content-between">
-                            <div>
-                                <div class="card-img-placeholder"><span>程式開發</span></div>
-                                <div class="card-body">
-                                    <span class="card-tag">Web Dev</span>
-                                    <h3 class="card-title">Jane & Sami 個人品牌全端系統</h3>
-                                    <p class="card-desc">整合預約機制、塔羅資料庫管理與前端視覺的響應式整合平台。</p>
-                                </div>
-                            </div>
-                            <div class="px-4 pb-4"><a href="portfolio-detail.html?id=1" class="btn-detail-link">詳細資料 <i class="bi bi-arrow-right-short"></i></a></div>
-                        </article>
-                    </div>
-
-                    <div class="col-10 mx-auto col-md-6 col-xl-3">
-                        <article class="portfolio-card h-100 d-flex flex-column justify-content-between">
-                            <div>
-                                <div class="card-img-placeholder"><span>玄學工作坊</span></div>
-                                <div class="card-body">
-                                    <span class="card-tag">Life Science</span>
-                                    <h3 class="card-title">生命數字與塔羅圖像符號</h3>
-                                    <p class="card-desc">探討 0-10 數字邏輯與大阿爾克那圖像對應的數位化工程。</p>
-                                </div>
-                            </div>
-                            <div class="px-4 pb-4"><a href="portfolio-detail.html?id=2" class="btn-detail-link">詳細資料 <i class="bi bi-arrow-right-short"></i></a></div>
-                        </article>
-                    </div>
-
-                    <div class="col-10 mx-auto col-md-6 col-xl-3">
-                        <article class="portfolio-card h-100 d-flex flex-column justify-content-between">
-                            <div>
-                                <div class="card-img-placeholder"><span>手作工藝</span></div>
-                                <div class="card-body">
-                                    <span class="card-tag">Handicrafts</span>
-                                    <h3 class="card-title">針與線的交織舞動</h3>
-                                    <p class="card-desc">探索一針一線中組織的流動生命與細膩觸感結構成型。</p>
-                                </div>
-                            </div>
-                            <div class="px-4 pb-4"><a href="portfolio-detail.html?id=3" class="btn-detail-link">詳細資料 <i class="bi bi-arrow-right-short"></i></a></div>
-                        </article>
-                    </div>
-
-                    <div class="col-10 mx-auto col-md-6 col-xl-3">
-                        <article class="portfolio-card h-100 d-flex flex-column justify-content-between">
-                            <div>
-                                <div class="card-img-placeholder"><span>魔法藥草學</span></div>
-                                <div class="card-body">
-                                    <span class="card-tag">Herbalism</span>
-                                    <h3 class="card-title">植物醫藥大師調配工藝</h3>
-                                    <p class="card-desc">將西洋草本魔法與星盤能量結合，打造實體天然魔法工藝香氛作品。</p>
-                                </div>
-                            </div>
-                            <div class="px-4 pb-4"><a href="portfolio-detail.html?id=4" class="btn-detail-link">詳細資料 <i class="bi bi-arrow-right-short"></i></a></div>
-                        </article>
-                    </div>
-
-                    <div class="col-10 mx-auto col-md-6 col-xl-3">
-                        <article class="portfolio-card h-100 d-flex flex-column justify-content-between">
-                            <div>
-                                <div class="card-img-placeholder"><span>程式開發</span></div>
-                                <div class="card-body">
-                                    <span class="card-tag">Python Script</span>
-                                    <h3 class="card-title">Tkinter 塔羅藥草資料本地管理系統</h3>
-                                    <p class="card-desc">利用 Python 建立本地端 GUI 使用者介面，高效串接 JSON 檔案紀錄進行神秘學研究。</p>
-                                </div>
-                            </div>
-                            <div class="px-4 pb-4"><a href="portfolio-detail.html?id=5" class="btn-detail-link">詳細資料 <i class="bi bi-arrow-right-short"></i></a></div>
-                        </article>
-                    </div>
-
-                    <div class="col-10 mx-auto col-md-6 col-xl-3">
-                        <article class="portfolio-card h-100 d-flex flex-column justify-content-between">
-                            <div>
-                                <div class="card-img-placeholder"><span>玄學工作坊</span></div>
-                                <div class="card-body">
-                                    <span class="card-tag">Divination</span>
-                                    <h3 class="card-title">八字命理理法實戰應用</h3>
-                                    <p class="card-desc">運用嚴謹的工程師思維，將傳統八字格局進行數位化邏輯歸納與決策諮詢優化。</p>
-                                </div>
-                            </div>
-                            <div class="px-4 pb-4"><a href="portfolio-detail.html?id=6" class="btn-detail-link">詳細資料 <i class="bi bi-arrow-right-short"></i></a></div>
-                        </article>
-                    </div>
-
-                    <div class="col-10 mx-auto col-md-6 col-xl-3">
-                        <article class="portfolio-card h-100 d-flex flex-column justify-content-between">
-                            <div>
-                                <div class="card-img-placeholder"><span>手作工藝</span></div>
-                                <div class="card-body">
-                                    <span class="card-tag">Handicrafts</span>
-                                    <h3 class="card-title">大自然編織工藝選集</h3>
-                                    <p class="card-desc">收集森林植物自然染色的天然纖維線材，以針織轉化為實體品牌周邊。</p>
-                                </div>
-                            </div>
-                            <div class="px-4 pb-4"><a href="portfolio-detail.html?id=7" class="btn-detail-link">詳細資料 <i class="bi bi-arrow-right-short"></i></a></div>
-                        </article>
-                    </div>
-
-                    <div class="col-10 mx-auto col-md-6 col-xl-3">
-                        <article class="portfolio-card h-100 d-flex flex-column justify-content-between">
-                            <div>
-                                <div class="card-img-placeholder"><span>程式開發</span></div>
-                                <div class="card-body">
-                                    <span class="card-tag">Database</span>
-                                    <h3 class="card-title">神秘學符號學 MySQL 資料庫模組</h3>
-                                    <p class="card-desc">設計高擴充性關聯式資料庫，管理 78 張塔羅牌義與星盤關聯大數據。</p>
-                                </div>
-                            </div>
-                            <div class="px-4 pb-4"><a href="portfolio-detail.html?id=8" class="btn-detail-link">詳細資料 <i class="bi bi-arrow-right-short"></i></a></div>
-                        </article>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <div class="premium-pagination d-none d-md-flex">
-            <a href="#" class="page-number-btn page-arrow-btn"><i class="bi bi-chevron-left"></i></a>
+        <div class="pagination-container d-none d-md-flex">
+            <a href="#" class="page-number-btn page-arrow-btn">
+                <i class="bi bi-chevron-left" style="color: var(--primary);"></i>
+            </a>
             <a href="#" class="page-number-btn active">1</a>
             <a href="#" class="page-number-btn">2</a>
             <a href="#" class="page-number-btn">3</a>
-            <a href="#" class="page-number-btn page-arrow-btn"><i class="bi bi-chevron-right"></i></a>
+            <a href="#" class="page-number-btn page-arrow-btn">
+                <i class="bi bi-chevron-right" style="color: var(--primary);"></i>
+            </a>
         </div>
 
-        <div class="mobile-infinite-loader d-block d-md-none">
-            <p><i class="bi bi-arrow-clockwise cubic-rotation me-2"></i>向上滑動或下拉以載入更多作品...</p>
+        <div class="scroll-page d-block d-md-none">
+            <i class="bi bi-arrow-clockwise" style="color: var(--secondary);"></i>
+            <span>向上滑動或下拉以載入更多作品...</span>
         </div>
     </main>
 
@@ -341,13 +429,11 @@
         </div>
     </div>
 
-    <button id="top-btn" class="top-btn" title="返回頂部">✦</button>
-
     <div class="footer-rwd-btn d-lg-none sticky-bottom">
-        <a href="index.html#home"><i class="bi bi-house-heart-fill"></i></a>
-        <a href="index.html#about"><i class="bi bi-bluesky"></i></a>
-        <a href="portfolio.html" class="active"><i class="bi bi-journals"></i></a>
-        <a href="index.html#contact"><i class="bi bi-chat-heart"></i></a>
+        <a href="../index.html"><i class="bi bi-house-heart-fill"></i></a>
+        <a href="#"><i class="bi bi-bluesky"></i></a>
+        <a href="./uc02-works.html" class="active"><i class="bi bi-journals"></i></a>
+        <a href="../index.html#contact"><i class="bi bi-chat-heart"></i></a>
     </div>
 
     <script src="../js/bootstrap.bundle.min.js"></script>

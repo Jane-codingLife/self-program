@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jane & Sami | 精選作品集</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/all.min.css">
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg show-nav">
+        <div class="container nav-container justify-content-center">
+            <a class="navbar-brand nav-logo" href="../index.html">
+                <!-- Logo 也加入這兒 -->
+                Jane & Sami
+            </a>
+            <div class="collapse navbar-collapse justify-content-center">
+                <ul class="navbar-nav nav-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="../index.html">首頁</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./uc01-about.html">關於我</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./uc02-works.html">作品集</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#contact">聯絡我</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 內容區塊 -->
+    <main class="content container my-5">
+        <div class="row g-4">
+            
+            <section class="col-12 col-lg-3 directory">
+                <div class="d-flex justify-content-between align-items-center d-lg-none bg-light p-3 rounded shadow-sm mb-3">
+                    <span class="fw-bold text-secondary"><i class="bi bi-list-ol me-2"></i>文章目錄</span>
+                    <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#directoryList" aria-expanded="false">
+                        <i class="bi bi-list"></i> 目錄選單
+                    </button>
+                </div>
+
+                <div class="collapse d-lg-block bg-white p-4 rounded shadow-sm sticky-top" id="directoryList" style="top: 100px; z-index: 10;">
+                    <h5 class="d-none d-lg-block mb-4 fw-bold text-primary border-bottom pb-2">
+                        <i class="bi bi-list-ol me-2"></i>文章目錄
+                    </h5>
+                    <div class="list-group list-group-flush">
+                        <a href="#section1" class="list-group-item list-group-item-action active">1. 大標題與核心概述</a>
+                        <a href="#section2" class="list-group-item list-group-item-action">2. 第一組：全端技術解析</a>
+                        <a href="#section3" class="list-group-item list-group-item-action">3. 第二組：符號美學解構</a>
+                        <a href="#section4" class="list-group-item list-group-item-action">4. 第三組：大自然色彩學</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="col-12 col-lg-9 article-box">
+                <div class="article-hero bg-white p-4 rounded shadow-sm mb-4 border border-light">
+                    <div class="hero-img mb-3 rounded" style="height: 200px; background: linear-gradient(135deg, var(--sky-light) 0%, var(--sky-mid) 100%);">
+                        </div>
+                    <div class="hero-title">
+                        <h1 class="h2 fw-bold text-primary" id="section1">探索數據與靈魂的交會點</h1>
+                        <p class="text-muted small mb-0"><i class="bi bi-calendar3 me-2"></i>發佈日期：2026.06.24</p>
+                    </div>
+                </div>
+
+                <article class="article-content bg-white p-4 rounded shadow-sm">
+                    <div class="row gy-4 justify-content-center">
+                        
+                        <div class="col-12" id="section2">
+                            <div class="p-4 rounded-3" style="background-color: var(--bg-main); border-left: 5px solid var(--primary);">
+                                <h3 class="h5 fw-bold text-primary mb-3"><i class="bi bi-code-square me-2"></i>第一組：全端技術解析</h3>
+                                <p class="text-muted mb-0">這是在不改變您原本大架構下，透過 Bootstrap 格線重新洗牌後的精確呈現。右側內容區會隨著使用者的滾動，優雅地與左側浮動目錄保持平行對齊。</p>
+                            </div>
+                        </div>
+
+                        <div class="col-12" id="section3">
+                            <div class="p-4 rounded-3" style="background-color: var(--bg-main); border-left: 5px solid var(--secondary);">
+                                <h3 class="h5 fw-bold text-primary mb-3"><i class="bi bi-stars me-2"></i>第二組：符號美學解構</h3>
+                                <p class="text-muted mb-0">當進入手機版時，左側的目錄區塊會全自動退化成一個小巧清爽的漢堡按鈕列。點擊該按鈕後，目錄選單會以流暢的下拉折疊動效現身，絕不干擾主要的閱讀視線。</p>
+                            </div>
+                        </div>
+
+                        <div class="col-12" id="section4">
+                            <div class="p-4 rounded-3" style="background-color: var(--bg-main); border-left: 5px solid var(--primary);">
+                                <h3 class="h5 fw-bold text-primary mb-3"><i class="bi bi-flower1 me-2"></i>第三組：大自然色彩學</h3>
+                                <p class="text-muted mb-0">本設計完美相容於您既有的「暮光森林與湖水綠」全域環境變數系統，卡片底座與高光文字比例皆符合最高規格的前端視覺美學。</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </article>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- 頁尾 footer -->
+    <div class="footer">
+        <div class="footer-text">
+            <p>&copy; 2026 Jane & Sami. All Rights Reserved. Designed with Soul & Code.</p>
+        </div>
+    </div>
+
+    <!-- RWD 選單 -->
+    <div class="footer-rwd-btn d-lg-none sticky-bottom">
+        <a href="../index.html"><i class="bi bi-house-heart-fill"></i></a>
+        <a href="./uc01-about.html"><i class="bi bi-bluesky"></i></a>
+        <a href="./uc02-works.html"><i class="bi bi-journals"></i></a>
+        <a href="../index.html#contact"><i class="bi bi-chat-heart"></i></a>
+    </div>
+
+    <!-- <button id="top-btn" class="top-btn" title="返回頂部">✦</button> -->
+    <a href="#top">✦</a>
+
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+
+    </script>
+</body>
+
+</html>
