@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jane & Sami | 精選作品集</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/all.min.css">
+    <style>
+        /* ==========================================================================
+            內頁專屬擴充樣式 - 暮光森林與湖水綠色彩改造
+            ========================================================================== */
+
+        body {
+            background-color: var(--bg-main) !important;
+            /* 確保全域套用清爽的冷杉綠白 */
+            color: var(--text-main) !important;
+        }
+
+        /* 1. 麵包屑導航美化 (Breadcrumbs) */
+        .breadcrumb-trail {
+            color: var(--text-muted);
+            font-size: 0.9rem !important;
+            letter-spacing: 1px;
+        }
+
+        .breadcrumb-trail a {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .breadcrumb-trail a:hover {
+            color: var(--primary);
+        }
+
+        .breadcrumb-trail .active {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        /* 2. 手機版橫向摺疊選單優化 */
+        .mobile-directory-wrapper .btn-mobile-menu {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            border: none;
+            padding: 10px 22px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 12px rgba(30, 77, 74, 0.15);
+        }
+
+        .mobile-menu-card {
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border-color) !important;
+            border-radius: 12px !important;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08) !important;
+        }
+
+        /* 3. 桌機版目錄書籤優化 */
+        .desktop-directory-card {
+            border: 1px solid rgba(92, 147, 135, 0.15) !important;
+            border-radius: 16px !important;
+            box-shadow: 0 8px 24px rgba(44, 53, 50, 0.03) !important;
+        }
+
+        /* 清單群組通用樣式（湖水綠精品感） */
+        .list-group-item {
+            font-family: var(--font-zh);
+            font-size: 0.92rem;
+            color: var(--text-muted) !important;
+            padding: 14px 16px !important;
+            border-color: rgba(92, 147, 135, 0.08) !important;
+            transition: all 0.3s ease;
+        }
+
+        .list-group-item:hover {
+            color: var(--primary) !important;
+            background-color: #EDF4F2 !important;
+            padding-left: 22px !important;
+            /* 懸停時精緻的微向右滑動 */
+        }
+
+        .list-group-item.active {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%) !important;
+            color: var(--text-light) !important;
+            border-color: transparent !important;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(30, 77, 74, 0.12);
+        }
+
+        /* 4. 文章頂部主 Banner 區優化 (.article-hero) */
+        .article-hero .hero-img {
+            height: 24px;
+            /* 清除不正常的預設大字級高度 */
+            min-height: 220px;
+            background: linear-gradient(135deg, var(--sky-light) 0%, var(--sky-mid) 40%, #A4C5BC 100%) !important;
+            /* 天空渲染 */
+            border-radius: 16px !important;
+            border: 1px solid var(--border-color);
+        }
+
+        .article-hero .hero-img span {
+            font-family: var(--font-en);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 3px;
+            opacity: 0.7;
+        }
+
+        /* 5. 分段內容組卡片優化 (取代原先的 bg-info) */
+        .article-segment-card {
+            background-color: var(--bg-card) !important;
+            /* 強制覆蓋 bg-info，換成純淨清晰白 */
+            border: 1px solid rgba(92, 147, 135, 0.12) !important;
+            border-left: 5px solid var(--primary) !important;
+            /* 【高階感核心】：左側深湖水綠有機線條 */
+            padding: 30px !important;
+            border-radius: 12px !important;
+            box-shadow: 0 8px 24px rgba(44, 53, 50, 0.03);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .article-segment-card:hover {
+            border-color: rgba(30, 77, 74, 0.25) !important;
+            border-left-color: var(--secondary) !important;
+            /* 懸停時左邊條換成初茶薄荷綠 */
+            box-shadow: 0 12px 30px rgba(30, 77, 74, 0.06);
+        }
+
+        .article-segment-card h3 {
+            font-family: var(--font-zh);
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .article-segment-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            text-align: justify;
+            margin-bottom: 25px;
+        }
+
+        /* 6. 內容區圖片佔位符優化 (.img1) */
+        .img1 {
+            background-color: var(--bg-main) !important;
+            /* 冷杉綠白底座 */
+            border: 1px dashed rgba(92, 147, 135, 0.3) !important;
+            /* 自然感虛線 */
+            color: var(--text-muted) !important;
+            padding: 20px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            text-align: center;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+        .img1:hover {
+            background-color: var(--bg-dark-section) !important;
+            color: var(--primary) !important;
+            border-color: var(--primary) !important;
+        }
+
+        /* ==========================================================================
+   精密校對：解除阻礙，釋放網頁版與手機版完美黏貼機制
+   ========================================================================== */
+
+        /* 1. 【關鍵防護】：強制主內容區解除任何 overflow 限制，否則 sticky 必死無疑 */
+        .content {
+            padding-top: 140px;
+            padding-bottom: 80px;
+            overflow: visible !important;
+            /* 強制釋放滾動監聽線 */
+        }
+
+        /* 2. 【關鍵防護】：解決 Bootstrap 列等高拉伸，讓大盒子回歸自身高度，釋放滑動死腔 */
+        .row {
+            align-items: start !important;
+        }
+
+        /* 3. 桌機大螢幕版 (.directory) 完美吸附設定 */
+        @media (min-width: 992px) {
+            .directory {
+                position: sticky !important;
+                position: -webkit-sticky !important;
+                /* 確保 Safari 瀏覽器完美相容 */
+                top: 110px !important;
+                /* 核心推移：完美避開上方固定毛玻璃導覽列的高度 */
+                z-index: 100;
+                height: auto;
+            }
+
+            /* 拔除可能干擾的內層背景 */
+            .desktop-directory-card {
+                border: 1px solid rgba(92, 147, 135, 0.15) !important;
+                border-radius: 16px !important;
+                box-shadow: 0 8px 24px rgba(44, 53, 50, 0.03) !important;
+            }
+        }
+
+        /* 4. 手機行動端目錄置頂黏貼優化 */
+        @media (max-width: 991.98px) {
+            .mobile-directory-wrapper {
+                position: sticky !important;
+                position: -webkit-sticky !important;
+                top: 80px !important;
+                /* 手機版貼合在手機導覽列下方 */
+                z-index: 99;
+                background-color: var(--bg-main) !important;
+                padding: 10px 0;
+                border-bottom: 1px dashed rgba(92, 147, 135, 0.15);
+            }
+        }
+
+        /* 5. 左下角返回頂部按鈕固定定位 */
+        .top-btn {
+            position: fixed !important;
+            bottom: 35px !important;
+            left: 35px !important;
+            right: auto !important;
+            width: 48px;
+            height: 48px;
+            background-color: var(--bg-card);
+            border: 1px solid rgba(92, 147, 135, 0.35);
+            color: var(--primary);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.15rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(30, 77, 74, 0.08);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            z-index: 999;
+        }
+
+        .top-btn:hover {
+            background-color: var(--primary);
+            color: var(--text-light);
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(30, 77, 74, 0.25);
+        }
+
+        @media (max-width: 991.98px) {
+            .top-btn {
+                bottom: 85px !important;
+                /* 手機版往上提，防止擋住 RWD 底部選單 */
+                left: 20px !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg show-nav">
+        <div class="container nav-container justify-content-center">
+            <a class="navbar-brand nav-logo" href="../index.html">Jane & Sami</a>
+            <div class="collapse navbar-collapse justify-content-center">
+                <ul class="navbar-nav nav-menu">
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="../index.html">首頁</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./uc01-about.html">關於我</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./uc02-works.html">作品集</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../index.html#contact">聯絡我</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="content container">
+        <div class="breadcrumb-trail fs-6 fw-bolder mb-4">
+            <a href="../index.html">首頁</a> <i class="bi bi-chevron-right mx-2"></i>
+            <a href="./uc02-works.html">精選作品</a> <i class="bi bi-chevron-right mx-2"></i>
+            <span class="active">作品內頁</span>
+        </div>
+
+        <div class="row g-4 align-items-start">
+            <section class="directory col-12 col-lg-3">
+                
+                <div class="mobile-directory-wrapper d-lg-none">
+                    <p class="m-0 mb-3">
+                        <button class="btn btn-primary btn-mobile-menu" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseWidthExample" aria-expanded="false"
+                            aria-controls="collapseWidthExample">
+                            <i class="bi bi-list"> 文章目錄</i>
+                        </button>
+                    </p>
+                    <div style="min-height: 20px;">
+                        <div class="collapse collapse-horizontal" id="collapseWidthExample">
+                            <div class="card card-body mobile-menu-card" style="width: 300px;">
+                                <div class="list-group list-group-flush">
+                                    <a href="#section1" class="list-group-item list-group-item-action active">1. 大標題與核心概述</a>
+                                    <a href="#section-1" class="list-group-item list-group-item-action">2. 第一組：全端技術解析</a>
+                                    <a href="#section-2" class="list-group-item list-group-item-action">3. 第二組：符號美學解構</a>
+                                    <a href="#section-3" class="list-group-item list-group-item-action">4. 第三組：大自然色彩學</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="collapse d-lg-block bg-white p-4 rounded shadow-sm desktop-directory-card" id="directoryList">
+                    <h5 class="d-none d-lg-block mb-4 fw-bold text-primary border-bottom pb-2">
+                        <i class="bi bi-list-ol me-2"></i>文章目錄
+                    </h5>
+                    <div class="list-group list-group-flush">
+                        <a href="#section1" class="list-group-item list-group-item-action active">1. 大標題與核心概述</a>
+                        <a href="#section-1" class="list-group-item list-group-item-action">2. 第一組：全端技術解析</a>
+                        <a href="#section-2" class="list-group-item list-group-item-action">3. 第二組：符號美學解構</a>
+                        <a href="#section-3" class="list-group-item list-group-item-action">4. 第三組：大自然色彩學</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="article-box col-12 col-lg-9">
+                <div class="article-hero mb-4">
+                    <div
+                        class="hero-img mb-3 display-4 d-flex align-items-center justify-content-center text-center rounded">
+                        <span><i class="bi bi-clouds-fill me-2"></i>Jane & Sami Studio</span>
+                    </div>
+                    <div class="hero-title">
+                        <h1 class="h2 fw-bold text-primary" id="section1">探索數據與靈魂的交會點</h1>
+                        <p class="text-muted small mb-0"><i class="bi bi-calendar3 me-2"></i>發佈日期：2026.06.24</p>
+                    </div>
+                </div>
+
+                <article class="article-content">
+                    <div class="row gy-4 justify-content-center">
+                        <div id="section-1" class="col-12 d-flex flex-column article-segment-card">
+                            <h3><i class="bi bi-code-square me-2"></i>第一組：全端技術解析</h3>
+                            <p>本平台架構完全基於 PHP 與 MySQL 的後端穩固邏輯，前端則透過 Vue 3 進行流暢的資料驅動。在不改動您的 HTML 原始碼結構前提下，自訂 CSS
+                                完美賦予了畫面溫柔的自然呼吸留白。</p>
+                            <div class="img1 rounded mb-2"><i class="bi bi-image me-2"></i>全端預約機制後台介面線框圖</div>
+                            <div class="img1 rounded mb-2"><i class="bi bi-image me-2"></i>MySQL 關係型數據庫 E-R 模型架構</div>
+                            <div class="img1 rounded"><i class="bi bi-image me-2"></i>Vue 3 雙向綁定模組測試紀錄</div>
+                        </div>
+
+                        <div id="section-2" class="col-12 d-flex flex-column article-segment-card">
+                            <h3><i class="bi bi-stars me-2"></i>第二組：符號美學解構</h3>
+                            <p>探討生命靈數 0-10 的抽象資料型態，並對應西方大阿爾克那的圖像符號學。我們深信程式碼與古老的星盤一樣，都是用來拆解宇宙秩序的嚴謹工具，透過數位化落實精準的心靈諮詢決策。
+                            </p>
+                            <div class="img1 rounded"><i class="bi bi-image me-2"></i>78張塔羅符號學數位映射清單</div>
+                        </div>
+
+                        <div id="section-3" class="col-12 d-flex flex-column article-segment-card">
+                            <h3><i class="bi bi-flower1 me-2"></i>第三組：大自然色彩學</h3>
+                            <p>調配暮光森林、溪流卵石與清晨薄霧的色調比例。輸入框、卡片按鈕皆導入了微圓角設計，消除了傳統網頁的生硬感，大幅降低讀者長時間閱讀內文時的雙眼疲勞度。</p>
+                            <div class="img1 rounded mb-2"><i class="bi bi-image me-2"></i>魔幻藥草學精油工藝實體作品選集 01</div>
+                            <div class="img1 rounded"><i class="bi bi-image me-2"></i>天然植物染色纖維針織工藝手作細節 02</div>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </div>
+    </main>
+
+    <div class="footer">
+        <div class="footer-text">
+            <p>&copy; 2026 Jane & Sami. All Rights Reserved. Designed with Soul & Code.</p>
+        </div>
+    </div>
+
+    <div class="footer-rwd-btn d-lg-none sticky-bottom">
+        <a href="../index.html"><i class="bi bi-house-heart-fill"></i></a>
+        <a href="./uc01-about.html"><i class="bi bi-bluesky"></i></a>
+        <a href="./uc02-works.html"><i class="bi bi-journals"></i></a>
+        <a href="../index.html#contact"><i class="bi bi-chat-heart"></i></a>
+    </div>
+
+    <button id="top-btn" class="top-btn" title="返回頂部">✦</button>
+
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
+</html>

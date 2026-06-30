@@ -43,10 +43,43 @@
 
     <!-- 內容區塊 -->
     <main class="content container">
+        <div class="fs-6 text-danger fw-bolder">首頁 > 精選作品 > ...</div>
         <div class="row">
             <!-- 浮動的目錄書籤 / (手機版)呈現上方 + 漢堡側邊列 -->
             <section class="directory col-12 col-lg-3">
-                這裡是目錄
+                <!-- 在手機版是可以懸浮固定滾動，並且可以拉出清單 -->
+                <div class="sticky-top">
+                    <p class="d-lg-none">
+                        <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button"
+                            aria-expanded="false" aria-controls="multiCollapseExample1">
+                            <i class="bi bi-list"> 文章目錄</i>
+                        </a>
+                    </p>
+                    <div class="row">
+                        <div class="col">
+                            <div class="collapse multi-collapse" id="multiCollapseExample1">
+                                <div class="card card-body">
+                                    Some placeholder content for the first collapse component of this multi-collapse
+                                    example. This panel is hidden by default but revealed when the user activates the
+                                    relevant trigger.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 網頁版則是懸浮目錄書籤 -->
+                <div class="collapse d-lg-block bg-white p-4 rounded shadow-sm sticky-top" id="directoryList"
+                    style="top: 100px; z-index: 10;">
+                    <h5 class="d-none d-lg-block mb-4 fw-bold text-primary border-bottom pb-2">
+                        <i class="bi bi-list-ol me-2"></i>文章目錄
+                    </h5>
+                    <div class="list-group list-group-flush">
+                        <a href="#section1" class="list-group-item list-group-item-action active">1. 大標題與核心概述</a>
+                        <a href="#section2" class="list-group-item list-group-item-action">2. 第一組：全端技術解析</a>
+                        <a href="#section3" class="list-group-item list-group-item-action">3. 第二組：符號美學解構</a>
+                        <a href="#section4" class="list-group-item list-group-item-action">4. 第三組：大自然色彩學</a>
+                    </div>
+                </div>
             </section>
             <!-- 單題內容 -->
             <section class="article-box col-12 col-lg-9">
@@ -100,8 +133,7 @@
         <a href="../index.html#contact"><i class="bi bi-chat-heart"></i></a>
     </div>
 
-    <!-- <button id="top-btn" class="top-btn" title="返回頂部">✦</button> -->
-    <a href="#top">✦</a>
+    <button id="top-btn" class="top-btn me-5 mb-5" title="返回頂部">✦</button>
 
     <script src="../js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
