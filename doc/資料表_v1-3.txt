@@ -5,49 +5,55 @@
 			"id": 1,
 			"table_name": "index_main",
 			"table_ch_name": "首頁主表",
-			"table_desc": ""
+			"table_desc": "僅存放全站唯一的全域設定，如 LOGO 名字與頁尾版權。"
 		},
 		{
 			"id": 2,
+			"table_name": "page_section_config",
+			"table_ch_name": "網頁區塊配置表",
+			"table_desc": "管理網頁上所有大區塊(Section)的大標題、小標題、Icon 與前後上下排序。"
+		},
+		{
+			"id": 3,
 			"table_name": "digital_data",
 			"table_ch_name": "數據統計表",
 			"table_desc": "首頁主表上呈現的四格數據圖。"
 		},
 		{
-			"id": 3,
+			"id": 4,
 			"table_name": "about_timeline",
 			"table_ch_name": "時間軸-生命歷程表",
 			"table_desc": ""
 		},
 		{
-			"id": 4,
+			"id": 5,
 			"table_name": "works_gallery",
 			"table_ch_name": "作品集大綱表",
 			"table_desc": ""
 		},
 		{
-			"id": 5,
+			"id": 6,
 			"table_name": "work_description_node",
 			"table_ch_name": "作品內文段落表",
 			"table_desc": "對應到大綱集的詳細目錄與分段內文。"
 		},
 		{
-			"id": 6,
+			"id": 7,
 			"table_name": "image_resource_library",
 			"table_ch_name": "全萬能通用圖庫資源表",
 			"table_desc": ""
 		},
 		{
-			"id": 7,
+			"id": 8,
 			"table_name": "tag_resource_library",
 			"table_ch_name": "全通用標籤資源表",
 			"table_desc": ""
 		},
 		{
-			"id": 8,
+			"id": 9,
 			"table_name": "tag_resource_library_uesed",
 			"table_ch_name": "全通用標籤資源表-指定使用",
-			"table_desc": "針對需要 tag 的位置在分別去資源表中取用的關聯。"
+			"table_desc": "針對需要 tag 的位置在分別去資源表中取用的關聯。PK：used_table + used_table_id + used_tag_id"
 		}
 	],
 
@@ -60,22 +66,6 @@
 			"subtitle": "",
 			"en_subtitle": "",
 			
-			"about_title": "關於我",
-			"about_title_icon": "bi-signpost",
-			"about_en_title": "About Me",
-			"about_subtitle": "全端開發者 & 人文探索",
-			"about_en_subtitle": "",
-			"about_subtitle_icon": "",
-			"about_txt": "",
-			
-			"works_title": "精選作品",
-			"works_title_icon": "bi-signpost-2",
-			"works_en_title": "Portfolio",
-			"works_subtitle": "",
-			"works_subtitle_icon": "",
-			"works_en_subtitle": "",
-			"works_txt": "",
-			
 			"footer_txt": "&copy; 2026 Jane & Sami. All Rights Reserved. Designed with Soul & Code.",
 			"footer_link_1": "",
 			"footer_link_1_icon": "",
@@ -83,6 +73,69 @@
 			"footer_link_2_icon": "",
 			"footer_link_3": "",
 			"footer_link_3_icon": ""
+		}
+	],
+
+	"page_section_config": [
+		{
+			"id": 1,
+			"index_id": 1,
+			"section_html_id": "section_about",
+			"title": "關於我",
+			"en_title": "About Me",
+			"subtitle": "全端開發者 & 人文探索",
+			"en_subtitle": "",
+			"title_icon": "bi-signpost",
+			"subtitle_icon": "bi-bluesky",
+			"section_txt": "我專注於 PHP 與 MySQL的後端邏輯構建，同時沉浸於針織手工藝的密網編織與塔羅星盤的理性演繹。對我而言，程式架構的嚴謹、手工藝的細緻觸感，以及命理系統的變易規律，本質皆是同一種對「秩序」與「規律」的深度解構。\n我擅長將這些看似迥異的技能融會貫通於生活，運用工程師的邏輯思維去優化心靈諮詢的決策過程，並以手作的溫度細膩落實數位產品的介面交互。我相信程式碼不僅是運算指令，更是建構真實生活的橋樑，我熱衷於在數據與靈魂的交會處，發掘解決問題的無限可能，為每一位使用者打造既精準又具備人性溫度的數位體驗。",
+			"sort_order": 1,
+			"is_visible": 1,
+			"page_link": ""
+		},
+		{
+			"id": 2,
+			"index_id": 1,
+			"section_html_id": "section_counter",
+			"title": "核心數據",
+			"en_title": "Metrics",
+			"subtitle": "實體經歷與專業累積的量化展現",
+			"en_subtitle": "",
+			"title_icon": "bi-calculator",
+			"subtitle_icon": "",
+			"section_txt": "",
+			"sort_order": 2,
+			"is_visible": 1,
+			"page_link": ""
+		},
+		{
+			"id": 3,
+			"index_id": 1,
+			"section_html_id": "section_portfolio",
+			"title": "精選作品",
+			"en_title": "Portfolio",
+			"subtitle": "",
+			"en_subtitle": "",
+			"title_icon": "bi-signpost-2",
+			"subtitle_icon": "",
+			"section_txt": "",
+			"sort_order": 3,
+			"is_visible": 1,
+			"page_link": ""
+		},
+		{
+			"id": 4,
+			"index_id": 1,
+			"section_html_id": "section_contact",
+			"title": "與我聯絡",
+			"en_title": "Contact",
+			"subtitle": "",
+			"en_subtitle": "",
+			"title_icon": "bi-envelope-paper",
+			"subtitle_icon": "",
+			"section_txt": "",
+			"sort_order": 4,
+			"is_visible": 1,
+			"page_link": ""
 		}
 	],
 	
@@ -209,7 +262,7 @@
 			"node_order": 2,
 			"node_title": "課程內容",
 			"node_title_icon": "",
-			"node_html_content": "這是在不改變您原本大架構下，透過 Bootstrap 格線重新洗牌後的精確呈現。右側內容區會隨著使用者的滾動，優雅地與左側浮動目錄保持平行對齊。\n\n		當進入手機版時，左側的目錄區塊會全自動退化成一個小巧清爽的漢堡按鈕列。點擊該按鈕後，目錄選單會以流暢的下拉折疊動效現身，絕不干擾主要的閱讀視線。"
+			"node_html_content": "這是在不改變您原本大架構下，透過 Bootstrap 格線重新洗牌後的精確呈現。右側內容區會隨著使用者的滾動，優雅地與左側浮動目錄保持平行對齊。\n\n當進入手機版時，左側的目錄區塊會全自動退化成一個小巧清爽的漢堡按鈕列。點擊該按鈕後，目錄選單會以流暢的下拉折疊動效現身，絕不干擾主要的閱讀視線。"
 		},
 		{
 			"id": 3,
@@ -394,7 +447,6 @@
 	
 	"tag_resource_library_uesed": [
 		{
-			"id": 1,
 			"used_table": "index_main",
 			"used_table_id": "1",
 			"used_tag_id": 1,
@@ -402,7 +454,6 @@
 			"badge_class": "tag-skill"
 		},
 		{
-			"id": 2,
 			"used_table": "index_main",
 			"used_table_id": "1",
 			"used_tag_id": 2,
@@ -410,7 +461,6 @@
 			"badge_class": "tag-skill"
 		},
 		{
-			"id": 3,
 			"used_table": "index_main",
 			"used_table_id": "1",
 			"used_tag_id": 3,
@@ -418,7 +468,6 @@
 			"badge_class": "tag-skill"
 		},
 		{
-			"id": 4,
 			"used_table": "index_main",
 			"used_table_id": "1",
 			"used_tag_id": 4,
@@ -426,7 +475,6 @@
 			"badge_class": "tag-skill"
 		},
 		{
-			"id": 5,
 			"used_table": "index_main",
 			"used_table_id": "1",
 			"used_tag_id": 5,
@@ -434,7 +482,6 @@
 			"badge_class": "tag-skill"
 		},
 		{
-			"id": 6,
 			"used_table": "about_timeline",
 			"used_table_id": "1",
 			"used_tag_id": 6,
@@ -442,7 +489,6 @@
 			"badge_class": "tag-life-technical"
 		},
 		{
-			"id": 7,
 			"used_table": "about_timeline",
 			"used_table_id": "1",
 			"used_tag_id": 7,
@@ -450,7 +496,6 @@
 			"badge_class": "tag-life-technical"
 		},
 		{
-			"id": 8,
 			"used_table": "about_timeline",
 			"used_table_id": "1",
 			"used_tag_id": 8,
@@ -458,7 +503,6 @@
 			"badge_class": "tag-life-technical"
 		},
 		{
-			"id": 9,
 			"used_table": "about_timeline",
 			"used_table_id": "1",
 			"used_tag_id": 9,
@@ -466,7 +510,6 @@
 			"badge_class": "tag-life-technical"
 		},
 		{
-			"id": 10,
 			"used_table": "about_timeline",
 			"used_table_id": "1",
 			"used_tag_id": 10,
@@ -474,7 +517,6 @@
 			"badge_class": "tag-life-technical"
 		},
 		{
-			"id": 11,
 			"used_table": "about_timeline",
 			"used_table_id": "1",
 			"used_tag_id": 11,
@@ -482,7 +524,6 @@
 			"badge_class": "tag-life-technical"
 		},
 		{
-			"id": 12,
 			"used_table": "about_timeline",
 			"used_table_id": "1",
 			"used_tag_id": 12,
@@ -490,7 +531,6 @@
 			"badge_class": "tag-life-technical"
 		},
 		{
-			"id": 13,
 			"used_table": "about_timeline",
 			"used_table_id": "1",
 			"used_tag_id": 13,
@@ -498,7 +538,6 @@
 			"badge_class": "tag-life-technical"
 		},
 		{
-			"id": 14,
 			"used_table": "about_timeline",
 			"used_table_id": "1",
 			"used_tag_id": 14,
@@ -506,7 +545,6 @@
 			"badge_class": "tag-life-technical"
 		},
 		{
-			"id": 15,
 			"used_table": "about_timeline",
 			"used_table_id": "1",
 			"used_tag_id": 19,
@@ -514,7 +552,6 @@
 			"badge_class": "badge_learning"
 		},
 		{
-			"id": 16,
 			"used_table": "about_timeline",
 			"used_table_id": "2",
 			"used_tag_id": 19,
@@ -522,7 +559,6 @@
 			"badge_class": "badge_learning"
 		},
 		{
-			"id": 17,
 			"used_table": "about_timeline",
 			"used_table_id": 3,
 			"used_tag_id": 24,
@@ -530,7 +566,6 @@
 			"badge_class": "badge_certification"
 		},
 		{
-			"id": 18,
 			"used_table": "works_gallery",
 			"used_table_id": "1",
 			"used_tag_id": 20,
@@ -538,7 +573,6 @@
 			"badge_class": "badge_code"
 		},
 		{
-			"id": 19,
 			"used_table": "works_gallery",
 			"used_table_id": "2",
 			"used_tag_id": 21,
