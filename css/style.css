@@ -28,6 +28,7 @@
     */
     --sky-light: #D4E7E6;
     --sky-mid: #A2C5BF;
+    --warm-glow: rgba(255, 255, 255, 0.6);
 
     /* 高品質文字色彩 - 避免生硬的純黑 
        --text-main：岩石炭黑（主內文）：帶深綠基調的炭灰，極高印刷質感
@@ -41,6 +42,9 @@
     /* 字體規範 */
     --font-en: 'Cinzel', serif;
     --font-zh: 'Noto Serif TC', serif;
+
+    /* 共通動態過渡 */
+    --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 /* ==========================================================================
@@ -73,10 +77,12 @@ body {
     padding: 100px 20px;
 }
 
-/* 網頁通用大標題（高級森林感排版） .h2/.h3 + .section + span
-   雙語複合式大標題（Bilingual Heading）排版技巧：
-    主標題下加上一小段精緻的英文副標題（如：作品集 <span>Portfolio</span>）
-*/
+/* ==========================================================================
+   3. 提列共通元件
+   ========================================================================== */
+
+/* 雙語複合式大標題（Bilingual Heading）排版技巧：
+主標題下加上一小段精緻的英文副標題（如：作品集 <span>Portfolio</span>） */
 .section-title {
     font-family: var(--font-zh);
     font-size: 2.2rem;
@@ -105,8 +111,45 @@ body {
     font-weight: 700;
 }
 
+/* 共通自然高質感按鈕 */
+.btn-brand-primary {
+    display: inline-block;
+    padding: 14px 40px;
+    background: linear-gradient(90deg, var(--primary) 0%, #296662 100%);
+    color: var(--text-light) !important;
+    text-decoration: none !important;
+    font-family: var(--font-zh);
+    font-weight: 500;
+    letter-spacing: 2px;
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(30, 77, 74, 0.2);
+    transition: var(--transition-smooth);
+    border: none;
+}
+
+.btn-brand-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(30, 77, 74, 0.35);
+    opacity: 0.95;
+}
+
+/* 共通自然系卡片骨架 */
+.brand-card-base {
+    background-color: var(--bg-card);
+    border-radius: 16px;
+    border: 1px solid rgba(92, 147, 135, 0.12);
+    box-shadow: 0 10px 30px rgba(44, 53, 50, 0.04);
+    transition: var(--transition-smooth);
+}
+
+.brand-card-hover:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(30, 77, 74, 0.08);
+    border-color: rgba(30, 77, 74, 0.25);
+}
+
 /* ==========================================================================
-   3. 全域導覽列 (Navbar) - 清晰與微毛玻璃質感
+   4. 全域導覽列 (Navbar)
    ========================================================================== */
 .navbar {
     position: fixed;
@@ -115,10 +158,8 @@ body {
     width: 100%;
     z-index: 1000;
     background-color: rgba(244, 247, 246, 0.85);
-    /* 搭配背景的半透明迷霧感 */
     border-bottom: 1px solid var(--border-color);
     backdrop-filter: blur(12px);
-    /* 現代高質感毛玻璃效果 */
     transition: background-color 0.3s;
     transform: translateY(-100px);
 }
@@ -168,9 +209,8 @@ body {
 }
 
 /* ==========================================================================
-   4.頁尾與返回頂部 (Footer & Top Button)
+   5.頁尾與返回頂部 (Footer & Top Button)
    ========================================================================== */
-/* 頁尾改用深湖水綠封底，呈現穩重完結感 */
 .footer {
     text-align: center;
     padding: 25px;
@@ -198,7 +238,7 @@ body {
     justify-content: center;
     align-items: center;
     box-shadow: 0 4px 15px rgba(30, 77, 74, 0.1);
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: var(--transition-smooth);
     z-index: 999;
 }
 
@@ -218,12 +258,12 @@ body {
     background-color: rgba(244, 247, 246, 0.85);
     font-size: 2rem;
     letter-spacing: 20px;
-    padding: 5px auto;
+    padding: 5px 0;
 }
 
 .footer-rwd-btn a {
     color: var(--text-main);
-    transition: all 0.3s, transform 0.3s;
+    transition: all 0.3s;
 }
 
 .footer-rwd-btn a:hover {
@@ -231,7 +271,7 @@ body {
 }
 
 /* ==========================================================================
-   RWD 響應式斷點
+   6.RWD 響應式斷點
    ========================================================================== */
 @media screen and (max-width: 996px) {
     .top-btn {
