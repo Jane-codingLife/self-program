@@ -77,6 +77,12 @@ body {
     padding: 100px 20px;
 }
 
+.img-cv {
+    background-position: center center;
+    background-size: cover;
+    border-radius: 15px;
+}
+
 /* ==========================================================================
    3. 提列共通元件
    ========================================================================== */
@@ -84,6 +90,8 @@ body {
 /* 雙語複合式大標題（Bilingual Heading）排版技巧：
 主標題下加上一小段精緻的英文副標題（如：作品集 <span>Portfolio</span>） */
 .section-title {
+    background-color: var(--warm-glow);
+    padding: 20px 0;
     font-family: var(--font-zh);
     font-size: 2.2rem;
     text-align: center;
@@ -264,6 +272,7 @@ body {
 .footer-rwd-btn a {
     color: var(--text-main);
     transition: all 0.3s;
+    padding: 0 5%;
 }
 
 .footer-rwd-btn a:hover {

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jane & Sami | 生命歷程</title>
+    <link rel="stylesheet" href="../../css/general/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        /* 本頁面專屬微調：內容與導覽列的上方留白間距 */
+        .about {
+            margin-top: 100px;
+        }
+
+        /* ==========================================================================
+            時間軸組件 (Timeline Component) - 整合至全域樣式表
+            ========================================================================== */
+        .section-timeline {
+            margin-top: 0;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            border-top: 1px dashed var(--border-color);
+        }
+
+        .timeline-tree {
+            position: relative;
+            list-style: none;
+            padding: 0;
+            margin: 0 auto;
+            max-width: 1000px;
+        }
+
+        /* 中央貫穿藤蔓線 */
+        .timeline-tree::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary), rgba(92, 147, 135, 0.1));
+            transform: translateX(-50%);
+            pointer-events: none;
+        }
+
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            margin-bottom: 50px;
+            display: flex;
+            transition: var(--transition-smooth);
+        }
+
+        /* 時間軸中央節點 */
+        .timeline-dot {
+            position: absolute;
+            top: 25px;
+            width: 32px;
+            height: 32px;
+            background-color: var(--bg-card);
+            border: 2px solid var(--secondary);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 10;
+            box-shadow: 0 0 10px rgba(30, 77, 74, 0.15);
+            transition: var(--transition-smooth);
+        }
+
+        /* 懸停時節點與卡片的連動特效 */
+        .timeline-item:hover .timeline-dot {
+            background-color: var(--primary);
+            color: var(--bg-card);
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(30, 77, 74, 0.3);
+        }
+
+        /* 左右分流排版 */
+        .item-left {
+            left: 0;
+            justify-content: flex-end;
+            padding-right: 45px;
+        }
+
+        .item-left .timeline-dot {
+            right: -16px;
+        }
+
+        .item-right {
+            left: 50%;
+            justify-content: flex-start;
+            padding-left: 45px;
+        }
+
+        .item-right .timeline-dot {
+            left: -16px;
+        }
+
+        /* 時間軸卡片內部元件 */
+        .timeline-card {
+            padding: 24px;
+            width: 100%;
+            max-width: 440px;
+        }
+
+        .timeline-date {
+            display: block;
+            font-family: var(--font-en);
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--secondary);
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .timeline-badge {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        /* 標籤底色優化 (森林與人文玄學色調) */
+        .badge-major {
+            background-color: #E6F2F0;
+            color: #1E4D4A;
+        }
+
+        .badge-mystic {
+            background-color: #F1EDF5;
+            color: #7B6693;
+        }
+
+        .badge-craft {
+            background-color: #FAF4EE;
+            color: #A67B5B;
+        }
+
+        .badge-edu {
+            background-color: #EBF1F5;
+            color: #4A7B9D;
+        }
+
+        .timeline-title {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            font-family: var(--font-zh);
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 4px;
+        }
+
+        .timeline-location {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .timeline-desc {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            text-align: justify;
+            line-height: 1.6;
+        }
+
+        /* 技能標籤庫 (與 index 共享樣式) */
+        .timeline-hashtag {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 12px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .timeline-hashtag li {
+            background-color: #EDF4F2;
+            border: 1px solid rgba(92, 147, 135, 0.3);
+            color: var(--primary);
+            padding: 2px 10px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        /* 圖片定位與動畫 */
+        .timeline-img-left,
+        .timeline-img-right {
+            position: absolute;
+            top: 10px;
+            width: calc(100% - 45px);
+            max-width: 440px;
+            height: auto;
+            display: block;
+            transition: var(--transition-smooth);
+        }
+
+        .timeline-img-left {
+            right: 100%;
+            margin-right: 45px;
+        }
+
+        .timeline-img-right {
+            left: 100%;
+            margin-left: 45px;
+        }
+
+        .timeline-img-left img,
+        .timeline-img-right img {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 16px;
+            border: 1px solid rgba(92, 147, 135, 0.15);
+            box-shadow: 0 8px 24px rgba(44, 53, 50, 0.06);
+        }
+
+        .timeline-item:hover .timeline-img-left,
+        .timeline-item:hover .timeline-img-right {
+            transform: translateY(-4px);
+        }
+
+        /* ==========================================================================
+            時間軸 響應式斷點 (RWD)
+            ========================================================================== */
+        @media screen and (max-width: 768px) {
+            .timeline-tree::before {
+                left: 16px;
+                transform: none;
+            }
+
+            .timeline-item {
+                width: 100%;
+                margin-bottom: 40px;
+                padding-left: 45px;
+                padding-right: 0;
+            }
+
+            .item-left,
+            .item-right {
+                left: 0;
+                justify-content: flex-start;
+            }
+
+            .timeline-item .timeline-dot {
+                left: 0px !important;
+                right: auto !important;
+            }
+
+            .timeline-card {
+                max-width: 100%;
+            }
+
+            .timeline-img-left,
+            .timeline-img-right {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <nav class="navbar navbar-expand-lg show-nav">
+            <div class="container nav-container justify-content-center">
+                <a class="nav-logo" href="../index.html">
+                    <i class="fa-solid fa-cloud-sun"></i> Jane & Sami
+                </a>
+                <div class="collapse navbar-collapse justify-content-center">
+                    <ul class="navbar-nav nav-menu">
+                        <li class="nav-item"><a class="nav-link" href="../index.html">首頁</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="./uc01-about.html">關於我</a></li>
+                        <li class="nav-item"><a class="nav-link" href="./uc02-works.html">作品集</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../index.html#section_info">聯絡我</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="about content">
+            <div class="section-title h2">
+                生命歷程 <i class="fa-solid fa-seedling ms-2"></i>
+                <span>My Journey</span>
+            </div>
+
+            <section class="section-timeline">
+                <ol class="timeline-tree">
+
+                    <li v-for="(item, index) in timelineData" :key="index" class="timeline-item"
+                        :class="index % 2 === 0 ? 'item-right' : 'item-left'">
+
+                        <div class="timeline-dot">✦</div>
+
+                        <div :class="index % 2 === 0 ? 'timeline-img-left' : 'timeline-img-right'" v-if="item.image">
+                            <img :src="item.image" :alt="item.title">
+                        </div>
+
+                        <article class="timeline-card brand-card-base brand-card-hover"
+                            :class="{ 'text-md-end': index % 2 !== 0 }">
+                            <time class="timeline-date">{{ item.date }}</time>
+                            <span class="timeline-badge" :class="item.badgeClass">{{ item.badgeText }}</span>
+                            <h4 class="timeline-title">{{ item.title }}</h4>
+                            <p class="timeline-location">{{ item.location }}</p>
+                            <p class="timeline-desc" :class="{ 'text-md-end': index % 2 !== 0 }">{{ item.desc }}</p>
+
+                            <ul class="timeline-hashtag" :class="{ 'justify-content-md-end': index % 2 !== 0 }">
+                                <li v-for="tag in item.hashtags" :key="tag">{{ tag }}</li>
+                            </ul>
+                        </article>
+
+                    </li>
+                </ol>
+            </section>
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2026 Jane & Sami. All Rights Reserved. Designed with Soul & Code.</p>
+        </footer>
+
+        <div class="footer-rwd-btn d-lg-none sticky-bottom">
+            <a href="../../index.html"><i class="fa-solid fa-house-chimney-window"></i></a>
+            <a href="./uc01-about.html"><i class="fa-solid fa-cloud-sun"></i></a>
+            <a href="./uc02-works.html"><i class="fa-solid fa-book-open-reader"></i></a>
+            <a href="../../index.html#section_info"><i class="fa-solid fa-comment-medical"></i></a>
+        </div>
+    </div>
+
+    <script src="../../js/general/bootstrap.bundle.min.js"></script>
+    <script src="../../js/general/vue.global.js"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    // 生命歷程時間軸 JSON 資料模型
+                    timelineData: [
+                        {
+                            date: "2026.02.02 - 2026.08.03",
+                            badgeClass: "badge-major",
+                            badgeText: "專業培訓",
+                            title: "智慧生成全端程式與跨平台APP整合實務班",
+                            location: "勞動部勞動力發展署 中彰投分署　職前訓專班",
+                            desc: "深耕全端技術架構（PHP, MySQL, Python），並將資料結構邏輯與跨平台應用程式整合（Vue 3, Bootstrap 5, Flutter），以此建構 Jane & Sami 品牌全端系統基礎。",
+                            image: "",
+                            hashtags: ["#前後端", "#HTML", "#CSS", "#JavaScript", "#Vue", "#PHP", "#MySQL", "#XAMPP", "#Flutter"]
+                        },
+                        {
+                            date: "2025.03 - 2025.06",
+                            badgeClass: "badge-major",
+                            badgeText: "專業培訓",
+                            title: "機械製圖與創意列印班",
+                            location: "上益資訊　職前訓專班",
+                            desc: "平面與立體的圖形建構，再利用 3D 技術具現，由此搭建了達摩蹺蹺板的遊樂區之一。",
+                            image: "https://images.unsplash.com/photo-1611117775350-ac3950990985?q=80&w=1171",
+                            hashtags: ["#3D列印", "#AutoCAD", "#Solidworks", "#UltiMakerCura"]
+                        }
+                    ]
+                }
+            }
+        }).mount("#app");
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jane & Sami | 精選作品集</title>
+    <link class="bootstrap-link" rel="stylesheet" href="../css/general/bootstrap.min.css">
+    <!-- 引入 Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* 本頁面專屬排版細節微調 */
+        .content {
+            padding-top: 100px;
+            background: linear-gradient(180deg, var(--sky-light) 0%, var(--bg-main) 150px);
+        }
+
+        /* 搜尋框與圖標精確定位 */
+        .search-box {
+            max-width: 700px;
+            margin: 0 auto 40px auto;
+            position: relative;
+        }
+
+        .search-box input {
+            border: 1px solid rgba(92, 147, 135, 0.25);
+            padding: 15px 25px 15px 55px;
+            border-radius: 30px;
+            width: 100%;
+            font-size: 0.98rem;
+            color: var(--text-main);
+            background-color: var(--bg-card);
+            transition: var(--transition-smooth);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(30, 77, 74, 0.08);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 22px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary);
+            font-size: 1.15rem;
+        }
+
+        /* 快速過濾標籤組 */
+        .portfolio-tag {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 55px;
+            flex-wrap: wrap;
+        }
+
+        /* 列表頁專用之作品卡片內部微調 */
+        .card-img-wrapper {
+            height: 220px;
+            background: linear-gradient(135deg, var(--sky-light) 0%, #C2DBD7 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.15rem;
+            letter-spacing: 1.5px;
+            border-bottom: 1px solid rgba(92, 147, 135, 0.08);
+        }
+
+        .read-more-btn {
+            display: block;
+            text-align: center;
+            background-color: var(--bg-main);
+            color: var(--primary) !important;
+            text-decoration: none !important;
+            padding: 11px 50px;
+            margin: 0 28px 28px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            border: 1px solid rgba(92, 147, 135, 0.15);
+            transition: var(--transition-smooth);
+        }
+
+        .read-more-btn:hover {
+            background: linear-gradient(90deg, var(--primary) 0%, #296662 100%);
+            color: var(--text-light) !important;
+            box-shadow: 0 4px 12px rgba(30, 77, 74, 0.15);
+        }
+
+        /* 切頁標籤與動態旋轉 */
+        .number-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 90px;
+        }
+
+        .page-number-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid rgba(92, 147, 135, 0.2);
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none !important;
+            font-family: var(--font-en);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition-smooth);
+        }
+
+        .page-number-btn:hover,
+        .page-number-btn.active {
+            background-color: var(--primary);
+            color: var(--text-light) !important;
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(30, 77, 74, 0.15);
+        }
+
+        .scroll-page-loader {
+            text-align: center;
+            padding: 15px 0 30px 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .scroll-page-loader i {
+            margin-right: 8px;
+            animation: rotateLoader 2s infinite linear;
+        }
+
+        @keyframes rotateLoader {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media screen and (max-width: 996px) {
+            .portfolio-hero {
+                padding: 50px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- Navbar 導覽列 -->
+        <nav class="navbar navbar-expand-lg show-nav">
+            <div class="container nav-container justify-content-center">
+                <a class="nav-logo" href="../index.html">
+                    <i class="fa-solid fa-cloud-sun"></i> Jane & Sami
+                </a>
+                <div class="collapse navbar-collapse justify-content-center">
+                    <ul class="navbar-nav nav-menu">
+                        <li class="nav-item"><a class="nav-link" href="../index.html">首頁</a></li>
+                        <li class="nav-item"><a class="nav-link" href="./uc01-about.html">關於我</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="./uc02-works.html">作品集</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../index.html#section_info">聯絡我</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 主內容區塊 -->
+        <main class="works content">
+
+            <!-- 標題與查詢篩選區塊 -->
+            <section class="portfolio-hero container">
+                <div class="section-title h2">
+                    精選作品集 <i class="fa-solid fa-book-open-reader ms-2"></i>
+                    <span>Portfolio</span>
+                </div>
+
+                <!-- 搜尋欄：綁定 Vue 雙向輸入監聽 -->
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" v-model="searchQuery" placeholder="輸入關鍵字搜尋作品項目（例如：Vue, 針織, 藥草）...">
+                </div>
+
+                <!-- 快速查詢標籤組：點擊切換分類 -->
+                <div class="portfolio-tag">
+                    <button v-for="cat in categories" :key="cat" class="btn btn-sm tag-btn px-4 py-2"
+                        :class="currentCategory === cat ? 'btn-brand-primary active' : 'bg-white text-muted border'"
+                        @click="currentCategory = cat"
+                        style="border-radius: 25px; transition: var(--transition-smooth);">
+                        {{ cat }}
+                    </button>
+                </div>
+            </section>
+
+            <!-- 作品卡片八宮格矩陣區塊 -->
+            <section class="portfolio-grid container pt-0">
+                <div class="portfolio-list row">
+
+                    <!-- 使用 Vue 計算屬性 filteredWorks 進行動態即時渲染 -->
+                    <div class="portfolio-item col-12 col-md-6 col-xl-3 mb-4" v-for="work in filteredWorks"
+                        :key="work.id">
+                        <article class="card h-100 brand-card-base brand-card-hover border-0 overflow-hidden">
+                            <div class="card-img-wrapper position-relative">
+                                <img v-if="work.image" :src="work.image" :alt="work.title" class="w-100 h-100"
+                                    style="object-fit: cover;">
+                                <span v-else>{{ work.category }}</span>
+                                <span
+                                    class="badge bg-success position-absolute top-0 end-0 m-3 px-3 py-2 rounded-pill small">
+                                    {{ work.category }}
+                                </span>
+                            </div>
+                            <div class="card-body p-4 d-flex flex-column">
+                                <div class="card-tag fw-bold text-success mb-1"
+                                    style="font-size: 0.75rem; letter-spacing: 1.5px;">{{ work.subTag }}</div>
+                                <h3 class="card-title h5 fw-bold text-success mb-2">{{ work.title }}</h3>
+                                <p class="card-desc text-muted mb-0 small flex-grow-1" style="text-align: justify;">
+                                    {{ work.desc }}
+                                </p>
+                            </div>
+                            <div class="card-btn-wrapper">
+                                <a :href="work.link" class="read-more-btn">
+                                    詳細查閱 <i class="fa-solid fa-arrow-pointer ms-1" style="color: var(--primary);"></i>
+                                </a>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- 查無資料時的極簡提示 -->
+                    <div class="col-12 text-center text-muted my-5 py-5" v-if="filteredWorks.length === 0">
+                        <i class="fa-solid fa-folder-open display-4 mb-3 text-secondary"></i>
+                        <p>未找到符合當前篩選條件的作品，試試其他關鍵字吧！</p>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- 分頁模式（桌機與平版顯示） -->
+            <div class="number-page d-none d-md-flex" v-if="filteredWorks.length > 0">
+                <a href="#" class="page-number-btn"><i class="fa-solid fa-angle-left"></i></a>
+                <a href="#" class="page-number-btn active">1</a>
+                <a href="#" class="page-number-btn">2</a>
+                <a href="#" class="page-number-btn">3</a>
+                <a href="#" class="page-number-btn"><i class="fa-solid fa-angle-right"></i></a>
+            </div>
+
+            <!-- 下拉載入提示（手機版專屬顯示） -->
+            <div class="scroll-page-loader d-md-none" v-if="filteredWorks.length > 0">
+                <i class="fa-solid fa-arrow-rotate-right"></i>
+                <span>向上滑動或下拉以載入更多作品...</span>
+            </div>
+        </main>
+
+        <!-- Footer 頁尾 -->
+        <footer class="footer">
+            <p>&copy; 2026 Jane & Sami. All Rights Reserved. Designed with Soul & Code.</p>
+        </footer>
+
+        <!-- 行動版 RWD 固定底欄選單 -->
+        <div class="footer-rwd-btn d-lg-none sticky-bottom">
+            <a href="../index.html"><i class="fa-solid fa-house-chimney-window"></i></a>
+            <a href="./uc01-about.html"><i class="fa-solid fa-cloud-sun"></i></a>
+            <a href="./uc02-works.html"><i class="fa-solid fa-book-open-reader"></i></a>
+            <a href="../index.html#section_info"><i class="fa-solid fa-comment-medical"></i></a>
+        </div>
+    </div>
+
+    <script src="../js/general/bootstrap.bundle.min.js"></script>
+    <script src="../js/general/vue.global.js"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    searchQuery: '', // 搜尋關鍵字
+                    currentCategory: '全部作品', // 當前選中的篩選標籤
+                    categories: ["全部作品", "程式開發", "日常工藝"],
+
+                    // 模擬從後端 API 接收到的完整 JSON 作品清單資料結構
+                    worksList: [
+                        {
+                            id: 1,
+                            category: "程式開發", // 對應您的原始分類[cite: 4]
+                            subTag: "Web Dev",
+                            title: "Jane & Sami 個人品牌全端系統",
+                            desc: "整合預約機制、塔羅資料庫管理與前端視覺的響應式整合平台。[cite: 4]",
+                            image: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=600",
+                            link: "./uc021-work-desc.html"
+                        },
+                        {
+                            id: 2,
+                            category: "日常工藝",
+                            subTag: "Life Science",
+                            title: "生命數字與塔羅圖像符號",
+                            desc: "探討 0-10 數字邏輯與大阿爾克那圖像對應的數位化工程。[cite: 2]",
+                            image: "",
+                            link: "./uc021-work-desc.html"
+                        },
+                        {
+                            id: 3,
+                            category: "日常工藝",
+                            subTag: "Handicrafts",
+                            title: "針與線的交織舞動",
+                            desc: "探索一針一線中組織的流動生命。[cite: 2]",
+                            image: "",
+                            link: "./uc021-work-desc.html"
+                        },
+                        {
+                            id: 4,
+                            category: "日常工藝",
+                            subTag: "Herbalism",
+                            title: "林間微光魔法藥草庫管理系統",
+                            desc: "採用 Python Tkinter 設計的本地 GUI 資料登錄與 JSON 調用系統，落實內文藥草記錄維護。",
+                            image: "",
+                            link: "./uc021-work-desc.html"
+                        }
+                    ]
+                }
+            },
+            computed: {
+                // 核心控制邏輯：同時過濾「分類按鈕」與「搜尋輸入框關鍵字」
+                filteredWorks() {
+                    return this.worksList.filter(work => {
+                        // 1. 先看分類有沒有對上
+                        const matchCategory = this.currentCategory === '全部作品' || work.category === this.currentCategory;
+
+                        // 2. 再看有沒有包含搜尋關鍵字 (忽略英文字母大小寫)
+                        const query = this.searchQuery.trim().toLowerCase();
+                        const matchKeyword = !query ||
+                            work.title.toLowerCase().includes(query) ||
+                            work.desc.toLowerCase().includes(query) ||
+                            work.subTag.toLowerCase().includes(query);
+
+                        return matchCategory && matchKeyword;
+                    });
+                }
+            }
+        }).mount("#app");
+    </script>
+</body>
+
+</html>

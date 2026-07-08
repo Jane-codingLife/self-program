@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jane & Sami | 網誌</title>
+    <link rel="stylesheet" href="css/general/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* ==============================================================
+            首頁看板 (Hero Section) - 融入微光天空與湖水綠的流動渲染
+           ============================================================== */
+        .section-hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            /* 核心改版：清晨大雨初晴、天空渲染至森林湖泊的非對稱柔和漸層 */
+            background: linear-gradient(135deg, var(--sky-light) 0%, var(--sky-mid) 40%, #A4C5BC 70%, #E2ECE9 100%);
+            position: relative;
+            padding: 0 20px;
+        }
+
+        /* 首頁中央裝飾虛擬光源，營造林間陽光的舒服高質感 */
+        .section-hero::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 30%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 70%);
+            filter: blur(50px);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .brand-title {
+            font-family: var(--font-en);
+            /* Iphone15 852 x 393(px) */
+            font-size: clamp(2.5rem, 4vw, 4.5rem);
+            color: var(--primary);
+            letter-spacing: 8px;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
+            animation: fadeIn 1.5s ease;
+        }
+
+        .brand-subtitle {
+            font-size: clamp(1.05rem, 4vw, 1.25rem);
+            color: var(--text-main);
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        .tarot-divider {
+            color: var(--secondary);
+            letter-spacing: 12px;
+            margin-bottom: 40px;
+            font-size: 0.9rem;
+        }
+
+        /* 自然高品質按鈕設計 */
+        .btn-primary {
+            display: inline-block;
+            padding: 14px 40px;
+            background: linear-gradient(90deg, var(--primary) 0%, #296662 100%);
+            color: var(--text-light);
+            text-decoration: none;
+            font-family: var(--font-zh);
+            font-weight: 500;
+            letter-spacing: 2px;
+            border-radius: 30px;
+            /* 圓角帶來大自然的溫柔與舒適感 */
+            box-shadow: 0 4px 15px rgba(30, 77, 74, 0.2);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .btn-primary:hover {
+            color: var(--text-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(30, 77, 74, 0.35);
+            opacity: 0.95;
+        }
+
+        /* ==============================================================
+            關於我區塊 (About Section)
+           ============================================================== */
+        .section-about {
+            /* 白色底突顯清新爽朗質感 */
+            background-color: var(--bg-card);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        /* 帶有自然有機感的大自然頭像外框 */
+        .about-avatar {
+            width: 300px;
+            height: 400px;
+            background: linear-gradient(45deg, var(--sky-light), var(--bg-dark-section));
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            /* 舒適的圓角設計 */
+            box-shadow: 0 15px 35px rgba(92, 147, 135, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-text h3 {
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+            font-family: var(--font-zh);
+        }
+
+        .about-text p {
+            color: var(--text-muted);
+            margin-bottom: 35px;
+            text-align: justify;
+        }
+
+        /* 有機生態質感的技能標籤 */
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .skill-tags li {
+            background-color: #EDF4F2;
+            border: 1px solid rgba(92, 147, 135, 0.3);
+            color: var(--primary);
+            padding: 6px 18px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 20px;
+            font-family: var(--font-en);
+            letter-spacing: 0.5px;
+        }
+
+        /* ==============================================================
+            數據看板區塊 (section-countResume)
+           ============================================================== */
+        .section-countResume {
+            background-color: var(--bg-dark-section);
+            border-top: 1px solid rgba(92, 147, 135, 0.1);
+            border-bottom: 1px solid rgba(92, 147, 135, 0.1);
+            position: relative;
+        }
+
+        .section-countResume .container {
+            padding: 50px 100px;
+        }
+
+        .count-card {
+            background-color: var(--bg-card);
+            padding: 30px 20px;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid rgba(92, 147, 135, 0.12);
+            box-shadow: 0 8px 20px rgba(44, 53, 50, 0.03);
+            display: flex;
+            flex-direction: column-reverse;
+            gap: 8px;
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s;
+        }
+
+        .count-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(30, 77, 74, 0.25);
+            box-shadow: 0 12px 25px rgba(30, 77, 74, 0.06);
+        }
+
+        .count-label {
+            font-family: var(--font-zh);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin: 0 !important;
+            letter-spacing: 1px;
+        }
+
+        .count-number {
+            font-family: var(--font-en);
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.1;
+            letter-spacing: 0.5px;
+        }
+
+        .count-number small {
+            font-family: var(--font-zh);
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--secondary);
+            margin-left: 4px;
+            letter-spacing: 0px;
+        }
+
+        /* ==============================================================
+            作品集與網誌區塊 / 精選作品 (Portfolio Section)
+           ============================================================== */
+        .section-portfolio {
+            /* 交錯背景色，增加視覺節奏 */
+            background-color: var(--bg-dark-section);
+        }
+
+        .portfolio-filter {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 45px;
+            /* 自動換行 */
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background-color: var(--bg-card);
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            padding: 10px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            border-color: rgba(30, 77, 74, 0.2);
+            color: var(--text-light);
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            box-shadow: 0 4px 12px rgba(30, 77, 74, 0.15);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+        }
+
+        /* 高端自然系作品卡片設計 */
+        .portfolio-card {
+            background-color: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(44, 53, 50, 0.05);
+            /* 超輕量優雅陰影 */
+            border: 1px solid rgba(92, 147, 135, 0.1);
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(30, 77, 74, 0.08);
+            border-color: rgba(30, 77, 74, 0.2);
+        }
+
+        .card-img-placeholder {
+            height: 220px;
+            /* 卡片圖片上方預留之漸層，模擬天空渲染與水氣感 */
+            background: linear-gradient(135deg, var(--sky-light) 0%, #C2DBD7 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        .card-img-placeholder {
+            position: relative;
+        }
+
+        .card-img-placeholder span::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 60%;
+            width: 50%;
+            height: 110px;
+            background: radial-gradient(circle, #296662 0%, rgba(255, 255, 255, 0) 100%);
+            filter: blur(50px);
+            pointer-events: none;
+        }
+
+        .card-body {
+            padding: 28px;
+        }
+
+        .card-tag {
+            font-family: var(--font-en);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            margin: 10px 0 14px 0;
+            color: var(--text-main);
+            font-family: var(--font-zh);
+        }
+
+        .card-desc {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            margin-bottom: 24px;
+            height: 52px;
+            overflow: hidden;
+        }
+
+        .card-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.2s, padding-left 0.2s;
+        }
+
+        .card-link:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+            /* 優雅的微動效 */
+        }
+
+        /* ==============================================================
+            聯絡我區塊 (Contact Section)
+           ============================================================== */
+        .section-contact {
+            background-color: var(--bg-card);
+        }
+
+        .contact-wrapper {
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-main);
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            background-color: var(--bg-main);
+            /* 輸入框帶有淡淡的冷杉綠底色，極其舒適 */
+            border: 1px solid rgba(92, 147, 135, 0.2);
+            padding: 14px 18px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.95rem;
+            border-radius: 8px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30, 77, 74, 0.08);
+        }
+
+        .btn-submit {
+            background: linear-gradient(90deg, var(--primary) 0%, #296662 100%);
+            border: none;
+            color: var(--text-light);
+            padding: 14px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(30, 77, 74, 0.15);
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.95;
+            box-shadow: 0 6px 18px rgba(30, 77, 74, 0.25);
+            transform: translateY(-1px);
+        }
+
+        /* ==============================================================
+            RWD 響應式斷點
+           ============================================================== */
+        @media screen and (max-width: 1082px) and (min-width: 730px) {
+            .portfolio-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            /* 精準捕獲第三張卡片的排版 */
+            .portfolio-card:nth-child(3) {
+                grid-column: 1 / span 2;
+                min-width: calc(50% - 0px);
+                margin: 0 auto;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 40px;
+            }
+
+            .skill-tags {
+                justify-content: center;
+            }
+
+            .filter-btn {
+                /* 一行精準分配 4 個商品 */
+                flex: 0 1 calc(25% - 20px);
+                /* min-width: 160px; */
+                padding: 10px 20px;
+            }
+
+            .section-countResume .container {
+                padding: 60px 20px;
+            }
+
+            .count-card {
+                padding: 22px 15px;
+            }
+
+            .count-number {
+                font-size: 1.9rem;
+            }
+
+            .count-number small {
+                font-size: 0.8rem;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg show-nav">
+        <div class="container nav-container justify-content-center">
+            <a class="navbar-brand nav-logo" href="#">
+                <!-- Logo 也加入這兒 -->
+                Jane & Sami
+            </a>
+            <div class="collapse navbar-collapse justify-content-center">
+                <ul class="navbar-nav nav-menu">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#home">首頁</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">關於我</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#portfolio">作品集</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">聯絡我</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 內容區塊 -->
+    <div class="content">
+        <!-- Hero 首頁看板 ( < 待設計可輪轉 > ) -->
+        <section id="home" class="section-hero">
+            <div class="hero-content">
+                <div class="h1 brand-title">Jane & Sami</div>
+                <p class="brand-subtitle">探索程式、手工藝、植物與塔羅星盤的交織美學</p>
+                <div class="tarot-divider">✦ ✦ ✦</div>
+                <a href="#portfolio" class="btn-primary">瀏覽作品</a>
+            </div>
+        </section>
+
+        <!-- About 關於我 -->
+        <section id="about" class="section-about">
+            <div class="container">
+                <a href="./pages/uc01-about.html" class="text-decoration-none">
+                    <div class="h2 section-title">關於我 <i class="bi bi-signpost"></i><span>About Me</span></div>
+                </a>
+                <div class="about-grid">
+                    <div class="about-avatar-wrapper d-flex justify-content-center">
+                        <div class="about-avatar"></div>
+                    </div>
+                    <div class="about-text">
+                        <h3>
+                            <i class="bi bi-bluesky"></i>
+                            全端開發者 & 人文探索
+                        </h3>
+                        <p>我專注於 PHP 與 MySQL
+                            的後端邏輯構建，同時沉浸於針織手工藝的密網編織與塔羅星盤的理性演繹。對我而言，程式架構的嚴謹、手工藝的細緻觸感，以及命理系統的變易規律，本質皆是同一種對「秩序」與「規律」的深度解構。
+                        </p>
+                        <p>我擅長將這些看似迥異的技能融會貫通於生活，運用工程師的邏輯思維去優化心靈諮詢的決策過程，並以手作的溫度細膩落實數位產品的介面交互。我相信程式碼不僅是運算指令，更是建構真實生活的橋樑，我熱衷於在數據與靈魂的交會處，發掘解決問題的無限可能，為每一位使用者打造既精準又具備人性溫度的數位體驗。
+                        </p>
+                        <ul class="skill-tags">
+                            <li>Full-Stack Dev</li>
+                            <li>UI/UX Design</li>
+                            <li>Knitting Handicrafts</li>
+                            <li>Herbalism</li>
+                            <li>Tarot Chart Life Science</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 數據統計：工作經驗、作品集、證照/書 -->
+        <section id="countResume" class="section-countResume">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-6 col-lg-3">
+                        <div class="count-card">
+                            <p class="count-label">工作經驗</p>
+                            <span class="count-number c1">2.5+ <small>年</small></span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="count-card">
+                            <p class="count-label">精選作品</p>
+                            <span class="count-number c2">10+ <small>組</small></span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="count-card">
+                            <p class="count-label">專業證照</p>
+                            <span class="count-number c3">5 <small>份</small></span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="count-card">
+                            <p class="count-label">修讀時數</p>
+                            <span class="count-number c4">900+ <small>hr</small></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-0 m-0" style="background-color: var(--bg-card); height: 100px;">
+
+        <!-- Protfolio 精選作品集 (3 card) -->
+        <section id="portfolio" class="section-portfolio">
+            <div class="container">
+                <a href="./pages/uc02-works.html" class="text-decoration-none">
+                    <div class="h2 section-title">精選作品 <i class="bi bi-signpost-2"></i><span>Portfolio</span></div>
+                </a>
+
+                <div class="portfolio-filter">
+                    <button class="filter-btn">程式開發</button>
+                    <button class="filter-btn">手作工藝</button>
+                    <button class="filter-btn">玄學工作坊</button>
+                    <button class="filter-btn">魔法藥草學</button>
+                    <button class="filter-btn active">TOP 3</button>
+                </div>
+
+                <!-- 精選 3 card -->
+                <div class="portfolio-grid">
+                    <article class="portfolio-card">
+                        <div class="card-img-placeholder">
+                            <span>程式開發</span>
+                        </div>
+                        <div class="card-body">
+                            <span class="card-tag">Web Dev</span>
+                            <h3 class="card-title">Jane & Sami 個人品牌全端系統</h3>
+                            <p class="card-desc">整合預約機制、塔羅資料庫管理與前端視覺的響應式整合平台。</p>
+                            <a href="#" class="card-link">深入查閱 →</a>
+                        </div>
+                    </article>
+
+                    <article class="portfolio-card">
+                        <div class="card-img-placeholder">
+                            <span>玄學工作坊</span>
+                        </div>
+                        <div class="card-body">
+                            <span class="card-tag">Life Science</span>
+                            <h3 class="card-title">生命數字與塔羅圖像符號</h3>
+                            <p class="card-desc">探討 0-10 數字邏輯與大阿爾克那圖像對應的數位化工程。</p>
+                            <a href="#" class="card-link">深入查閱 →</a>
+                        </div>
+                    </article>
+
+                    <article class="portfolio-card">
+                        <div class="card-img-placeholder">
+                            <span>手作工藝</span>
+                        </div>
+                        <div class="card-body">
+                            <span class="card-tag">Handicrafts</span>
+                            <h3 class="card-title">針與線的交織舞動</h3>
+                            <p class="card-desc">探索一針一線中組織的流動生命。</p>
+                            <a href="#" class="card-link">深入查閱 →</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <!-- Contact 聯絡我 (表單填寫) -->
+        <section id="contact" class="section-contact">
+            <div class="container">
+                <div class="h2 section-title">與我聯絡<span>Contact</span></div>
+                <div class="contact-wrapper">
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <label for="name">您的姓名 Name</label>
+                            <input type="text" id="name" required placeholder="請輸入姓名">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">電子郵件 Email</label>
+                            <input type="email" id="email" required placeholder="example@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">訊息內容 Message</label>
+                            <textarea id="message" rows="5" required placeholder="請留下您想說的話..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">傳送訊息</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 頁尾 footer -->
+    <div class="footer">
+        <div class="footer-text">
+            <p>&copy; 2026 Jane & Sami. All Rights Reserved. Designed with Soul & Code.</p>
+        </div>
+    </div>
+
+    <!-- RWD 選單 -->
+    <div class="footer-rwd-btn d-lg-none sticky-bottom">
+        <a href="#home"><i class="bi bi-house-heart-fill"></i></a>
+        <a href="#about"><i class="bi bi-bluesky"></i></a>
+        <a href="#portfolio"><i class="bi bi-journals"></i></a>
+        <a href="#contact"><i class="bi bi-chat-heart"></i></a>
+    </div>
+
+    <!-- <button id="top-btn" class="top-btn" title="返回頂部">✦</button> -->
+
+    <script src="js/general/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/counterup2@2.0.2/dist/index.js">	</script>
+    <script>
+        const counterUp = window.counterUp.default
+
+        const callback = entries => {
+            entries.forEach(entry => {
+                const el = entry.target
+                if (entry.isIntersecting && !el.classList.contains('is-visible')) {
+                    counterUp(el, {
+                        duration: 1000,
+                        delay: 16,
+                    })
+                    el.classList.add('is-visible')
+                }
+            })
+        }
+
+        const IO = new IntersectionObserver(callback, { threshold: 1 })
+
+        const el1 = document.querySelector('.c1')
+        IO.observe(el1)
+        const el2 = document.querySelector('.c2')
+        IO.observe(el2)
+        const el3 = document.querySelector('.c3')
+        IO.observe(el3)
+        const el4 = document.querySelector('.c4')
+        IO.observe(el4)
+
+    </script>
+</body>
+
+</html>
