@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="../../css/style.css">
     <style>
         /* 本頁面專屬微調：內容與導覽列的上方留白間距 */
-        .about {
-            margin-top: 100px;
+        .content {
+            background: linear-gradient(180deg, var(--sky-light) 0%, var(--bg-main) 150px);
         }
 
         /* ==========================================================================
@@ -275,24 +275,26 @@
     <div id="app">
         <nav class="navbar navbar-expand-lg show-nav">
             <div class="container nav-container justify-content-center">
-                <a class="nav-logo" href="../index.html">
+                <a class="nav-logo" href="../../index.html">
                     <i class="fa-solid fa-cloud-sun"></i> Jane & Sami
                 </a>
                 <div class="collapse navbar-collapse justify-content-center">
                     <ul class="navbar-nav nav-menu">
-                        <li class="nav-item"><a class="nav-link" href="../index.html">首頁</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../../index.html">首頁</a></li>
                         <li class="nav-item"><a class="nav-link active" href="./uc01-about.html">關於我</a></li>
                         <li class="nav-item"><a class="nav-link" href="./uc02-works.html">作品集</a></li>
-                        <li class="nav-item"><a class="nav-link" href="../index.html#section_info">聯絡我</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../../index.html#section_info">聯絡我</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
 
         <div class="about content">
-            <div class="section-title h2">
-                生命歷程 <i class="fa-solid fa-seedling ms-2"></i>
-                <span>My Journey</span>
+            <div class="container">
+                <div class="section-title h2 m-0">
+                    生命歷程 <i class="fa-solid fa-seedling ms-2"></i>
+                    <span>My Journey</span>
+                </div>
             </div>
 
             <section class="section-timeline">

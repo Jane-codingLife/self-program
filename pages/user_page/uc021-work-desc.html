@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jane & Sami | 作品詳述</title>
+    <link rel="stylesheet" href="../../css/general/bootstrap.min.css">
+    <!-- 引入 Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        /* 本頁面專屬排版細節微調 */
+        .content {
+            padding-top: 120px;
+            padding-bottom: 60px;
+        }
+
+        .breadcrumb-text {
+            font-size: 0.88rem;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+        }
+
+        /* 網頁版懸浮目錄書籤優化 */
+        .directory-box {
+            border: 1px solid rgba(92, 147, 135, 0.15);
+            background-color: var(--bg-card);
+        }
+
+        .directory-box .list-group-item {
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            padding: 12px 20px;
+            transition: var(--transition-smooth);
+        }
+
+        .directory-box .list-group-item:hover,
+        .directory-box .list-group-item.active {
+            background-color: var(--bg-dark-section);
+            color: var(--primary) !important;
+            font-weight: 600;
+            border-left: 4px solid var(--primary);
+            padding-left: 16px;
+        }
+
+        /* 單題文章內容盒優化 */
+        .article-hero {
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+        }
+
+        .hero-img-placeholder {
+            height: 320px;
+            background: linear-gradient(135deg, var(--sky-light) 0%, var(--sky-mid) 100%);
+            border-radius: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            box-shadow: 0 8px 24px rgba(44, 53, 50, 0.04);
+        }
+
+        .article-section-box {
+            padding: 35px;
+            margin-bottom: 35px;
+            border-radius: 16px;
+            background-color: var(--bg-card);
+        }
+
+        .article-section-box h3 {
+            color: var(--primary);
+            font-family: var(--font-zh);
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            border-bottom: 2px solid rgba(92, 147, 135, 0.1);
+            padding-bottom: 10px;
+        }
+
+        .article-section-box p {
+            color: var(--text-muted);
+            text-align: justify;
+            line-height: 1.8;
+            font-size: 0.98rem;
+        }
+
+        .article-gallery-img {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid rgba(92, 147, 135, 0.15);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- Navbar 導覽列 -->
+        <nav class="navbar navbar-expand-lg show-nav">
+            <div class="container nav-container justify-content-center">
+                <a class="nav-logo" href="../../index.html">
+                    <i class="fa-solid fa-cloud-sun"></i> Jane & Sami
+                </a>
+                <div class="collapse navbar-collapse justify-content-center">
+                    <ul class="navbar-nav nav-menu">
+                        <li class="nav-item"><a class="nav-link" href="../../index.html">首頁</a></li>
+                        <li class="nav-item"><a class="nav-link" href="./uc01-about.html">關於我</a></li>
+                        <li class="nav-item"><a class="nav-link" href="./uc02-works.html">作品集</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../../index.html#section_info">聯絡我</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 主內容區塊 -->
+        <main class="content container">
+            <!-- 麵包屑導航路徑 -->
+            <div class="breadcrumb-text text-success fw-bold">
+                <i class="fa-solid fa-folder-open me-1"></i> 首頁 &gt; 精選作品 &gt; <span class="text-secondary">{{ articleData.title }}</span>[cite: 5]
+            </div>
+            
+            <div class="row">
+                <!-- 浮動文章目錄書籤 / 行動版呈現上方摺疊列 -->
+                <section class="directory col-12 col-lg-3">
+                    
+                    <!-- 手機版：懸浮固定滾動摺疊鈕 -->
+                    <div class="sticky-top d-lg-none mb-3" style="top: 85px; z-index: 100;">
+                        <p class="mb-0">
+                            <a class="btn btn-success btn-brand-primary w-100 rounded-pill shadow-sm" data-bs-toggle="collapse" href="#mobileDirectoryCollapse" role="button" aria-expanded="false" aria-controls="mobileDirectoryCollapse">
+                                <i class="fa-solid fa-bars me-2"></i> 文章目錄
+                            </a>
+                        </p>
+                        <div class="collapse multi-collapse mt-2" id="mobileDirectoryCollapse">
+                            <div class="card card-body directory-box rounded-3 p-2">
+                                <div class="list-group list-group-flush">
+                                    <a v-for="(sec, idx) in articleData.sections" 
+                                       :key="sec.id" 
+                                       :href="'#' + sec.id" 
+                                       class="list-group-item list-group-item-action"
+                                       :class="{ active: idx === 0 }">
+                                        {{ (idx + 1) + '. ' + sec.title }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 網頁版：側邊懸浮靜態目錄書籤 -->
+                    <div class="collapse d-lg-block directory-box p-4 rounded shadow-sm sticky-top" id="directoryList" style="top: 110px; z-index: 10;">
+                        <h5 class="mb-4 fw-bold text-success border-bottom pb-2">
+                            <i class="fa-solid fa-list-ol me-2"></i>文章目錄[cite: 5]
+                        </h5>
+                        <div class="list-group list-group-flush">
+                            <a v-for="(sec, idx) in articleData.sections" 
+                               :key="sec.id" 
+                               :href="'#' + sec.id" 
+                               class="list-group-item list-group-item-action"
+                               :class="{ active: idx === 0 }">
+                                {{ (idx + 1) + '. ' + sec.title }}[cite: 5]
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 單題詳細內容主體區 -->
+                <section class="article-box col-12 col-lg-9">
+                    
+                    <!-- 大標題看板 -->
+                    <div class="article-hero" id="article_top">
+                        <div v-if="articleData.heroImage" class="mb-4 overflow-hidden rounded-3 shadow-sm" style="max-height: 350px;">
+                            <img :src="articleData.heroImage" :alt="articleData.title" class="w-100 h-100" style="object-fit: cover;">
+                        </div>
+                        <div v-else class="hero-img-placeholder mb-4">
+                            {{ articleData.category }}[cite: 5]
+                        </div>
+                        <div class="hero-title">
+                            <h1 class="h2 fw-bold text-success" id="section1">{{ articleData.title }}[cite: 5]</h1>
+                            <p class="text-muted small mb-0"><i class="fa-solid fa-calendar-days me-2"></i>發佈日期：{{ articleData.publishDate }}[cite: 5]</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 分段圖文組別：依據 JSON 資料動態渲染 -->
+                    <article class="article-content">
+                        <div class="row gy-4 justify-content-center">
+                            
+                            <div v-for="sec in articleData.sections" 
+                                 :id="sec.id" 
+                                 :key="sec.id" 
+                                 class="col-12 d-flex flex-column article-section-box brand-card-base">
+                                <h3>{{ sec.title }}[cite: 5]</h3>
+                                <p class="mb-4">{{ sec.content }}[cite: 5]</p>
+                                
+                                <!-- 圖片畫廊（無圖片時不渲染，支援多圖連續排版） -->
+                                <div class="row g-3" v-if="sec.images && sec.images.length > 0">
+                                    <div class="col-12 col-md-6" v-for="(img, imgIdx) in sec.images" :key="imgIdx">
+                                        <img :src="img" class="article-gallery-img" :alt="sec.title + '-' + imgIdx" style="max-height: 200px;">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </article>
+                </section>
+            </div>
+        </main>
+
+        <!-- Footer 頁尾 -->
+        <footer class="footer">
+            <p>&copy; 2026 Jane & Sami. All Rights Reserved. Designed with Soul & Code.</p>
+        </footer>
+
+        <div class="footer-rwd-btn d-lg-none sticky-bottom">
+            <a href="../../index.html"><i class="fa-solid fa-house-chimney-window"></i></a>
+            <a href="./uc01-about.html"><i class="fa-solid fa-cloud-sun"></i></a>
+            <a href="./uc02-works.html"><i class="fa-solid fa-book-open-reader"></i></a>
+            <a href="../../index.html#section_info"><i class="fa-solid fa-comment-medical"></i></a>
+        </div>
+
+        <!-- 返回頂部懸浮鈕 -->
+        <button id="top-btn" class="top-btn" title="返回頂部" @click="scrollToTop">✦</button>
+    </div>
+
+    <script src="../../js/general/bootstrap.bundle.min.js"></script>
+    <script src="../../js/general/vue.global.js"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    // 單篇作品完整詳細規格的 JSON 資料結構模型
+                    articleData: {
+                        title: "探索數據與靈魂的交會點", // 大標題[cite: 5]
+                        category: "程式開發",
+                        publishDate: "2026-06-24", // 發佈日期[cite: 5]
+                        heroImage: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1170", // 看板圖，留白則啟用漸層底[cite: 5]
+                        
+                        // 多組分段大標題與內容對應[cite: 5]
+                        sections: [
+                            {
+                                id: "section1", // 錨點對應[cite: 5]
+                                title: "大標題與核心概述", // 目錄名稱[cite: 5]
+                                content: "在這個數位洪流的時代，我們致力於將傳統神祕學與底層資料架構完美整合。本系統的核心目的，在於提供使用者一個理性、數據化且具有極高直覺美感的人文交互平台。",
+                                images: [] // 可以不加圖片[cite: 5]
+                            },
+                            {
+                                id: "section2",
+                                title: "第一組：全端技術解析",
+                                content: "後端使用 PHP 與 MySQL 建立穩健的高併發預約交易環境；前端則採用輕量化的 Vue 元件與精心提列的 CSS 進行急速網頁排版渲染，達成保護眼睛且具呼吸感的自然介面。",
+                                images: [
+                                    "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1170" // 支援單組多張或單張圖片[cite: 5]
+                                ]
+                            },
+                            {
+                                id: "section3",
+                                title: "第二組：符號美學解構",
+                                content: "針織手工藝的網絡架構，本質上與程式碼的邏輯互通。我們將生命數字的 0-10 演繹與大阿爾克那 22 張塔羅圖像符號，拆解為純淨的 JSON 物件，落實靈魂與秩序的數位對話。",
+                                images: [
+                                    "https://images.unsplash.com/photo-1611117775350-ac3950990985?q=80&w=1171",
+                                    "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=600",
+                                    "https://images.unsplash.com/photo-1611117775350-ac3950990985?q=80&w=1171"
+                                ]
+                            },
+                            {
+                                id: "section4",
+                                title: "第三組：大自然色彩學",
+                                content: "選用迷霧冷杉與初茶薄荷綠作為核心色彩系統，呼應大自然植物學的舒適與溫暖，在硬體、代碼、以及身心靈命理之間架起最溫和的溝通橋樑。",
+                                images: []
+                            }
+                        ]
+                    }
+                }
+            },
+            methods: {
+                // 平滑返回頂部功能
+                scrollToTop() {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
+        }).mount("#app");
+    </script>
+</body>
+
+</html>

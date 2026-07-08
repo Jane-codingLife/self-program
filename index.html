@@ -13,6 +13,7 @@
         section {
             scroll-margin-top: 100px;
         }
+
         #section_about ul {
             padding: 0;
             list-style: none;
@@ -20,12 +21,14 @@
             flex-wrap: wrap;
             gap: 10px;
         }
+
         #section_about ul li {
             background-color: var(--border-color);
             border-radius: 50px;
             padding: 0 10px;
             box-shadow: 3px 1.5px 2px var(--secondary);
         }
+
         /* 針對 index 頁面微調之分類清單樣式 */
         #section_portfolio ul {
             padding: 0;
@@ -35,6 +38,7 @@
             gap: 12px;
             flex-wrap: wrap;
         }
+
         #section_portfolio ul li {
             cursor: pointer;
         }
@@ -50,7 +54,7 @@
                 <a class="nav-logo" href="#home">
                     <i class="fa-solid fa-cloud-sun"></i> Jane & Sami
                 </a>
-                <div class="collapse navbar-collapse justify-content-end">
+                <div class="collapse navbar-collapse justify-content-center">
                     <ul class="navbar-nav nav-menu">
                         <li class="nav-item"><a class="nav-link active" href="#home">首頁</a></li>
                         <li class="nav-item"><a class="nav-link" href="#section_about">關於我</a></li>
@@ -65,32 +69,30 @@
         <div id="home" style="scroll-margin-top: 100px;">
             <div id="section_carousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#section_carousel" 
-                            v-for="(slide, index) in slides" 
-                            :key="index"
-                            :data-bs-slide-to="index" 
-                            :class="{ active: index === 0 }"
-                            :aria-current="index === 0 ? 'true' : 'false'" 
-                            :aria-label="'Slide ' + (index + 1)"
-                            style="border: 0; border-radius: 20px;"></button>
+                    <button type="button" data-bs-target="#section_carousel" v-for="(slide, index) in slides"
+                        :key="index" :data-bs-slide-to="index" :class="{ active: index === 0 }"
+                        :aria-current="index === 0 ? 'true' : 'false'" :aria-label="'Slide ' + (index + 1)"
+                        style="border: 0; border-radius: 20px;"></button>
                 </div>
                 <div class="carousel-inner">
-                    <div class="carousel-item" 
-                         v-for="(slide, index) in slides" 
-                         :key="index" 
-                         :class="{ active: index === 0 }">
-                        <img :src="slide.image" class="d-block w-100" :alt="slide.title" style="height: 60vh; object-fit: cover;">
-                        <div class="carousel-caption d-none d-md-block" style="background: rgba(30, 77, 74, 0.4); backdrop-filter: blur(4px); border-radius: 12px; padding: 20px; right: 50%; bottom: 35px;">
+                    <div class="carousel-item" v-for="(slide, index) in slides" :key="index"
+                        :class="{ active: index === 0 }">
+                        <img :src="slide.image" class="d-block w-100" :alt="slide.title"
+                            style="height: 60vh; object-fit: cover;">
+                        <div class="carousel-caption d-none d-md-block"
+                            style="background: rgba(30, 77, 74, 0.4); backdrop-filter: blur(4px); border-radius: 12px; padding: 20px; right: 50%; bottom: 35px;">
                             <h5 class="fw-bold text-white">{{ slide.title }}</h5>
                             <p class="mb-0">{{ slide.desc }}</p>
                         </div>
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#section_carousel" data-bs-slide="prev">
+                <button class="carousel-control-prev" type="button" data-bs-target="#section_carousel"
+                    data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">上一頁</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#section_carousel" data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#section_carousel"
+                    data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">下一頁</span>
                 </button>
@@ -101,10 +103,12 @@
         <main class="container">
             <!-- Section 3-1 | 關於我 #section_about -->
             <section id="section_about">
-                <div class="h2 section-title">
-                    關於我 <i class="fa-solid fa-map-signs"></i>
-                    <span>About Me</span>
-                </div>
+                <a class="text-decoration-none" href="./pages/user_page/uc01-about.html">
+                    <div class="h2 section-title">
+                        關於我 <i class="fa-solid fa-map-signs"></i>
+                        <span>About Me</span>
+                    </div>
+                </a>
                 <div class="row g-4">
                     <!-- 左圖 .about-imageBox -->
                     <div class="col-md-5 align-content-center">
@@ -115,7 +119,8 @@
                             <div class="position-absolute brand-card-base"
                                 :style="`background-image: url(${aboutImages[1]}); bottom: 40px; left: 0; width: 40%; height: 30%; z-index: 2; background-size: cover; background-position: center;`">
                             </div>
-                            <div class="img-txt position-absolute fw-bold text-success" style="bottom: 40px; right: 10px; z-index: 3; font-family: var(--font-en);">
+                            <div class="img-txt position-absolute fw-bold text-success"
+                                style="bottom: 40px; right: 10px; z-index: 3; font-family: var(--font-en);">
                                 － Jane & Sami －
                             </div>
                         </div>
@@ -134,12 +139,13 @@
                     </div>
                 </div>
             </section>
-            
+
             <!-- Section 3-2 | 核心數據 #section_counter -->
             <section id="section_conter">
                 <div class="row my-5 text-center">
                     <div class="col-6 col-md-3 mb-3" v-for="(stat, idx) in stats" :key="idx">
-                        <div class="count-card brand-card-base p-4 brand-card-hover d-flex flex-column align-items-center">
+                        <div
+                            class="count-card brand-card-base p-4 brand-card-hover d-flex flex-column align-items-center">
                             <i :class="stat.icon + ' text-success mb-2 fs-3'"></i>
                             <span class="count-number display-6 fw-bold text-success" :class="stat.class">
                                 {{ stat.value }} <small class="fs-6 text-secondary">{{ stat.unit }}</small>
@@ -152,10 +158,12 @@
 
             <!-- Section 3-3 | 精選作品 #section_portfolio -->
             <section id="section_portfolio">
-                <h2 class="section-title">
-                    精選作品 <i class="fa-solid fa-route ms-2"></i>
-                    <span>Featured Works</span>
-                </h2>
+                <a class="text-decoration-none" href="./pages/user_page/uc02-works.html">
+                    <h2 class="section-title">
+                        精選作品 <i class="fa-solid fa-route ms-2"></i>
+                        <span>Featured Works</span>
+                    </h2>
+                </a>
                 <!-- 分類選單按鈕：套用 btn-brand-primary 的新溫暖調性 -->
                 <ul class="text-center mb-5">
                     <li class="btn-brand-primary" v-for="category in categories" :key="category">
@@ -167,7 +175,8 @@
                     <div class="col" v-for="work in works" :key="work.id">
                         <div class="card h-100 brand-card-base brand-card-hover border-0 overflow-hidden">
                             <div class="position-relative">
-                                <img :src="work.image" class="card-img-top" :alt="work.title" style="height: 220px; object-fit: cover;">
+                                <img :src="work.image" class="card-img-top" :alt="work.title"
+                                    style="height: 220px; object-fit: cover;">
                                 <span class="badge bg-success position-absolute top-0 end-0 m-3 px-3 py-2 rounded-pill">
                                     {{ work.tag }}
                                 </span>
@@ -177,7 +186,8 @@
                                 <p class="card-text text-muted flex-grow-1" style="text-align: justify;">
                                     {{ work.desc }}
                                 </p>
-                                <div class="mt-4 pt-3 border-top border-light d-flex justify-content-between align-items-center">
+                                <div
+                                    class="mt-4 pt-3 border-top border-light d-flex justify-content-between align-items-center">
                                     <span class="small text-muted">
                                         <i class="fa-solid fa-calendar-day me-1"></i>{{ work.date }}
                                     </span>
@@ -212,7 +222,8 @@
                                 <dd class="col-sm-9 text-muted">{{ contactInfo.email }}</dd>
                             </div>
                         </div>
-                        <div class="brand-card-base p-4 text-center d-flex flex-column align-items-center justify-content-center" style="height: 180px;">
+                        <div class="brand-card-base p-4 text-center d-flex flex-column align-items-center justify-content-center"
+                            style="height: 180px;">
                             <i class="fa-brands fa-line text-success display-4 mb-2"></i>
                             <p class="text-muted mb-0 fw-bold">LINE QRCode 預留區塊</p>
                         </div>
@@ -222,18 +233,23 @@
                         <form class="contact-form brand-card-base p-4">
                             <div class="form-group mb-3">
                                 <label for="name" class="form-label text-success fw-bold">您的姓名 Name</label>
-                                <input type="text" id="name" required placeholder="請輸入姓名" class="form-control rounded-pill border-success-subtle p-2">
+                                <input type="text" id="name" required placeholder="請輸入姓名"
+                                    class="form-control rounded-pill border-success-subtle p-2">
                             </div>
                             <div class="form-group mb-3">
                                 <label for="email" class="form-label text-success fw-bold">電子郵件 Email</label>
-                                <input type="email" id="email" required placeholder="example@email.com" class="form-control rounded-pill border-success-subtle p-2">
+                                <input type="email" id="email" required placeholder="example@email.com"
+                                    class="form-control rounded-pill border-success-subtle p-2">
                             </div>
                             <div class="form-group mb-3">
                                 <label for="message" class="form-label text-success fw-bold">訊息內容 Message</label>
-                                <textarea id="message" rows="4" required placeholder="請留下您想說的話..." class="form-control border-success-subtle p-3" style="border-radius: 12px;"></textarea>
+                                <textarea id="message" rows="4" required placeholder="請留下您想說的話..."
+                                    class="form-control border-success-subtle p-3"
+                                    style="border-radius: 12px;"></textarea>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-brand-primary border-0 w-100">傳送訊息 <i class="fa-solid fa-paper-plane ms-1"></i></button>
+                                <button type="submit" class="btn btn-brand-primary border-0 w-100">傳送訊息 <i
+                                        class="fa-solid fa-paper-plane ms-1"></i></button>
                             </div>
                         </form>
                     </div>
@@ -260,7 +276,7 @@
     <script src="js/general/all.min.js"></script>
     <script src="https://unpkg.com/counterup2@2.0.2/dist/index.js"></script>
     <script src="js/general/vue.global.js"></script>
-    
+
     <script>
         // CounterUp 動態數字語法
         const counterUp = window.counterUp.default
@@ -315,7 +331,7 @@
                             desc: "整合 MySQL 塔羅牌意資料庫與前端輕量漸層渲染的形象工作坊系統。",
                             date: "2026-05",
                             image: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=600",
-                            link: "pages/uc021-work-desc.html"
+                            link: "./pages/user_page/uc021-work-desc.html"
                         },
                         {
                             id: 2,
@@ -324,7 +340,7 @@
                             desc: "一針一線的勾勒，陪伴身側的可愛小動物，貓貓來襲！",
                             date: "2026-03",
                             image: "https://images.unsplash.com/photo-1573865526739-10659fec78a5?q=80&w=715",
-                            link: "pages/uc021-work-desc.html"
+                            link: "./pages/user_page/uc021-work-desc.html"
                         }
                     ],
                     // 聯繫靜態基本資料
@@ -341,7 +357,7 @@
                 // 額外支援原架構的個別 class 綁定觀測
                 ['.c1', '.c2', '.c3', '.c4'].forEach(cls => {
                     const el = document.querySelector(cls);
-                    if(el) IO.observe(el);
+                    if (el) IO.observe(el);
                 });
             }
         }).mount("#app");
