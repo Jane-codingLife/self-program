@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2026-07-14 14:54:04
+-- 產生時間： 2026-07-14 16:02:02
 -- 伺服器版本： 10.4.32-MariaDB
 -- PHP 版本： 8.2.12
 
@@ -53,6 +53,31 @@ INSERT INTO `about_timeline` (`id`, `index_id`, `time_start`, `time_end`, `title
 (1, 1, '2026.02.02', '2026.08.03', '智慧生成全端程式與跨平台APP整合實務班', NULL, '勞動部勞動力發展署 中彰投分署　職前訓專', NULL, '勞動部勞動力發展署中彰投分署', '深耕全端技術架構（PHP, MySQL, Python），並將資料結構邏輯與跨平台應用程式整合（Vue 3, Bootstrap 5, Flutter），以此建構 Jane & Sami 品牌全端系統基礎。', 1, '2026-07-14', '2026-07-14'),
 (2, 1, '2025.03', '', '機械製圖與創意列印班', NULL, '上益資訊　職前訓專班', NULL, '上益資訊', '平面與立體的圖形建構，再利用 3D 技術具現，由此搭建了達摩蹺蹺板的遊樂區之一。', 3, '2026-07-14', '2026-07-14'),
 (3, 1, '2026.06.26', NULL, '中華民國技術士證', 'Technician Certifica', '網頁設計　丙級', 'Web Design　class C', '勞動部', 'Dreamweaver 前端網頁架設技能，包含影像、動圖簡易處理。', 2, '2026-07-14', '2026-07-14');
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `admin_users`
+--
+
+CREATE TABLE `admin_users` (
+  `id` int(11) NOT NULL,
+  `aid` varchar(5) NOT NULL COMMENT '員編 1英文+ 4數字 A0001',
+  `user_name` varchar(20) NOT NULL,
+  `passwd` varchar(20) NOT NULL,
+  `on_date` date NOT NULL COMMENT '啟用日',
+  `is_used` int(11) NOT NULL DEFAULT 1 COMMENT '是否使用中',
+  `user_desc` varchar(100) DEFAULT NULL COMMENT '簡述',
+  `create_date` date NOT NULL,
+  `update_date` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- 傾印資料表的資料 `admin_users`
+--
+
+INSERT INTO `admin_users` (`id`, `aid`, `user_name`, `passwd`, `on_date`, `is_used`, `user_desc`, `create_date`, `update_date`) VALUES
+(1, 'A0001', '米米', '0000', '2026-07-14', 1, '系統管理員', '2026-07-14', NULL);
 
 -- --------------------------------------------------------
 
@@ -205,8 +230,8 @@ CREATE TABLE `page_section_config` (
 INSERT INTO `page_section_config` (`id`, `index_id`, `section_html_id`, `title`, `en_title`, `subtitle`, `en_subtitle`, `title_icon`, `subtitle_icon`, `section_txt`, `page_link`, `sort_order`, `is_visible`, `create_date`, `update_date`) VALUES
 (1, 1, 'section_about', '關於我', 'About Me', '全端開發者 & 人文探索', NULL, 'fa-solid fa-map-sign', 'fa-solid fa-cloud-su', '我專注於 PHP 與 MySQL的後端邏輯構建，同時沉浸於針織手工藝的密網編織與塔羅星盤的理性演繹。對我而言，程式架構的嚴謹、手工藝的細緻觸感，以及命理系統的變易規律，本質皆是同一種對「秩序」與「規律」的深度解構。\\n我擅長將這些看似迥異的技能融會貫通於生活，運用工程師的邏輯思維去優化心靈諮詢的決策過程，並以手作的溫度細膩落實數位產品的介面交互。我相信程式碼不僅是運算指令，更是建構真實生活的橋樑，我熱衷於在數據與靈魂的交會處，發掘解決問題的無限可能，為每一位使用者打造既精準又具備人性溫度的數位體驗。', NULL, 1, 1, '2026-07-14', '2026-07-14'),
 (2, 1, 'section_counter', '核心數據', 'Metrics', NULL, NULL, NULL, NULL, '實體經歷與專業累積的量化展現', NULL, 2, 1, '2026-07-14', '2026-07-14'),
-(5, 1, 'section_portfolio', '精選作品', 'Portfolio', NULL, NULL, 'fa-solid fa-route ms', NULL, NULL, NULL, 3, 1, '2026-07-14', '2026-07-14'),
-(6, 1, 'section_contact', '與我聯絡', 'Contact', NULL, NULL, 'fa-solid fa-seedling', NULL, NULL, NULL, 4, 1, '2026-07-14', '2026-07-14');
+(3, 1, 'section_portfolio', '精選作品', 'Portfolio', NULL, NULL, 'fa-solid fa-route ms', NULL, NULL, NULL, 3, 1, '2026-07-14', '2026-07-14'),
+(4, 1, 'section_contact', '與我聯絡', 'Contact', NULL, NULL, 'fa-solid fa-seedling', NULL, NULL, NULL, 4, 1, '2026-07-14', '2026-07-14');
 
 -- --------------------------------------------------------
 
@@ -237,7 +262,8 @@ INSERT INTO `table_descript` (`id`, `table_name`, `table_ch_name`, `table_desc`)
 (9, 'tag_resource_library_uesed', '全通用標籤資源表-指定使用', '針對需要 tag 的位置在分別去資源表中取用的關聯。PK：used_table + used_table_id + used_tag_id。'),
 (10, 'user_member', '使用者建檔', '使用者資訊'),
 (11, 'class_resource_library', '全通 class 標籤資源表', ''),
-(12, 'target_resource_library', '全通目標對象資源表', '');
+(12, 'target_resource_library', '全通目標對象資源表', ''),
+(13, 'admin_users', '使用者管理庫', '');
 
 -- --------------------------------------------------------
 
@@ -249,40 +275,45 @@ CREATE TABLE `tag_resource_library` (
   `id` int(11) NOT NULL,
   `tag_name` varchar(20) NOT NULL,
   `tag_name2` varchar(20) DEFAULT NULL,
-  `tag_type` int(11) NOT NULL COMMENT '參照 target_resource_library - id'
+  `tag_type` int(11) NOT NULL COMMENT '參照 target_resource_library - id',
+  `is_used` int(11) NOT NULL DEFAULT 1 COMMENT '是否使用中'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='全通用標籤資源表';
 
 --
 -- 傾印資料表的資料 `tag_resource_library`
 --
 
-INSERT INTO `tag_resource_library` (`id`, `tag_name`, `tag_name2`, `tag_type`) VALUES
-(1, 'Full-Stack Dev', '全端工程師', 1),
-(2, 'UI/UX Design', '', 1),
-(3, 'Knitting Handicrafts', '編織手工藝品', 1),
-(4, 'Herbalism', '草藥學', 1),
-(5, 'Tarot Chart Life Sci', '塔羅牌圖生命科學', 1),
-(6, '#前後端', NULL, 2),
-(7, '#HTML', NULL, 2),
-(8, '#CSS', NULL, 2),
-(9, '#JavaScript', NULL, 2),
-(10, '#Vue', NULL, 2),
-(11, '#PHP', NULL, 2),
-(12, '#MySQL', NULL, 2),
-(13, '#XAMPP', NULL, 2),
-(14, '#Flutter', NULL, 2),
-(15, '#3D列印', NULL, 2),
-(16, '#AutoCAD', NULL, 2),
-(17, '#Solidworks', NULL, 2),
-(18, '#UltiMakerCura', NULL, 2),
-(19, '專業培訓', NULL, 3),
-(20, '程式開發', NULL, 4),
-(21, '手作工藝', NULL, 4),
-(22, '玄學工作坊', NULL, 4),
-(23, '魔法藥草學', NULL, 4),
-(24, '證照執照', NULL, 3),
-(25, '工作資歷', NULL, 3),
-(26, '學歷學程', NULL, 0);
+INSERT INTO `tag_resource_library` (`id`, `tag_name`, `tag_name2`, `tag_type`, `is_used`) VALUES
+(1, 'Full-Stack Dev', '全端工程師', 1, 0),
+(2, 'UI/UX Design', '', 1, 0),
+(3, 'Knitting Handicrafts', '編織手工藝品', 1, 0),
+(4, 'Herbalism', '草藥學', 1, 0),
+(5, 'Tarot Chart Life Sci', '塔羅牌圖生命科學', 1, 0),
+(6, '#前後端', NULL, 2, 1),
+(7, '#HTML', NULL, 2, 1),
+(8, '#CSS', NULL, 2, 1),
+(9, '#JavaScript', NULL, 2, 1),
+(10, '#Vue', NULL, 2, 1),
+(11, '#PHP', NULL, 2, 1),
+(12, '#MySQL', NULL, 2, 1),
+(13, '#XAMPP', NULL, 2, 1),
+(14, '#Flutter', NULL, 2, 1),
+(15, '#3D列印', NULL, 2, 1),
+(16, '#AutoCAD', NULL, 2, 1),
+(17, '#Solidworks', NULL, 2, 1),
+(18, '#UltiMakerCura', NULL, 2, 1),
+(19, '專業培訓', NULL, 3, 1),
+(20, '程式開發', NULL, 4, 1),
+(21, '手作工藝', NULL, 4, 1),
+(22, '玄學工作坊', NULL, 4, 1),
+(23, '魔法藥草學', NULL, 4, 1),
+(24, '證照執照', NULL, 3, 1),
+(25, '工作資歷', NULL, 3, 1),
+(26, '學歷學程', NULL, 3, 1),
+(27, '全端工程師(前/後端)', NULL, 1, 1),
+(28, 'UI/UX 介面設計', NULL, 1, 1),
+(29, '日常生活文藝', NULL, 1, 1),
+(30, '資料庫編撰(MySQL/SQLServe', NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -411,6 +442,13 @@ ALTER TABLE `about_timeline`
   ADD PRIMARY KEY (`id`);
 
 --
+-- 資料表索引 `admin_users`
+--
+ALTER TABLE `admin_users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `員編` (`aid`);
+
+--
 -- 資料表索引 `class_resource_library`
 --
 ALTER TABLE `class_resource_library`
@@ -487,6 +525,12 @@ ALTER TABLE `about_timeline`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- 使用資料表自動遞增(AUTO_INCREMENT) `admin_users`
+--
+ALTER TABLE `admin_users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- 使用資料表自動遞增(AUTO_INCREMENT) `class_resource_library`
 --
 ALTER TABLE `class_resource_library`
@@ -514,19 +558,19 @@ ALTER TABLE `index_main`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `page_section_config`
 --
 ALTER TABLE `page_section_config`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自動編號', AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自動編號', AUTO_INCREMENT=5;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `table_descript`
 --
 ALTER TABLE `table_descript`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `tag_resource_library`
 --
 ALTER TABLE `tag_resource_library`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `target_resource_library`
