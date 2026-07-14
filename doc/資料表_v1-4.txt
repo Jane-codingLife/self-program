@@ -1,0 +1,697 @@
+{
+  "table_descript": [
+    {
+      "id": 1,
+      "table_name": "index_main",
+      "table_ch_name": "首頁主表",
+      "table_desc": "僅存放全站唯一的全域設定，如 LOGO 名字與頁尾版權。"
+    },
+    {
+      "id": 2,
+      "table_name": "page_section_config",
+      "table_ch_name": "網頁區塊配置表",
+      "table_desc": "管理網頁上所有大區塊(Section)的大標題、小標題、Icon 與前後上下排序。"
+    },
+    {
+      "id": 3,
+      "table_name": "digital_data",
+      "table_ch_name": "數據統計表",
+      "table_desc": "首頁主表上呈現的四格數據圖。"
+    },
+    {
+      "id": 4,
+      "table_name": "about_timeline",
+      "table_ch_name": "時間軸-生命歷程表",
+      "table_desc": ""
+    },
+    {
+      "id": 5,
+      "table_name": "works_gallery",
+      "table_ch_name": "作品集大綱表",
+      "table_desc": ""
+    },
+    {
+      "id": 6,
+      "table_name": "work_description_node",
+      "table_ch_name": "作品內文段落表",
+      "table_desc": "對應到大綱集的詳細目錄與分段內文。"
+    },
+    {
+      "id": 7,
+      "table_name": "image_resource_library",
+      "table_ch_name": "全萬能通用圖庫資源表",
+      "table_desc": ""
+    },
+    {
+      "id": 8,
+      "table_name": "tag_resource_library",
+      "table_ch_name": "全通用標籤資源表",
+      "table_desc": ""
+    },
+    {
+      "id": 9,
+      "table_name": "tag_resource_library_uesed",
+      "table_ch_name": "全通用標籤資源表-指定使用",
+      "table_desc": "針對需要 tag 的位置在分別去資源表中取用的關聯。PK：used_table + used_table_id + used_tag_id。"
+    },
+    {
+      "id": 10,
+      "table_name": "user_member",
+      "table_ch_name": "使用者建檔",
+      "table_desc": "使用者資訊"
+    },
+    {
+      "id": 11,
+      "table_name": "class_resource_library",
+      "table_ch_name": "全通 class 標籤資源表",
+      "table_desc": ""
+    },
+    {
+      "id": 12,
+      "table_name": "target_resource_library",
+      "table_ch_name": "全通目標對象資源表",
+      "table_desc": ""
+    }
+  ],
+  "index_main": [
+    {
+      "id": 1,
+      "logo_txt": "Jane & Sami",
+      "title": "Jane & Sami",
+      "en_title": null,
+      "subtitle": null,
+      "en_subtitle": null,
+      "contact_info": "聯絡資訊",
+      "contact_local": "台中市豐原區",
+      "contact_phone": null,
+      "contact_mobile": "0956566576",
+      "contact_email": "aehow4432@gmail.com",
+      "contact_lineID": null,
+      "contact_weChat": null,
+      "contact_else_1": null,
+      "contact_else_2": null,
+      "contact_else_3": null,
+      "contact_time": null,
+      "contact_infoTxt": null,
+      "footer_txt": "&copy; 2026 Jane & Sami. All Rights Reserved. Designed with Soul & Code.",
+      "footer_link_1": null,
+      "footer_link_1_icon": null,
+      "footer_link_2": null,
+      "footer_link_2_icon": null,
+      "footer_link_3": null,
+      "footer_link_3_icon": null,
+      "create_date": "2026-07-14",
+      "update_date": "2026-07-14"
+    }
+  ],
+  "page_section_config": [
+    {
+      "id": 1,
+      "index_id": 1,
+      "section_html_id": "section_about",
+      "title": "關於我",
+      "en_title": "About Me",
+      "subtitle": "全端開發者 & 人文探索",
+      "en_subtitle": null,
+      "title_icon": "fa-solid fa-map-sign",
+      "subtitle_icon": "fa-solid fa-cloud-su",
+      "section_txt": "我專注於 PHP 與 MySQL的後端邏輯構建，同時沉浸於針織手工藝的密網編織與塔羅星盤的理性演繹。對我而言，程式架構的嚴謹、手工藝的細緻觸感，以及命理系統的變易規律，本質皆是同一種對「秩序」與「規律」的深度解構。\\n我擅長將這些看似迥異的技能融會貫通於生活，運用工程師的邏輯思維去優化心靈諮詢的決策過程，並以手作的溫度細膩落實數位產品的介面交互。我相信程式碼不僅是運算指令，更是建構真實生活的橋樑，我熱衷於在數據與靈魂的交會處，發掘解決問題的無限可能，為每一位使用者打造既精準又具備人性溫度的數位體驗。",
+      "page_link": null,
+      "sort_order": 1,
+      "is_visible": 1,
+      "create_date": "2026-07-14",
+      "update_date": "2026-07-14"
+    },
+    {
+      "id": 2,
+      "index_id": 1,
+      "section_html_id": "section_counter",
+      "title": "核心數據",
+      "en_title": "Metrics",
+      "subtitle": null,
+      "en_subtitle": null,
+      "title_icon": null,
+      "subtitle_icon": null,
+      "section_txt": "實體經歷與專業累積的量化展現",
+      "page_link": null,
+      "sort_order": 2,
+      "is_visible": 1,
+      "create_date": "2026-07-14",
+      "update_date": "2026-07-14"
+    },
+    {
+      "id": 3,
+      "index_id": 1,
+      "section_html_id": "section_portfolio",
+      "title": "精選作品",
+      "en_title": "Portfolio",
+      "subtitle": null,
+      "en_subtitle": null,
+      "title_icon": "fa-solid fa-route ms",
+      "subtitle_icon": null,
+      "section_txt": null,
+      "page_link": null,
+      "sort_order": 3,
+      "is_visible": 1,
+      "create_date": "2026-07-14",
+      "update_date": "2026-07-14"
+    },
+    {
+      "id": 4,
+      "index_id": 1,
+      "section_html_id": "section_contact",
+      "title": "與我聯絡",
+      "en_title": "Contact",
+      "subtitle": null,
+      "en_subtitle": null,
+      "title_icon": "fa-solid fa-seedling",
+      "subtitle_icon": null,
+      "section_txt": null,
+      "page_link": null,
+      "sort_order": 4,
+      "is_visible": 1,
+      "create_date": "2026-07-14",
+      "update_date": "2026-07-14"
+    }
+  ],
+  "digital_data": [
+    {
+      "id": 1,
+      "index_id": 1,
+      "data_icon": "fa-solid fa-briefcas",
+      "data_label": "工作經驗",
+      "data_value": "2-3",
+      "data_unit": "年",
+      "sort_order": 1,
+      "create_date": "2026-07-14",
+      "update_date": "2026-07-14"
+    },
+    {
+      "id": 2,
+      "index_id": 1,
+      "data_icon": "fa-brands fa-audible",
+      "data_label": "精選作品",
+      "data_value": "10+",
+      "data_unit": "組",
+      "sort_order": 2,
+      "create_date": "2026-07-14",
+      "update_date": "2026-07-14"
+    },
+    {
+      "id": 3,
+      "index_id": 1,
+      "data_icon": "fa-regular fa-id-car",
+      "data_label": "專業證照",
+      "data_value": "10",
+      "data_unit": "份",
+      "sort_order": 3,
+      "create_date": "2026-07-14",
+      "update_date": "2026-07-14"
+    },
+    {
+      "id": 4,
+      "index_id": 1,
+      "data_icon": "fa-solid fa-book-ope",
+      "data_label": "修讀時數",
+      "data_value": "600+",
+      "data_unit": "hr",
+      "sort_order": 4,
+      "create_date": "2026-07-14",
+      "update_date": "2026-07-14"
+    }
+  ],
+  "about_timeline": [
+    {
+      "id": 1,
+      "index_id": 1,
+      "time_start": "2026.02.02",
+      "time_end": "2026.08.03",
+      "title": "智慧生成全端程式與跨平台APP整合實務班",
+      "en_title": null,
+      "subtitle": "勞動部勞動力發展署 中彰投分署 職前訓專",
+      "en_subtitle": null,
+      "location": "勞動部勞動力發展署中彰投分署",
+      "txt": "深耕全端技術架構（PHP, MySQL, Python），並將資料結構邏輯與跨平台應用程式整合（Vue 3, Bootstrap 5, Flutter），以此建構 Jane & Sami 品牌全端系統基礎。",
+      "sort_order": 1,
+      "create_date": "2026-07-14",
+      "update_date": "2026-07-14"
+    },
+    {
+      "id": 2,
+      "index_id": 1,
+      "time_start": "2025.03",
+      "time_end": "",
+      "title": "機械製圖與創意列印班",
+      "en_title": null,
+      "subtitle": "上益資訊 職前訓專班",
+      "en_subtitle": null,
+      "location": "上益資訊",
+      "txt": "平面與立體的圖形建構，再利用 3D 技術具現，由此搭建了達摩蹺蹺板的遊樂區之一。",
+      "sort_order": 3,
+      "create_date": "2026-07-14",
+      "update_date": "2026-07-14"
+    },
+    {
+      "id": 3,
+      "index_id": 1,
+      "time_start": "2026.06.26",
+      "time_end": null,
+      "title": "中華民國技術士證",
+      "en_title": "Technician Certifica",
+      "subtitle": "網頁設計 丙級",
+      "en_subtitle": "Web Design class C",
+      "location": "勞動部",
+      "txt": "Dreamweaver 前端網頁架設技能，包含影像、動圖簡易處理。",
+      "sort_order": 2,
+      "create_date": "2026-07-14",
+      "update_date": "2026-07-14"
+    }
+  ],
+  "works_gallery": [
+    {
+      "id": 1,
+      "breadcrumb_name": "Jane & Sami Website",
+      "title": "Jane & Sami 個人品牌網建置",
+      "en_title": null,
+      "subtitle": null,
+      "en_subtitle": null,
+      "outline_desc": "綜合個人履歷展現、連結各分支作品瀏覽，讓每個作品都有獨屬自己的專頁介紹。",
+      "post_time": "2026.07.01 9:03:10",
+      "is_top3": 1,
+      "sort_order": 1,
+      "create_date": "2026-07-14",
+      "update_date": "2026-07-14"
+    },
+    {
+      "id": 2,
+      "breadcrumb_name": "貓咪編織",
+      "title": "貓咪編織 @雀之翎毛線編織",
+      "en_title": null,
+      "subtitle": null,
+      "en_subtitle": null,
+      "outline_desc": "貓咪編織。",
+      "post_time": "2026.04.05 12:13:23",
+      "is_top3": 1,
+      "sort_order": 2,
+      "create_date": "2026-07-14",
+      "update_date": "2026-07-14"
+    }
+  ],
+  "work_description_node": [
+    {
+      "id": 1,
+      "work_id": 1,
+      "node_order": 1,
+      "node_title": "課程大綱",
+      "node_title_icon": null,
+      "node_html_content": "這是在不改變您原本大架構下，透過 Bootstrap 格線重新洗牌後的精確呈現。右側內容區會隨著使用者的滾動，優雅地與左側浮動目錄保持平行對齊。",
+      "create_date": "2026-07-14",
+      "update_date": "2026-07-14"
+    },
+    {
+      "id": 2,
+      "work_id": 1,
+      "node_order": 2,
+      "node_title": "課程內容",
+      "node_title_icon": null,
+      "node_html_content": "這是在不改變您原本大架構下，透過 Bootstrap 格線重新洗牌後的精確呈現。右側內容區會隨著使用者的滾動，優雅地與左側浮動目錄保持平行對齊。\\n\\n當進入手機版時，左側的目錄區塊會全自動退化成一個小巧清爽的漢堡按鈕列。點擊該按鈕後，目錄選單會以流暢的下拉折疊動效現身，絕不干擾主要的閱讀視線。",
+      "create_date": "2026-07-14",
+      "update_date": "2026-07-14"
+    },
+    {
+      "id": 3,
+      "work_id": 1,
+      "node_order": 3,
+      "node_title": "課程作品",
+      "node_title_icon": null,
+      "node_html_content": "本設計完美相容於您既有的「暮光森林與湖水綠」全域環境變數系統，卡片底座與高光文字比例皆符合最高規格的前端視覺美學。",
+      "create_date": "2026-07-14",
+      "update_date": "2026-07-14"
+    }
+  ],
+  "image_resource_library": [
+    {
+      "id": 1,
+      "img_path": "img/SamiLogo.jpg",
+      "target_table": "index_main",
+      "target_id": 1,
+      "img_type": "LOGO",
+      "img_alt_text": "Jane & Sami",
+      "create_date": "2026-07-14",
+      "update_date": "2026-07-14"
+    }
+  ],
+  "tag_resource_library": [
+    {
+      "id": 1,
+      "tag_name": "Full-Stack Dev",
+      "tag_name2": "全端工程師",
+      "tag_type": 1
+    },
+    {
+      "id": 2,
+      "tag_name": "UI/UX Design",
+      "tag_name2": "",
+      "tag_type": 1
+    },
+    {
+      "id": 3,
+      "tag_name": "Knitting Handicrafts",
+      "tag_name2": "編織手工藝品",
+      "tag_type": 1
+    },
+    {
+      "id": 4,
+      "tag_name": "Herbalism",
+      "tag_name2": "草藥學",
+      "tag_type": 1
+    },
+    {
+      "id": 5,
+      "tag_name": "Tarot Chart Life Sci",
+      "tag_name2": "塔羅牌圖生命科學",
+      "tag_type": 1
+    },
+    {
+      "id": 6,
+      "tag_name": "#前後端",
+      "tag_name2": null,
+      "tag_type": 2
+    },
+    {
+      "id": 7,
+      "tag_name": "#HTML",
+      "tag_name2": null,
+      "tag_type": 2
+    },
+    {
+      "id": 8,
+      "tag_name": "#CSS",
+      "tag_name2": null,
+      "tag_type": 2
+    },
+    {
+      "id": 9,
+      "tag_name": "#JavaScript",
+      "tag_name2": null,
+      "tag_type": 2
+    },
+    {
+      "id": 10,
+      "tag_name": "#Vue",
+      "tag_name2": null,
+      "tag_type": 2
+    },
+    {
+      "id": 11,
+      "tag_name": "#PHP",
+      "tag_name2": null,
+      "tag_type": 2
+    },
+    {
+      "id": 12,
+      "tag_name": "#MySQL",
+      "tag_name2": null,
+      "tag_type": 2
+    },
+    {
+      "id": 13,
+      "tag_name": "#XAMPP",
+      "tag_name2": null,
+      "tag_type": 2
+    },
+    {
+      "id": 14,
+      "tag_name": "#Flutter",
+      "tag_name2": null,
+      "tag_type": 2
+    },
+    {
+      "id": 15,
+      "tag_name": "#3D列印",
+      "tag_name2": null,
+      "tag_type": 2
+    },
+    {
+      "id": 16,
+      "tag_name": "#AutoCAD",
+      "tag_name2": null,
+      "tag_type": 2
+    },
+    {
+      "id": 17,
+      "tag_name": "#Solidworks",
+      "tag_name2": null,
+      "tag_type": 2
+    },
+    {
+      "id": 18,
+      "tag_name": "#UltiMakerCura",
+      "tag_name2": null,
+      "tag_type": 2
+    },
+    {
+      "id": 19,
+      "tag_name": "專業培訓",
+      "tag_name2": null,
+      "tag_type": 3
+    },
+    {
+      "id": 20,
+      "tag_name": "程式開發",
+      "tag_name2": null,
+      "tag_type": 4
+    },
+    {
+      "id": 21,
+      "tag_name": "手作工藝",
+      "tag_name2": null,
+      "tag_type": 4
+    },
+    {
+      "id": 22,
+      "tag_name": "玄學工作坊",
+      "tag_name2": null,
+      "tag_type": 4
+    },
+    {
+      "id": 23,
+      "tag_name": "魔法藥草學",
+      "tag_name2": null,
+      "tag_type": 4
+    },
+    {
+      "id": 24,
+      "tag_name": "證照執照",
+      "tag_name2": null,
+      "tag_type": 3
+    },
+    {
+      "id": 25,
+      "tag_name": "工作資歷",
+      "tag_name2": null,
+      "tag_type": 3
+    },
+    {
+      "id": 26,
+      "tag_name": "學歷學程",
+      "tag_name2": null,
+      "tag_type": 0
+    }
+  ],
+  "tag_resource_library_uesed": [
+    {
+      "used_table": 1,
+      "used_table_id": 1,
+      "used_tag_id": 1,
+      "used_target": 1,
+      "badge_class": 1
+    },
+    {
+      "used_table": 1,
+      "used_table_id": 1,
+      "used_tag_id": 2,
+      "used_target": 1,
+      "badge_class": 1
+    },
+    {
+      "used_table": 1,
+      "used_table_id": 1,
+      "used_tag_id": 3,
+      "used_target": 1,
+      "badge_class": 1
+    },
+    {
+      "used_table": 1,
+      "used_table_id": 1,
+      "used_tag_id": 4,
+      "used_target": 1,
+      "badge_class": 1
+    },
+    {
+      "used_table": 1,
+      "used_table_id": 1,
+      "used_tag_id": 5,
+      "used_target": 1,
+      "badge_class": 1
+    },
+    {
+      "used_table": 4,
+      "used_table_id": 1,
+      "used_tag_id": 6,
+      "used_target": 2,
+      "badge_class": 2
+    },
+    {
+      "used_table": 4,
+      "used_table_id": 1,
+      "used_tag_id": 7,
+      "used_target": 2,
+      "badge_class": 2
+    },
+    {
+      "used_table": 4,
+      "used_table_id": 1,
+      "used_tag_id": 8,
+      "used_target": 2,
+      "badge_class": 2
+    },
+    {
+      "used_table": 4,
+      "used_table_id": 1,
+      "used_tag_id": 9,
+      "used_target": 2,
+      "badge_class": 2
+    },
+    {
+      "used_table": 4,
+      "used_table_id": 1,
+      "used_tag_id": 10,
+      "used_target": 2,
+      "badge_class": 2
+    },
+    {
+      "used_table": 4,
+      "used_table_id": 1,
+      "used_tag_id": 11,
+      "used_target": 2,
+      "badge_class": 2
+    },
+    {
+      "used_table": 4,
+      "used_table_id": 1,
+      "used_tag_id": 12,
+      "used_target": 2,
+      "badge_class": 2
+    },
+    {
+      "used_table": 4,
+      "used_table_id": 1,
+      "used_tag_id": 13,
+      "used_target": 2,
+      "badge_class": 2
+    },
+    {
+      "used_table": 4,
+      "used_table_id": 1,
+      "used_tag_id": 14,
+      "used_target": 2,
+      "badge_class": 2
+    },
+    {
+      "used_table": 4,
+      "used_table_id": 1,
+      "used_tag_id": 19,
+      "used_target": 3,
+      "badge_class": 3
+    },
+    {
+      "used_table": 4,
+      "used_table_id": 2,
+      "used_tag_id": 19,
+      "used_target": 3,
+      "badge_class": 3
+    },
+    {
+      "used_table": 4,
+      "used_table_id": 3,
+      "used_tag_id": 24,
+      "used_target": 3,
+      "badge_class": 4
+    },
+    {
+      "used_table": 5,
+      "used_table_id": 1,
+      "used_tag_id": 20,
+      "used_target": 4,
+      "badge_class": 5
+    },
+    {
+      "used_table": 5,
+      "used_table_id": 2,
+      "used_tag_id": 21,
+      "used_target": 4,
+      "badge_class": 6
+    }
+  ],
+  "class_resource_library": [
+    {
+      "id": 1,
+      "class_name": "tag-skill",
+      "class_desc": "首頁-關於我的技能標籤CSS",
+      "CSS_path": null
+    },
+    {
+      "id": 2,
+      "class_name": "tag_life_technical",
+      "class_desc": "生命卡-主題標籤 Hashtag",
+      "CSS_path": null
+    },
+    {
+      "id": 3,
+      "class_name": "badge_learning",
+      "class_desc": "生命卡-分類標籤：學習類",
+      "CSS_path": null
+    },
+    {
+      "id": 4,
+      "class_name": "badge_certification",
+      "class_desc": "生命卡-分類標籤：認證類",
+      "CSS_path": null
+    },
+    {
+      "id": 5,
+      "class_name": "badge_code",
+      "class_desc": "生命卡-分類標籤：專案類",
+      "CSS_path": null
+    },
+    {
+      "id": 6,
+      "class_name": "badge_knitting",
+      "class_desc": "生命卡-分類標籤：針織類",
+      "CSS_path": null
+    }
+  ],
+  "target_resource_library": [
+    {
+      "id": 1,
+      "target_name": "about",
+      "target_desc": "關於我"
+    },
+    {
+      "id": 2,
+      "target_name": "life-card",
+      "target_desc": "生命卡"
+    },
+    {
+      "id": 3,
+      "target_name": "life-card-category",
+      "target_desc": "生命卡類別"
+    },
+    {
+      "id": 4,
+      "target_name": "works-category",
+      "target_desc": "作品類別"
+    }
+  ]
+}
