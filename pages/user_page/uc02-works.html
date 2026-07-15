@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jane & Sami | 精選作品集</title>
-    <link class="bootstrap-link" rel="stylesheet" href="../../css/general/bootstrap.min.css">
     <!-- 引入 Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link class="bootstrap-link" rel="stylesheet" href="../../css/general/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/style.css">
     <style>
         /* 本頁面專屬排版細節微調 */
@@ -162,15 +162,15 @@
         <!-- Navbar 導覽列 -->
         <nav class="navbar navbar-expand-lg show-nav">
             <div class="container nav-container justify-content-center">
-                <a class="nav-logo" href="../../index.html">
+                <a class="nav-logo" :href="urls.index">
                     <i class="fa-solid fa-cloud-sun"></i> Jane & Sami
                 </a>
                 <div class="collapse navbar-collapse justify-content-center">
                     <ul class="navbar-nav nav-menu">
-                        <li class="nav-item"><a class="nav-link" href="../../index.html">首頁</a></li>
-                        <li class="nav-item"><a class="nav-link" href="./uc01-about.html">關於我</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="./uc02-works.html">作品集</a></li>
-                        <li class="nav-item"><a class="nav-link" href="../../index.html#section_info">聯絡我</a></li>
+                        <li class="nav-item"><a class="nav-link" :href="urls.index">首頁</a></li>
+                        <li class="nav-item"><a class="nav-link" :href="urls.about">關於我</a></li>
+                        <li class="nav-item"><a class="nav-link" :href="urls.works">作品集</a></li>
+                        <li class="nav-item"><a class="nav-link" :href="urls.contact">聯絡我</a></li>
                     </ul>
                 </div>
             </div>
@@ -267,10 +267,10 @@
         </footer>
 
         <div class="footer-rwd-btn d-lg-none sticky-bottom">
-            <a href="../../index.html"><i class="fa-solid fa-house-chimney-window"></i></a>
-            <a href="./uc01-about.html"><i class="fa-solid fa-cloud-sun"></i></a>
-            <a href="./uc02-works.html"><i class="fa-solid fa-book-open-reader"></i></a>
-            <a href="../../index.html#section_info"><i class="fa-solid fa-comment-medical"></i></a>
+            <a :href="urls.index"><i class="fa-solid fa-house-chimney-window"></i></a>
+            <a :href="urls.about"><i class="fa-solid fa-cloud-sun"></i></a>
+            <a :href="urls.works"><i class="fa-solid fa-book-open-reader"></i></a>
+            <a :href="urls.contact"><i class="fa-solid fa-comment-medical"></i></a>
         </div>
     </div>
 
@@ -280,6 +280,12 @@
         Vue.createApp({
             data() {
                 return {
+                    urls: {
+                        index: "../../index.html",
+                        about: "./uc01-about.html",
+                        works: "./uc02-works.html",
+                        contact: "../../index.html#section_info",
+                    },
                     searchQuery: '', // 搜尋關鍵字
                     currentCategory: '全部作品', // 當前選中的篩選標籤
                     categories: ["全部作品", "程式開發", "日常工藝"],

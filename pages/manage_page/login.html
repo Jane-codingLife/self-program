@@ -7,7 +7,6 @@
     <title>Jane & Sami | 後臺登入</title>
     <link rel="stylesheet" href="../../css/general/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/general/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../../css/style.css">
     <style>
         /* ==========================================================================
@@ -181,36 +180,40 @@
 
 <body>
 
-    <div class="login-page-bg">
+    <div id="app" class="login-page-bg">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 col-sm-10 col-md-8 col-lg-5">
                     <div class="card brand-card-base">
                         <div class="card-header text-center">
-                            <a href="index.html" class="login-brand-logo">Jane & Sami</a>
+                            <a :href="urls.index" class="login-brand-logo">Jane & Sami</a>
                             <span class="login-brand-subtitle">✦ 系統管理中心 ✦</span>
                         </div>
                         <div class="card-body">
                             <div class="form-group mb-3">
                                 <label class="form-label" for="aid"><i class="fa-solid fa-user"></i> 管理員員編</label>
                                 <div class="login-input-group">
-                                    <input type="text" id="aid" class="login-form-control" required 
-                                    autocomplete="username" data-field="admin_aid">
+                                    <input type="text" id="aid" name="admin_aid" class="login-form-control" required
+                                        autocomplete="username" data-field="admin_aid" :value="usd_aid"
+                                        v-model="usd_aid">
                                 </div>
                             </div>
 
                             <div class="form-group mb-4">
                                 <label class="form-label" for="passwd"><i class="fa-solid fa-lock"></i> 管理員密碼</label>
                                 <div class="login-input-group">
-                                    <input type="password" id="passwd" class="login-form-control" required 
-                                    autocomplete="current-password" data-field="admin_passwd">
+                                    <input type="password" id="passwd" name="admin_passwd" class="login-form-control"
+                                        required autocomplete="current-password" data-field="admin_passwd"
+                                        v-model="usd_pwd">
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-brand-primary w-100">登入 ✦</button>
+                            <button type="submit" name="submit_login" class="btn btn-brand-primary w-100"
+                                @click="checkUser">登入 ✦</button>
+
                         </div>
                         <div class="card-footer text-center">
-                            <a href="../../index.html" class="back-to-home text-decoration-none">
+                            <a :href="urls.index" class="back-to-home text-decoration-none">
                                 <i class="fa-solid fa-left-long"></i> 返回首頁 ✦
                             </a>
                         </div>
@@ -222,6 +225,97 @@
 
     <script src="../../js/general/bootstrap.bundle.min.js"></script>
     <script src="../../js/general/all.min.js"></script>
+    <script src="../../js/general/vue.global.js"></script>
+    <!-- <script src="../../js/custom/axios_session.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    urls: {
+                        index: "../../index.html",
+                    },
+                    usd_aid: 'A0001',
+                    usd_pwd: ''
+                }
+            },
+            mounted() {
+                // this.checkLoginStatus();
+            },
+            methods: {
+                // 替代 Session 檢查
+                checkLoginStatus() {
+                    const vm = this;
+                    axios.post('http://localhost/self-program/api/api_00_login_status.php', { withCredentials: true })
+                        .then(function (response) {
+                            if (response.data.admin_logged_in) {
+                                // 驗證通過放行
+                                window.location.href = './ma01-welcome.html';
+                            } else {
+                                // 驗證失敗，強制踢回登入頁
+                                Swal.fire({
+                                    title: "登入逾時或未登入，請重新登入！",
+                                    icon: "warning"
+                                });
+                                window.location.href = './login.html';
+                            }
+                        })
+                        .catch(function (error) {
+                            window.location.href = './login.html';
+                        });
+                },
+                // 驗證帳密
+                checkUser() {
+                    const vm = this;
+                    const params = {
+                        "aid": vm.usd_aid,
+                        "passwd": vm.usd_pwd
+                    };
+                    axios.post('http://localhost/self-program/api/api_00_login.php', params)
+                        .then(function (response) {
+                            console.log(response);
+                            Swal.fire({
+                                title: "訊息",
+                                confirmButtonText: "確認",
+                                text: response.data.message,
+                                icon: "info",
+                                allowOutsideClick: false
+                            }).then((result) => {
+                                if (result.isConfirmed && response.data.success) {
+                                    window.location.href = './ma01-welcome.html';
+                                };
+                            });
+                        })
+                        .catch(function (error) {
+                            Swal.fire({
+                                title: "系統發生錯誤！請將下列資訊貼給系統管理員。",
+                                text: error,
+                                icon: "error"
+                            });
+                        });
+                },
+                // 密碼轉換雜湊
+                // pwd_hash() {
+                //     const vm = this;
+                //     const params = {};
+                //     axios.post('http://localhost/self-program/api/api_00_make_hash.php', {'pwd': vm.usd_pwd})
+                //         .then(function(response) {
+                //             console.log(response);
+                //             vm.usd_hash = response.data.hash;
+                //             vm.msg = response.data.message;
+                //         })
+                //         .catch(function(error) {
+                //             Swal.fire({
+                //                 title: "系統發生錯誤！請將下列資訊貼給系統管理員。",
+                //                 text: error,
+                //                 icon: "error"
+                //             });
+                //         });
+                // }
+            }
+        }).mount('#app');
+    </script>
 </body>
 
 </html>
