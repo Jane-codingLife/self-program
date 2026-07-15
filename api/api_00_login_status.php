@@ -1,10 +1,24 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Credentials: true");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+header("Content-Type: application/json; charset=utf-8");
+
 session_start();
-// 【安全守門】若沒登入，直接不處理請求，並丟回 401 狀態碼
-if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-    http_response_code(401); // 401 Unauthorized
-    echo json_encode(['success' => false, 'message' => '未經授權。']);
-    exit;
+
+$response = [
+    'admin_logged_in' => false,
+    'message' => '未經授權。'
+];
+
+// 檢查 Session
+if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
+    $response['admin_logged_in'] = true;
+    $response['message'] = '已授權。';
 }
 
-// 驗證通過，執行資料庫儲存邏輯...
+// 狀態檢查端點一律以 200 OK 回傳，並由 JSON 的 admin_logged_in 欄位決定真偽
+http_response_code(200);
+echo json_encode($response);
+exit;

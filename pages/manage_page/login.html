@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jane & Sami | 後臺登入</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../../css/general/bootstrap.min.css">
-    <link rel="stylesheet" href="../../css/general/all.min.css">
     <link rel="stylesheet" href="../../css/style.css">
     <style>
         /* ==========================================================================
@@ -224,12 +224,13 @@
     </div>
 
     <script src="../../js/general/bootstrap.bundle.min.js"></script>
-    <script src="../../js/general/all.min.js"></script>
     <script src="../../js/general/vue.global.js"></script>
-    <!-- <script src="../../js/custom/axios_session.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        // 配置 Axios 全域設定，確保每次非同步請求皆攜帶 Session Cookie
+        axios.defaults.withCredentials = true;
+
         Vue.createApp({
             data() {
                 return {
@@ -241,7 +242,7 @@
                 }
             },
             mounted() {
-                // this.checkLoginStatus();
+                this.checkLoginStatus();
             },
             methods: {
                 // 替代 Session 檢查
@@ -251,18 +252,31 @@
                         .then(function (response) {
                             if (response.data.admin_logged_in) {
                                 // 驗證通過放行
-                                window.location.href = './ma01-welcome.html';
+                                setTimeout(() => {
+                                    window.location.href = './ma01-welcome.html';
+                                }, 500);
                             } else {
-                                // 驗證失敗，強制踢回登入頁
-                                Swal.fire({
-                                    title: "登入逾時或未登入，請重新登入！",
-                                    icon: "warning"
-                                });
-                                window.location.href = './login.html';
+                                // 未驗證過保留 login 畫面
+                                // Swal.fire({
+                                //     title: "未經授權或登入已逾時！",
+                                //     text: "系統將於 3 秒後自動返回登入頁面。",
+                                //     icon: "warning",
+                                //     timer: 3000,
+                                //     timerProgressBar: true,
+                                //     showConfirmButton: false,
+                                //     allowOutsideClick: false
+                                // }).then(() => {
+                                //     window.location.href = './login.html';
+                                // });
+                                console.log(response.data.message);
                             }
                         })
                         .catch(function (error) {
-                            window.location.href = './login.html';
+                            Swal.fire({
+                                title: "系統發生錯誤！請將下列資訊貼給系統管理員。",
+                                text: error,
+                                icon: "error"
+                            });
                         });
                 },
                 // 驗證帳密
