@@ -23,8 +23,8 @@
     </div>
     <script src="../../js/general/bootstrap.bundle.min.js"></script>
     <script src="../../js/general/vue.global.js"></script>
-    <script src="../../js/custom/axios_session.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script>
+    <script src="../../js/custom/axios_session.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         Vue.createApp({
@@ -40,7 +40,7 @@
                 // 替代 Session 檢查
                 checkLoginStatus() {
                     const vm = this;
-                    axios.get('http://localhost/self-program/api/api_00_login_status.php')
+                    axios.get('http://localhost/self-program/api/api_01_login_status.php')
                         .then(function (response) {
                             if (response.data.admin_logged_in) {
                                 // 驗證通過保留畫面
