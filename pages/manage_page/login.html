@@ -225,12 +225,10 @@
 
     <script src="../../js/general/bootstrap.bundle.min.js"></script>
     <script src="../../js/general/vue.global.js"></script>
+    <script src="../../js/custom/axios_session.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        // 配置 Axios 全域設定，確保每次非同步請求皆攜帶 Session Cookie
-        axios.defaults.withCredentials = true;
-
         Vue.createApp({
             data() {
                 return {
@@ -248,7 +246,7 @@
                 // 替代 Session 檢查
                 checkLoginStatus() {
                     const vm = this;
-                    axios.post('http://localhost/self-program/api/api_00_login_status.php', { withCredentials: true })
+                    axios.get('http://localhost/self-program/api/api_00_login_status.php')
                         .then(function (response) {
                             if (response.data.admin_logged_in) {
                                 // 驗證通過放行
@@ -256,18 +254,6 @@
                                     window.location.href = './ma01-welcome.html';
                                 }, 500);
                             } else {
-                                // 未驗證過保留 login 畫面
-                                // Swal.fire({
-                                //     title: "未經授權或登入已逾時！",
-                                //     text: "系統將於 3 秒後自動返回登入頁面。",
-                                //     icon: "warning",
-                                //     timer: 3000,
-                                //     timerProgressBar: true,
-                                //     showConfirmButton: false,
-                                //     allowOutsideClick: false
-                                // }).then(() => {
-                                //     window.location.href = './login.html';
-                                // });
                                 console.log(response.data.message);
                             }
                         })
@@ -275,7 +261,9 @@
                             Swal.fire({
                                 title: "系統發生錯誤！請將下列資訊貼給系統管理員。",
                                 text: error,
-                                icon: "error"
+                                icon: "error",
+                                allowOutsideClick: false,
+                                confirmButtonText: "確認",
                             });
                         });
                 },
@@ -305,7 +293,9 @@
                             Swal.fire({
                                 title: "系統發生錯誤！請將下列資訊貼給系統管理員。",
                                 text: error,
-                                icon: "error"
+                                icon: "error",
+                                allowOutsideClick: false,
+                                confirmButtonText: "確認",
                             });
                         });
                 },

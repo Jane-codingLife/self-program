@@ -9,28 +9,28 @@
     <link rel="stylesheet" href="../../css/general/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/style.css">
     <style>
-
+        [v-cloak] {
+            display: none !important;
+        }
     </style>
 </head>
 
 <body>
-    <div id="app" class="container">
-        <div class="row">
+    <div id="app" class="container" v-cloak>
+        <div class="row" v-if="isVerified">
             <h1>Welcom！</h1>
         </div>
     </div>
     <script src="../../js/general/bootstrap.bundle.min.js"></script>
-    <script src="../../js/general/all.min.js"></script>
+    <script src="../../js/general/vue.global.js"></script>
+    <script src="../../js/custom/axios_session.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        // 配置 Axios 全域設定，確保每次非同步請求皆攜帶 Session Cookie
-        axios.defaults.withCredentials = true;
-
         Vue.createApp({
             data() {
                 return {
-                    
+                    isVerified: false,
                 }
             },
             mounted() {
@@ -40,10 +40,11 @@
                 // 替代 Session 檢查
                 checkLoginStatus() {
                     const vm = this;
-                    axios.post('http://localhost/self-program/api/api_00_login_status.php', { withCredentials: true })
+                    axios.get('http://localhost/self-program/api/api_00_login_status.php')
                         .then(function (response) {
                             if (response.data.admin_logged_in) {
                                 // 驗證通過保留畫面
+                                vm.isVerified = true;
                                 console.log(response.data.message);
                             } else {
                                 // 未驗證過保留 login 畫面
@@ -64,7 +65,9 @@
                             Swal.fire({
                                 title: "系統發生錯誤！請將下列資訊貼給系統管理員。",
                                 text: error,
-                                icon: "error"
+                                icon: "error",
+                                allowOutsideClick: false,
+                                showConfirmButton: false
                             });
                         });
                 },
