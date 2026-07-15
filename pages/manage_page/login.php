@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jane & Sami | 後臺登入</title>
+    <link rel="stylesheet" href="../../css/general/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/general/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        /* ==========================================================================
+            登入卡片專屬擴充樣式 - 暮光森林與薄霧毛玻璃美學
+            ========================================================================== */
+
+        /* 全螢幕背景渲染（完美承襲首頁的清晨大雨初晴色調） */
+        .login-page-bg {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, var(--sky-light) 0%, var(--sky-mid) 40%, #A4C5BC 70%, #E2ECE9 100%) !important;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 虛擬環境光源：營造林間陽光穿透薄霧的立體高級感 */
+        .login-page-bg::before {
+            content: '';
+            position: absolute;
+            top: -10%;
+            right: -10%;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 70%);
+            filter: blur(50px);
+            pointer-events: none;
+        }
+
+        /* 1. 核心登入卡片底座 (.brand-card-base) */
+        .brand-card-base {
+            background-color: rgba(255, 255, 255, 0.65) !important;
+            /* 輕量微透純白 */
+            border: 1px solid rgba(255, 255, 255, 0.5) !important;
+            backdrop-filter: blur(20px) !important;
+            /* 高級感關鍵：毛玻璃濾鏡 */
+            -webkit-backdrop-filter: blur(20px) !important;
+            border-radius: 24px !important;
+            /* 溫柔自然有機圓角 */
+            box-shadow: 0 20px 50px rgba(30, 77, 74, 0.08) !important;
+            /* 林蔭微光陰影 */
+            overflow: hidden;
+            padding: 20px 10px;
+        }
+
+        /* 2. 卡片頭部美化 (.card-header) */
+        .brand-card-base .card-header {
+            background-color: transparent !important;
+            border-bottom: 1px dashed rgba(92, 147, 135, 0.2) !important;
+            /* 植物感虛線線條 */
+            padding: 25px 20px !important;
+        }
+
+        .login-brand-logo {
+            font-family: var(--font-en) !important;
+            font-size: 2rem !important;
+            font-weight: 700 !important;
+            color: var(--primary) !important;
+            /* 核心深湖水綠 */
+            letter-spacing: 3px !important;
+            text-decoration: none !important;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .login-brand-subtitle {
+            font-family: var(--font-zh) !important;
+            font-size: 0.88rem !important;
+            color: var(--text-muted) !important;
+            letter-spacing: 2px !important;
+        }
+
+        /* 3. 卡片主體與輸入框群組優化 (.card-body / .login-input-group) */
+        .brand-card-base .card-body {
+            padding: 35px 30px !important;
+        }
+
+        .brand-card-base .form-label {
+            font-family: var(--font-zh) !important;
+            font-size: 0.9rem !important;
+            font-weight: 600 !important;
+            color: var(--text-main) !important;
+            /* 岩石炭黑文字 */
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .login-input-group {
+            position: relative;
+        }
+
+        /* 欄位內部 Font Awesome 圖標精準定位 */
+        .login-input-group i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary) !important;
+            /* 初茶薄荷綠圖標 */
+            font-size: 1.05rem;
+            z-index: 5;
+        }
+
+        /* 輸入框主體樣式調校 (.login-form-control) */
+        .login-form-control {
+            background-color: rgba(244, 247, 246, 0.7) !important;
+            /* 淡淡的冷杉綠底底色 */
+            border: 1px solid rgba(92, 147, 135, 0.25) !important;
+            padding: 13px 18px 13px 48px !important;
+            /* 精準留出左側圖標的死腔空間 */
+            color: var(--text-main) !important;
+            font-size: 0.95rem;
+            border-radius: 10px !important;
+            transition: all 0.3s ease !important;
+            width: 100%;
+        }
+
+        /* 探照燈聚焦動效 (:focus) */
+        .login-form-control:focus {
+            outline: none !important;
+            border-color: var(--primary) !important;
+            /* 聚焦亮起主色深湖水綠 */
+            background-color: var(--bg-card) !important;
+            /* 聚焦時內部轉為純白 */
+            box-shadow: 0 0 0 4px rgba(30, 77, 74, 0.08) !important;
+            /* 擴散柔和光暈 */
+        }
+
+        /* 4. 登入按鈕優化 (.btn-brand-primary) */
+        .btn-brand-primary {
+            background: linear-gradient(90deg, var(--primary) 0%, #296662 100%) !important;
+            border: none !important;
+            color: var(--text-light) !important;
+            padding: 13px !important;
+            font-size: 1rem !important;
+            font-weight: 600 !important;
+            letter-spacing: 4px !important;
+            border-radius: 10px !important;
+            box-shadow: 0 4px 15px rgba(30, 77, 74, 0.18) !important;
+            transition: all 0.3s !important;
+        }
+
+        .btn-brand-primary:hover {
+            opacity: 0.95;
+            box-shadow: 0 8px 22px rgba(30, 77, 74, 0.28) !important;
+            transform: translateY(-1px);
+            /* 微微浮起 */
+        }
+
+        /* 5. 卡片底部返回首頁優化 (.card-footer) */
+        .brand-card-base .card-footer {
+            background-color: transparent !important;
+            border-top: 1px solid rgba(92, 147, 135, 0.1) !important;
+            padding: 20px !important;
+        }
+
+        .back-to-home {
+            color: var(--text-muted) !important;
+            font-size: 0.88rem !important;
+            letter-spacing: 0.5px;
+            transition: color 0.2s;
+        }
+
+        .back-to-home:hover {
+            color: var(--primary) !important;
+            /* 懸停時轉為深湖水綠 */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-page-bg">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-sm-10 col-md-8 col-lg-5">
+                    <div class="card brand-card-base">
+                        <div class="card-header text-center">
+                            <a href="index.html" class="login-brand-logo">Jane & Sami</a>
+                            <span class="login-brand-subtitle">✦ 系統管理中心 ✦</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="aid"><i class="fa-solid fa-user"></i> 管理員員編</label>
+                                <div class="login-input-group">
+                                    <input type="text" id="aid" class="login-form-control" required 
+                                    autocomplete="username" data-field="admin_aid">
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label class="form-label" for="passwd"><i class="fa-solid fa-lock"></i> 管理員密碼</label>
+                                <div class="login-input-group">
+                                    <input type="password" id="passwd" class="login-form-control" required 
+                                    autocomplete="current-password" data-field="admin_passwd">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-brand-primary w-100">登入 ✦</button>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="../../index.html" class="back-to-home text-decoration-none">
+                                <i class="fa-solid fa-left-long"></i> 返回首頁 ✦
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/general/bootstrap.bundle.min.js"></script>
+    <script src="../../js/general/all.min.js"></script>
+</body>
+
+</html>

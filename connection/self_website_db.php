@@ -16,6 +16,7 @@ $options = [
 try {
      $pdo = new PDO($dsn, $user, $pass, $options);
      // 連線成功，後續可在其他頁面 require 此檔案進行查詢
+     echo "連線成功！";
 } catch (\PDOException $e) {
      throw new \PDOException($e->getMessage(), (int)$e->getCode());
 }
