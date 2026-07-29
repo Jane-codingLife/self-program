@@ -240,33 +240,12 @@
                 }
             },
             mounted() {
-                this.checkLoginStatus();
+                const vm = this;
+                vm.checkLoginStatus();
             },
             methods: {
-                // 替代 Session 檢查
-                checkLoginStatus() {
-                    const vm = this;
-                    axios.get('http://localhost/self-program/api/api_01_login_status.php')
-                        .then(function (response) {
-                            if (response.data.admin_logged_in) {
-                                // 驗證通過放行
-                                setTimeout(() => {
-                                    window.location.href = './ma01-welcome.html';
-                                }, 500);
-                            } else {
-                                console.log(response.data.message);
-                            }
-                        })
-                        .catch(function (error) {
-                            Swal.fire({
-                                title: "系統發生錯誤！請將下列資訊貼給系統管理員。",
-                                text: error,
-                                icon: "error",
-                                allowOutsideClick: false,
-                                confirmButtonText: "確認",
-                            });
-                        });
-                },
+                ...SharedVueMethods,
+
                 // 驗證帳密
                 checkUser() {
                     const vm = this;

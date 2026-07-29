@@ -9,15 +9,13 @@
     <link rel="stylesheet" href="../../css/general/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/style.css">
     <style>
-        [v-cloak] {
-            display: none !important;
-        }
+        
     </style>
 </head>
 
 <body>
-    <div id="app" class="container" v-cloak>
-        <div class="row" v-if="isVerified">
+    <div id="app" class="container">
+        <div class="row">
             <h1>Welcom！</h1>
         </div>
     </div>
@@ -30,47 +28,15 @@
         Vue.createApp({
             data() {
                 return {
-                    isVerified: false,
+                    
                 }
             },
             mounted() {
-                this.checkLoginStatus();
+                const vm = this;
+                vm.checkLoginStatus();
             },
             methods: {
-                // 替代 Session 檢查
-                checkLoginStatus() {
-                    const vm = this;
-                    axios.get('http://localhost/self-program/api/api_01_login_status.php')
-                        .then(function (response) {
-                            if (response.data.admin_logged_in) {
-                                // 驗證通過保留畫面
-                                vm.isVerified = true;
-                                console.log(response.data.message);
-                            } else {
-                                // 未驗證過保留 login 畫面
-                                Swal.fire({
-                                    title: "未經授權或登入已逾時！",
-                                    text: "系統將於 3 秒後自動返回登入頁面。",
-                                    icon: "warning",
-                                    timer: 3000,
-                                    timerProgressBar: true,
-                                    showConfirmButton: false,
-                                    allowOutsideClick: false
-                                }).then(() => {
-                                    window.location.href = './login.html';
-                                });
-                            }
-                        })
-                        .catch(function (error) {
-                            Swal.fire({
-                                title: "系統發生錯誤！請將下列資訊貼給系統管理員。",
-                                text: error,
-                                icon: "error",
-                                allowOutsideClick: false,
-                                showConfirmButton: false
-                            });
-                        });
-                },
+                ...SharedVueMethods,
             }
         }).mount('#app');
     </script>
