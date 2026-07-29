@@ -22,7 +22,7 @@ $response = [
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // 接收前端 Fetch 送過來的 JSON 資料
     $inputData = json_decode(file_get_contents('php://input'), true);
-    
+
     $aid = isset($inputData['aid']) ? trim($inputData['aid']) : '';
     $passwd = isset($inputData['passwd']) ? trim($inputData['passwd']) : '';
 

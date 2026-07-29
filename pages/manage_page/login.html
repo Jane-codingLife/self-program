@@ -256,10 +256,16 @@
                     axios.post('http://localhost/self-program/api/api_01_login.php', params)
                         .then(function (response) {
                             console.log(response);
+                            let errorMsg = '';
+                            if (response.data && response.data.message) {
+                                errorMsg = response.data.message;
+                            } else {
+                                errorMsg = `伺服器回應異常 (HTTP ${response.status})${response.data}`;
+                            }
                             Swal.fire({
                                 title: "訊息",
                                 confirmButtonText: "確認",
-                                text: response.data.message,
+                                text: errorMsg,
                                 icon: "info",
                                 allowOutsideClick: false
                             }).then((result) => {
@@ -269,13 +275,7 @@
                             });
                         })
                         .catch(function (error) {
-                            Swal.fire({
-                                title: "系統發生錯誤！請將下列資訊貼給系統管理員。",
-                                text: error,
-                                icon: "error",
-                                allowOutsideClick: false,
-                                confirmButtonText: "確認",
-                            });
+                            vm.showErrorAlert(error);
                         });
                 },
                 // 密碼轉換雜湊
